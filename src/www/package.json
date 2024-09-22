@@ -1,0 +1,19 @@
+{
+    "name": "maw-www",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "css:build": "pnpx tailwindcss -i ./assets/css/site.css -o ./wwwroot/css/styles.css --minify",
+        "svg:build": "pnpx svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "daisyui": "^4.12.10",
+        "svgo": "^3.3.2",
+        "tailwindcss": "^3.4.12"
+    }
+}
