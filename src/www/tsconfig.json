@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
+        "target": "ES2022",
         "module": "system",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "outFile": "wwwroot/js/site.js",
     },
     "files": [
-        "assets/ts/site.ts"
+        "wwwroot/js/site.ts"
     ]
 }
