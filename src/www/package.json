@@ -4,6 +4,7 @@
     "description": "",
     "type":"module",
     "scripts": {
+        "css:dev": "pnpm unocss --watch",
         "css:build": "pnpm unocss",
         "svg:build": "pnpx svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",
         "test": "echo \"Error: no test specified\" && exit 1"
