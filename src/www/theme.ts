@@ -1,7 +1,7 @@
 // https://oklch.com/
 // https://color.adobe.com/create/color-wheel
 
-const themeDusk: Record<string, string> = {
+const themeDark: Record<string, string> = {
     "base-100":        "#15151f",
     "base-200":        "#20202b",
     "base-300":        "#2c2d38",
@@ -11,18 +11,6 @@ const themeDusk: Record<string, string> = {
     secondary:         "#7f75b8",
     accent:            "#7f75b8",
     neutral:           "#2c2d38",
-};
-
-const themeDark: Record<string, string> = {
-    "base-100":      "#161616",
-    "base-200":      "#1f1f1f",
-    "base-300":      "#292929",
-    "base-content":  "#bbaaaa",
-
-    primary:         "#c03113",
-    secondary:       "#e39f22",
-    accent:          "#e39f22",
-    neutral:         "#292929",
 };
 
 const themeLight: Record<string, string> = {
@@ -38,7 +26,6 @@ const themeLight: Record<string, string> = {
 };
 
 export const allThemes: Record<string, Record<string, string>>[] = [
-    { "dusk": themeDusk },
     { "dark": themeDark },
     { "light": themeLight }
 ];
