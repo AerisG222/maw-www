@@ -2,7 +2,7 @@
     "name": "maw-www",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "type":"module",
     "scripts": {
         "css:build": "pnpm unocss",
         "svg:build": "pnpx svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",

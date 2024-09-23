@@ -7,14 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <UpToDateCheckBuilt Include="Pages/**/*.cshtml" Set="Css" />
         <UpToDateCheckBuilt Include="uno.config.js" Set="Css" />
     </ItemGroup>
 
     <ItemGroup>
-        <UpToDateCheckBuilt Include="assets/svg/favicon.svg" Set="svg" />
+        <UpToDateCheckBuilt Include="assets/svg/favicon.svg" Set="Svg" />
     </ItemGroup>
 
-    <Target Name="Tailwind" BeforeTargets="Build">
+    <Target Name="UnoCss" BeforeTargets="Build">
         <Exec Command="pnpm run css:build"/>
     </Target>
 
