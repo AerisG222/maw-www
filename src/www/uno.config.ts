@@ -3,6 +3,8 @@ import presetIcons from '@unocss/preset-icons';
 import presetWebFonts from "@unocss/preset-web-fonts";
 import { presetDaisy } from "@logs404/unocss-preset-daisy";
 
+import { allThemes } from './theme';
+
 export default defineConfig({
     cli: {
         entry: {
@@ -26,6 +28,8 @@ export default defineConfig({
             }
         }),
         presetUno(),
-        presetDaisy(),
+        presetDaisy({
+            themes: allThemes
+        }),
     ]
-})
+});

@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "outFile": "wwwroot/js/site.js",
+    },
+    "files": [
+        "assets/ts/site.ts"
+    ]
+}

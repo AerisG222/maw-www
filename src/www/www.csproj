@@ -12,11 +12,19 @@
     </ItemGroup>
 
     <ItemGroup>
+        <UpToDateCheckBuilt Include="assets/ts/*.ts" Set="Typescript" />
+    </ItemGroup>
+
+    <ItemGroup>
         <UpToDateCheckBuilt Include="assets/svg/favicon.svg" Set="Svg" />
     </ItemGroup>
 
     <Target Name="UnoCss" BeforeTargets="Build">
         <Exec Command="pnpm run css:build"/>
+    </Target>
+
+    <Target Name="Typescript" BeforeTargets="Build">
+        <Exec Command="pnpm run ts:build"/>
     </Target>
 
     <Target Name="Svgo" BeforeTargets="Build">
