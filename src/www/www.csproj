@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <UpToDateCheckBuilt Include="assets/css/site.css" Set="Css" />
-        <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+        <UpToDateCheckBuilt Include="uno.config.js" Set="Css" />
     </ItemGroup>
 
     <ItemGroup>
