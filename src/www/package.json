@@ -7,6 +7,7 @@
         "css:dev": "pnpm unocss --watch",
         "css:build": "pnpm unocss",
         "svg:build": "pnpx svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",
+        "ts:dev": "pnpm tsc --watch",
         "ts:build": "pnpm tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
