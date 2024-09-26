@@ -10,14 +10,6 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**;tsconfig.json;package.json</DefaultItemExcludes>
     </PropertyGroup>
 
-    <ItemGroup>
-        <UpToDateCheckBuilt Include="assets/ts/*.ts" Set="Typescript" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <UpToDateCheckBuilt Include="assets/svg/favicon.svg" Set="Svg" />
-    </ItemGroup>
-
     <Target Name="UnoCss" BeforeTargets="Build">
         <Exec Command="pnpm run css:build"/>
     </Target>
