@@ -6,10 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <ItemGroup>
-        <UpToDateCheckBuilt Include="Pages/**/*.cshtml" Set="Css" />
-        <UpToDateCheckBuilt Include="uno.config.js" Set="Css" />
-    </ItemGroup>
+    <PropertyGroup>
+        <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**;tsconfig.json;package.json</DefaultItemExcludes>
+    </PropertyGroup>
 
     <ItemGroup>
         <UpToDateCheckBuilt Include="assets/ts/*.ts" Set="Typescript" />
