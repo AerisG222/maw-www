@@ -20,5 +20,6 @@ tools/*.log
 hosting/.~lock.architecture.odg#
 
 # static assets that will be automatically built
+src/www/wwwroot/css/reset.css
 src/www/wwwroot/css/styles.css
 src/www/wwwroot/favicon.svg

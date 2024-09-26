@@ -6,6 +6,7 @@
     "scripts": {
         "css:dev": "pnpm unocss --watch",
         "css:build": "pnpm unocss",
+        "css:reset": "cp node_modules/@unocss/reset/tailwind.css wwwroot/css/reset.css",
         "svg:build": "pnpx svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",
         "ts:dev": "pnpm tsc --watch",
         "ts:build": "pnpm tsc",
@@ -15,6 +16,7 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@unocss/reset": "^0.62.4",
         "daisyui": "^4.12.10",
         "svgo": "^3.3.2",
         "unocss": "^0.62.4"

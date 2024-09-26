@@ -5,17 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mikeandwan.us | @ViewBag.Title</title>
     <partial name="_Favicons" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("custom_head", required: false)
 </head>
 <body>
-    <partial name="_Header" />
+    <div class="grid
+        grid-rows-[max-content_100vh] grid-cols-[100vw]
+        md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
+    >
+        <partial name="_Header" />
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="grid w-100% h-[calc(100vh-48px)]
+            grid-rows-[max-content_auto_0] grid-cols-[100%]
+            md:h-[100vh] md:grid-rows-[100%] md:grid-cols-[max-content_auto_max-content]"
+        >
+            <div>
+                @await RenderSectionAsync("toolbar", required: false)
+            </div>
+
+            <div class="overflow-y-auto scrollable">
+                <div>
+                    <h1 class="head1"> title </h1>
+
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+
+            <div>
+                @await RenderSectionAsync("sidebar", required: false)
+            </div>
+        </div>
     </div>
 
     <partial name="_Footer" />
