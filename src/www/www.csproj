@@ -12,6 +12,7 @@
 
     <Target Name="UnoCss" BeforeTargets="Build">
         <Exec Command="pnpm run css:build"/>
+        <Exec Command="pnpm run css:reset"/>
     </Target>
 
     <Target Name="Typescript" BeforeTargets="Build">
