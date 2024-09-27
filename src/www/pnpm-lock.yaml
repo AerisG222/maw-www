@@ -11,6 +11,9 @@ importers:
       '@iconify-json/mdi':
         specifier: ^1.2.0
         version: 1.2.0
+      '@iconify-json/simple-icons':
+        specifier: ^1.2.4
+        version: 1.2.4
       '@logs404/unocss-preset-daisy':
         specifier: ^8.0.0
         version: 8.0.0(daisyui@4.12.10(postcss@8.4.47))(unocss@0.62.4(postcss@8.4.47)(rollup@4.22.4)(vite@5.4.7(@types/node@22.7.2)))
@@ -338,6 +341,9 @@ packages:
 
   '@iconify-json/mdi@1.2.0':
     resolution: {integrity: sha512-E9/3l5Syg3wfuarorFodhn4s8YorxhH3U3U20LaNBNiqw1kFNIDWhF6HymuzAD35k7RH0OBasJ+ZUyFtVVV6eg==}
+
+  '@iconify-json/simple-icons@1.2.4':
+    resolution: {integrity: sha512-AKUGO7cX2KykFEJ+P6tY3wGhGgbrL3RMqbxNTfutGsKojaSEFosN/cmWQ9l9hmUiS2IN7fVLsPMAIvV1uJyyVw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1134,6 +1140,10 @@ snapshots:
     optional: true
 
   '@iconify-json/mdi@1.2.0':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/simple-icons@1.2.4':
     dependencies:
       '@iconify/types': 2.0.0
 

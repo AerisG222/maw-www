@@ -17,6 +17,7 @@
     "license": "MIT",
     "devDependencies": {
         "@iconify-json/mdi": "^1.2.0",
+        "@iconify-json/simple-icons": "^1.2.4",
         "@logs404/unocss-preset-daisy": "^8.0.0",
         "@unocss/cli": "^0.62.4",
         "@unocss/preset-icons": "^0.62.4",

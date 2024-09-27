@@ -1,13 +1,17 @@
-<header>
-    <nav class="flex md:flex-col bg-base-300 border-r-1 border-r-base-content:30%">
+<header class="md:flex bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
+    <nav class="flex md:flex-col flex-gap-2 m-2">
         <a href="/"><img src="/favicon.svg" class="w-8 h-8" /></a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse-head" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a href="#"><span class="maw-primary-nav-link i-mdi-help-circle-outline" /></a>
+        <a href="#"><span class="maw-primary-nav-link i-mdi-bookshelf" /></a>
+        <a href="#"><span class="maw-primary-nav-link i-mdi-tools" /></a>
+        <a href="#"><span class="maw-primary-nav-link i-mdi-gamepad" /></a>
+        <a href="#"><span class="maw-primary-nav-link i-mdi-cube-outline" /></a>
+        <a href="#"><span class="maw-primary-nav-link i-simple-icons-scratch" /></a>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse-head">
-            AA
-            BB
-        </div>
+        <span class="flex-grow-1"></span>
+
+        <partial name="ThemeSwitcher" />
+        <a href="#"><span class="maw-primary-nav-link i-mdi-user" /></a>
+        <a href="#"><span class="maw-primary-nav-link i-mdi-email" /></a>
     </nav>
 </header>

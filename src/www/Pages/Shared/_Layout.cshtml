@@ -31,6 +31,10 @@
 
                     <main role="main" class="pb-3">
                         @RenderBody()
+
+                        <div class="mt-24">
+                            <partial name="_Footer" />
+                        </div>
                     </main>
                 </div>
             </div>
@@ -40,8 +44,6 @@
             </div>
         </div>
     </div>
-
-    <partial name="_Footer" />
 
     @await RenderSectionAsync("scripts_footer", required: false)
 </body>

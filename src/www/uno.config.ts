@@ -31,5 +31,8 @@ export default defineConfig({
         presetDaisy({
             themes: allThemes
         }),
-    ]
+    ],
+    shortcuts: {
+        'maw-primary-nav-link': 'text-8 color-primary hover:color-primary-content hover:bg-primary-focus'
+    }
 });
