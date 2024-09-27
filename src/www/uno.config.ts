@@ -33,6 +33,6 @@ export default defineConfig({
         }),
     ],
     shortcuts: {
-        'maw-primary-nav-link': 'text-8 color-primary hover:color-primary-content hover:bg-primary-focus'
+        'maw-primary-nav-link': 'text-8 px-4 py-2 color-primary hover:color-primary-content hover:bg-primary-focus'
     }
 });
