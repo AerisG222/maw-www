@@ -32,6 +32,9 @@ export default defineConfig({
             themes: allThemes
         }),
     ],
+    safelist: [
+        'rotate-180'
+    ],
     shortcuts: {
         'maw-primary-nav-link': 'text-8 px-4 py-2 color-primary hover:color-primary-content hover:bg-primary-focus'
     }

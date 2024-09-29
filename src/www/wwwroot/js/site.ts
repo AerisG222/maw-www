@@ -54,6 +54,14 @@ function setPrimaryNavCollapseState(isCollapsed: boolean) {
     for(var el of els) {
         (el as HTMLElement).style.display = isCollapsed ? "none" : "block";
     }
+
+    var btn = document.getElementById("maw-primary-nav-title");
+
+    if(isCollapsed) {
+        btn.classList.add("rotate-180");
+    } else {
+        btn.classList.remove("rotate-180");
+    }
 }
 
 function nextPrimaryNavCollapseState() {

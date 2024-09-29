@@ -1,5 +1,4 @@
 <header class="md:flex bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
-    <span class="i-mdi-arrow-left-bold-circle" onclick="togglePrimaryNavCollapseState();"></span>
     <nav class="flex md:flex-col">
         @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/",          Title: "Home",      ImageUrl: "/favicon.svg",          IsActive: false))
         @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/about",     Title: "About",     Icon: "i-mdi-help-circle-outline", IsActive: false))
@@ -15,3 +14,5 @@
         @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("#", Title: "Account", Icon: "i-mdi-user", IsActive: false))
     </nav>
 </header>
+
+<span id="maw-primary-nav-title" class="hidden md:block text-8 i-mdi-arrow-left-bold-box" onclick="togglePrimaryNavCollapseState();"></span>
