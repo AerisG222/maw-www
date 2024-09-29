@@ -1,17 +1,16 @@
 <header class="md:flex bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
     <nav class="flex md:flex-col">
-        <a class="maw-primary-nav-link" href="/"><img src="/favicon.svg" class="w-8 h-8" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-help-circle-outline" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-bookshelf" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-tools" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-gamepad" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-cube-outline" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-simple-icons-scratch" /></a>
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/",          ImageUrl: "/favicon.svg",          IsActive: false))
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/about",     Icon: "i-mdi-help-circle-outline", IsActive: false))
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/reference", Icon: "i-mdi-bookshelf",           IsActive: false))
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/tools",     Icon: "i-mdi-tools",               IsActive: false))
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/games",     Icon: "i-mdi-gamepad",             IsActive: false))
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/webgl",     Icon: "i-mdi-cube-outline",        IsActive: false))
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/scratch",   Icon: "i-simple-icons-scratch",    IsActive: false))
 
         <span class="flex-grow-1"></span>
 
         <partial name="_ThemeSwitcher" />
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-user" /></a>
-        <a class="maw-primary-nav-link" href="#"><span class="block i-mdi-email" /></a>
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("#", Icon: "i-mdi-user", IsActive: false))
     </nav>
 </header>

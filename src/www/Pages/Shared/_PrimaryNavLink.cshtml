@@ -1,0 +1,10 @@
+@model www.Pages.Shared.PrimaryNavLink
+
+<a class="maw-primary-nav-link" href="@Model.Url">
+    @if(@Model.Icon != null) {
+        <span class="block @Model.Icon" />
+    }
+    @if(@Model.ImageUrl != null) {
+        <img src="@Model.ImageUrl" class="w-8 h-8" />
+    }
+</a>
