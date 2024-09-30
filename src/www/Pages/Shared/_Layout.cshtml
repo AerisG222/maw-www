@@ -21,11 +21,11 @@
             grid-rows-[max-content_auto_0] grid-cols-[100%]
             md:h-[100vh] md:grid-rows-[100%] md:grid-cols-[auto_max-content]"
         >
-            <div class="overflow-y-auto scrollable">
+            <div class="prose overflow-y-auto scrollable">
                 <div>
-                    <h1 class="head1"> title </h1>
+                    <h1>@ViewBag.Title</h1>
 
-                    <main role="main" class="pb-3">
+                    <main class="pb-3">
                         @RenderBody()
 
                         <div class="mt-24">

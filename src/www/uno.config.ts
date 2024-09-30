@@ -2,6 +2,7 @@ import { defineConfig, presetUno } from 'unocss';
 import presetIcons from '@unocss/preset-icons';
 import presetWebFonts from "@unocss/preset-web-fonts";
 import { presetDaisy } from "@logs404/unocss-preset-daisy";
+import { presetTypography } from 'unocss'
 
 import { allThemes } from './theme';
 
@@ -28,6 +29,7 @@ export default defineConfig({
             }
         }),
         presetUno(),
+        presetTypography(),
         presetDaisy({
             themes: allThemes
         }),
