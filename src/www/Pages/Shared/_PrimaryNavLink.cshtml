@@ -1,6 +1,6 @@
 @model www.Pages.Shared.PrimaryNavLink
 
-<a class="maw-primary-nav-link" href="@Model.Url" title="@Model.Title">
+<a class="maw-primary-nav-link @(Model.IsActive ? "color-primary-content bg-primary-focus" : "")" href="@Model.Url" title="@Model.Title">
     <div class="flex">
         @if(@Model.Icon != null) {
             <span class="@Model.Icon"></span>
