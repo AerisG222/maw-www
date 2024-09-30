@@ -17,23 +17,21 @@
     >
         <partial name="_PrimaryNav" />
 
-        <div class="grid w-100% h-[calc(100vh-48px)]
+        <div class="grid overflow-y-auto w-100% h-[calc(100vh-48px)]
             grid-rows-[max-content_auto_0] grid-cols-[100%]
             md:h-[100vh] md:grid-rows-[100%] md:grid-cols-[auto_max-content]"
         >
-            <div class="prose overflow-y-auto scrollable">
-                <div>
-                    <h1>@ViewBag.Title</h1>
+            <main class="prose max-w-none">
+                <h1 class="mx-8">@ViewBag.Title</h1>
 
-                    <main class="pb-3">
-                        @RenderBody()
-
-                        <div class="mt-24">
-                            <partial name="_Footer" />
-                        </div>
-                    </main>
+                <div class="mx-8">
+                    @RenderBody()
                 </div>
-            </div>
+
+                <div class="p-8 mt-24 mb-4 bg-base-300 bg-opacity-50">
+                    <partial name="_Footer" />
+                </div>
+            </main>
 
             <div>
                 @await RenderSectionAsync("sidebar", required: false)
