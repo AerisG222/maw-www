@@ -13,18 +13,14 @@
 <body>
     <div class="grid
         grid-rows-[max-content_100vh] grid-cols-[100vw]
-        md:grid-rows-[100vh] md:grid-cols-[max-content_max-content_auto]"
+        md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
     >
         <partial name="_PrimaryNav" />
 
         <div class="grid w-100% h-[calc(100vh-48px)]
             grid-rows-[max-content_auto_0] grid-cols-[100%]
-            md:h-[100vh] md:grid-rows-[100%] md:grid-cols-[max-content_auto_max-content]"
+            md:h-[100vh] md:grid-rows-[100%] md:grid-cols-[auto_max-content]"
         >
-            <div>
-                @await RenderSectionAsync("toolbar", required: false)
-            </div>
-
             <div class="overflow-y-auto scrollable">
                 <div>
                     <h1 class="head1"> title </h1>

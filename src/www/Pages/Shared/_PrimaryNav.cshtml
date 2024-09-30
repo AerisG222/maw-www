@@ -12,7 +12,8 @@
 
         <partial name="_ThemeSwitcher" />
         @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("#", Title: "Account", Icon: "i-mdi-user", IsActive: false))
+
+        <div class="divider my-1"></div>
+        <partial name="_PrimaryNavCollapseButton" />
     </nav>
 </header>
-
-<span id="maw-primary-nav-title" class="hidden md:block text-8 i-mdi-arrow-left-bold-box" onclick="togglePrimaryNavCollapseState();"></span>
