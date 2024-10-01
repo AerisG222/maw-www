@@ -17,16 +17,16 @@
     "license": "MIT",
     "devDependencies": {
         "@iconify-json/mdi": "^1.2.0",
-        "@iconify-json/simple-icons": "^1.2.4",
+        "@iconify-json/simple-icons": "^1.2.5",
         "@logs404/unocss-preset-daisy": "^8.0.0",
-        "@unocss/cli": "^0.62.4",
-        "@unocss/preset-icons": "^0.62.4",
-        "@unocss/preset-uno": "^0.62.4",
-        "@unocss/preset-web-fonts": "^0.62.4",
-        "@unocss/reset": "^0.62.4",
+        "@unocss/cli": "^0.63.1",
+        "@unocss/preset-icons": "^0.63.1",
+        "@unocss/preset-uno": "^0.63.1",
+        "@unocss/preset-web-fonts": "^0.63.1",
+        "@unocss/reset": "^0.63.1",
         "daisyui": "^4.12.10",
         "svgo": "^3.3.2",
         "typescript": "^5.6.2",
-        "unocss": "^0.62.4"
+        "unocss": "^0.63.1"
     }
 }
