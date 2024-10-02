@@ -1,0 +1,21 @@
+@page
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "About Us";
+    ViewData["PrimaryNavArea"] = PrimaryNavArea.About;
+}
+
+@section sidebar {
+    @{
+        var sidebarModel = "index";
+    }
+    <partial name="_AboutSidebar" model="sidebarModel" />
+}
+
+<img class="rounded-lg" src="/img/about/DSC_7713.jpg" alt="family photo" />
+
+<p>
+    Hello and welcome to our little corner of the web.  As you've probably guessed, above you can spot Mike and Wan,
+    along with our little darling.  If you're out somewhere and spot a wacky person wearing green beads on their
+    head, be sure to stop and say hello =D.
+</p>

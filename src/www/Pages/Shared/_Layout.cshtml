@@ -10,34 +10,34 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("custom_head", required: false)
 </head>
-<body>
-    <div class="grid
-        grid-rows-[max-content_100vh] grid-cols-[100vw]
-        md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
-    >
+<body class="grid
+    grid-rows-[max-content_100vh] grid-cols-[100vw]
+    md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
+>
+    <header class="bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
         <partial name="_PrimaryNav" />
+    </header>
 
-        <div class="grid overflow-y-auto w-100% h-[calc(100vh-48px)]
+    <main class="prose max-w-none overflow-y-auto">
+        <article class="mx-8 grid
             grid-rows-[max-content_auto_0] grid-cols-[100%]
-            md:h-[100vh] md:grid-rows-[100%] md:grid-cols-[auto_max-content]"
+            md:grid-rows-[auto] md:grid-cols-[auto_max-content] md:gap-8"
         >
-            <main class="prose max-w-none">
-                <h1 class="mx-8">@ViewBag.Title</h1>
+            <section>
+                <h1>@ViewBag.Title</h1>
 
-                <div class="mx-8">
-                    @RenderBody()
-                </div>
+                @RenderBody()
+            </section>
 
-                <div class="p-8 mt-24 mb-4 bg-base-300 bg-opacity-50">
-                    <partial name="_Footer" />
-                </div>
-            </main>
-
-            <div>
+            <aside>
                 @await RenderSectionAsync("sidebar", required: false)
-            </div>
-        </div>
-    </div>
+            </aside>
+        </article>
+
+        <footer class="p-8 mt-24 bg-base-200">
+            <partial name="_Footer" />
+        </footer>
+    </main>
 
     @await RenderSectionAsync("scripts_footer", required: false)
 </body>
