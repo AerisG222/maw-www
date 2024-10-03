@@ -1,4 +1,4 @@
-namespace www.Pages.Shared;
+namespace www.Models;
 
 public enum PrimaryNavArea
 {

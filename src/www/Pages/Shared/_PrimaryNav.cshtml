@@ -1,14 +1,7 @@
 @{
     bool IsInArea(PrimaryNavArea area)
     {
-        var activeArea = ViewData["PrimaryNavArea"];
-
-        if(activeArea == null || !(activeArea is PrimaryNavArea))
-        {
-            return false;
-        }
-
-        return ((PrimaryNavArea) activeArea) == area;
+        return Model.Area == area;
     }
 }
 

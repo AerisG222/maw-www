@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mikeandwan.us | @ViewBag.Title</title>
+    <title>@Model.HtmlPageTitle</title>
     <partial name="_Favicons" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
@@ -24,7 +24,7 @@
             md:grid-rows-[auto] md:grid-cols-[auto_max-content] md:gap-8"
         >
             <section>
-                <h1>@ViewBag.Title</h1>
+                <h1>@Model.Title</h1>
 
                 @RenderBody()
             </section>

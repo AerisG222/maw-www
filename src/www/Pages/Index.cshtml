@@ -1,8 +1,9 @@
 ﻿@page
-@model IndexModel
+@model MawPageModel
 @{
-    ViewData["Title"] = "Home page";
-    ViewData["PrimaryNavArea"] = PrimaryNavArea.Home;
+    Model.Title = "Home";
+    Model.Area = PrimaryNavArea.Home;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Home);
 }
 
 <div class="text-center">

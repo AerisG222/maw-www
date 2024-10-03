@@ -1,7 +1,9 @@
 ﻿@page
+@model MawPageModel
 @{
-    ViewData["Title"] = "Privacy Policy";
-    ViewData["PrimaryNavArea"] = PrimaryNavArea.None;
+    Model.Title = "Privacy Policy";
+    Model.Area = PrimaryNavArea.None;
+    Model.SetHtmlPageTitle("privacy");
 }
 
 <p>

@@ -1,8 +1,9 @@
 @page
+@model MawPageModel
 @{
-    Layout = "_Layout";
-    ViewBag.Title = "About Us";
-    ViewData["PrimaryNavArea"] = PrimaryNavArea.About;
+    Model.Title = "About Us";
+    Model.Area = PrimaryNavArea.About;
+    Model.SetHtmlPageTitle(PrimaryNavArea.About);
 }
 
 @section sidebar {
