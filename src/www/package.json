@@ -16,6 +16,8 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@iconify-json/fa": "^1.2.0",
+        "@iconify-json/fa6-brands": "^1.2.0",
         "@iconify-json/mdi": "^1.2.0",
         "@iconify-json/simple-icons": "^1.2.5",
         "@logs404/unocss-preset-daisy": "^8.0.0",

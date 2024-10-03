@@ -8,6 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@iconify-json/fa':
+        specifier: ^1.2.0
+        version: 1.2.0
+      '@iconify-json/fa6-brands':
+        specifier: ^1.2.0
+        version: 1.2.0
       '@iconify-json/mdi':
         specifier: ^1.2.0
         version: 1.2.0
@@ -338,6 +344,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@iconify-json/fa6-brands@1.2.0':
+    resolution: {integrity: sha512-2f5AeUbufKeU/JY+cbX6dOsPaQO1WwfShfoxwRd5VRF3Lr1jGM8CfXLFhb8bonAqbue1oBPwmjHUfaCafAfo2A==}
+
+  '@iconify-json/fa@1.2.0':
+    resolution: {integrity: sha512-D49fT0bDtnoJIEE2586VDL6Yuti6BBYWA90GIeZabJ6KZ8WXylw+EhQfz6weMDr0HrRDFV/mzwS8gpWADBprMA==}
 
   '@iconify-json/mdi@1.2.0':
     resolution: {integrity: sha512-E9/3l5Syg3wfuarorFodhn4s8YorxhH3U3U20LaNBNiqw1kFNIDWhF6HymuzAD35k7RH0OBasJ+ZUyFtVVV6eg==}
@@ -1138,6 +1150,14 @@ snapshots:
 
   '@esbuild/win32-x64@0.23.1':
     optional: true
+
+  '@iconify-json/fa6-brands@1.2.0':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/fa@1.2.0':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify-json/mdi@1.2.0':
     dependencies:
