@@ -1,6 +1,9 @@
 var builder = WebApplication.CreateSlimBuilder(args);
 
-builder.Services.AddRazorPages();
+builder.Services
+    .AddRazorPages()
+    .Services
+    .AddRouting(opts => opts.LowercaseUrls = true);
 
 var app = builder.Build();
 
