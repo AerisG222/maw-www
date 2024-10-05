@@ -1,9 +1,9 @@
-﻿@model string
+﻿@{
+    SidebarMenuItem[] sidebarItems = [
+        new SidebarMenuItem("./index",   "About Us"),
+        new SidebarMenuItem("./news",    "News"),
+        new SidebarMenuItem("./contact", "Contact"),
+    ];
+}
 
-<nav>
-    <ul class="menu bg-base-200 rounded-box w-56 mt-4">
-        <li><a asp-page="index"   class="hover:bg-secondary hover:color-secondary-content">About Us</a></li>
-        <li><a asp-page="news"    class="hover:bg-secondary hover:color-secondary-content">News</a></li>
-        <li><a asp-page="contact" class="hover:bg-secondary hover:color-secondary-content">Contact</a></li>
-    </ul>
-</nav>
+@await Html.PartialAsync("_SidebarMenu", sidebarItems)

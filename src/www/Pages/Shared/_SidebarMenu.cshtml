@@ -1,0 +1,18 @@
+@model IEnumerable<SidebarMenuItem>
+
+@{
+    var rv = ViewContext.RouteData.Values;
+
+    // TODO: is there a way to better identify if current url matches destination page?
+    string activePage = $"{rv["page"]}".ToLowerInvariant().Replace("/index", "");
+}
+
+<nav>
+    <ul class="menu bg-base-200 rounded-box w-56 mt-4">
+    @foreach(var item in Model) {
+        var href = Url.Page(item.Page);
+
+        <li><a href="@href" class="@(href == activePage ? "active" : "") hover:bg-secondary hover:color-secondary-content">@item.Title</a></li>
+    }
+    </ul>
+</nav>
