@@ -20,7 +20,7 @@ public class MawPageModel
         {
             if(part != null)
             {
-                sb.Append($" | {part.ToString().ToLower()}");
+                sb.Append($" | {part.ToString()?.ToLower()}");
             }
         }
 
