@@ -26,6 +26,7 @@ hosting/.~lock.architecture.odg#
 # static assets that will be automatically built
 src/www/wwwroot/css/reset.css
 src/www/wwwroot/css/styles.css
+src/www/wwwroot/js/jquery*
 src/www/wwwroot/js/site.js
 src/www/wwwroot/js/site.js.map
 src/www/wwwroot/favicon.svg

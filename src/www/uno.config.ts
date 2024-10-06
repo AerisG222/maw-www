@@ -35,9 +35,14 @@ export default defineConfig({
         }),
     ],
     safelist: [
-        'rotate-180'
+        "rotate-180",
+        "alert-success", "alert-info", "alert-warning", "alert-error",
+        "i-mdi-success-circle-outline", "i-mdi-information-outline", "i-mdi-warning-circle-outline", "i-mdi-error-outline",
+        "input-validation-error"
     ],
     shortcuts: {
-        'maw-primary-nav-link': 'text-8 px-4 py-2 color-primary hover:color-primary-content hover:bg-primary-focus'
+        "maw-primary-nav-link": "text-8 px-4 py-2 color-primary hover:color-primary-content hover:bg-primary-focus",
+        // jquery validation emits the below, struggled to find a better way, so settling for the below for now
+        "input-validation-error": "!border-color-error"
     }
 });

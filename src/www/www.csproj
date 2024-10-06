@@ -17,6 +17,10 @@
     <Target Name="Assets" BeforeTargets="Build">
         <Exec Command="pnpm install" />
 
+        <Exec Command="cp node_modules/jquery/dist/jquery.min.js wwwroot/js" />
+        <Exec Command="cp node_modules/jquery-validation/dist/jquery.validate.min.js wwwroot/js" />
+        <Exec Command="cp node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js wwwroot/js" />
+
         <Exec Command="pnpm run css:build" />
         <Exec Command="pnpm run css:reset" />
         <Exec Command="pnpm run ts:build" />

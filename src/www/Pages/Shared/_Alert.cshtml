@@ -1,0 +1,10 @@
+@model www.Models.Alert
+
+<p class="alert @Model.ColorClass">
+    @if(!string.IsNullOrEmpty(Model.IconClass))
+    {
+        <span class="text-6 @Model.IconClass"></span>
+    }
+
+    @Model.Message
+</p>

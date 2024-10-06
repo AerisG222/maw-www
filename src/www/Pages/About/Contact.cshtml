@@ -1,0 +1,76 @@
+﻿@page
+@model ContactModel
+@{
+    Model.Title = "Contact Us";
+    Model.Area = PrimaryNavArea.About;
+    Model.SetHtmlPageTitle(PrimaryNavArea.About, "Contact");
+}
+
+@section sidebar {
+    <partial name="_AboutSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_JqueryValidation" />
+}
+
+@{
+    Alert? alertModel = null;
+
+    if(Model.SubmitAttempted) {
+        if(Model.SubmitSuccess) {
+            alertModel = new Alert(
+                AlertStatus.Success,
+                "Thank you, your submission was successful."
+            );
+        } else {
+            alertModel = new Alert(
+                AlertStatus.Error,
+                "Sorry, there was an error submitting your request.  Please try again later."
+            );
+        }
+    }
+}
+
+@if(alertModel != null) {
+    @await Html.PartialAsync("_Alert", alertModel)
+}
+
+@if(!Model.SubmitSuccess) {
+    <p>Have something on your mind?  Let us know!</p>
+
+    <form method="post" autocomplete="off" role="form">
+        <label class="form-control w-full max-w-xs mb-4">
+            <div class="label">
+                <span class="label-text color-secondary font-bold">Name</span>
+                <span class="label-text-alt color-error" asp-validation-for="ContactForm.Name"></span>
+            </div>
+            <input type="text" class="input input-bordered w-full max-w-xs" asp-for="ContactForm.Name" />
+        </label>
+
+        <label class="form-control w-full max-w-xs mb-4">
+            <div class="label">
+                <span class="label-text color-secondary font-bold">Email</span>
+                <span class="label-text-alt color-error" asp-validation-for="ContactForm.Email"></span>
+            </div>
+            <input type="email" class="input input-bordered w-full max-w-xs" asp-for="ContactForm.Email" />
+        </label>
+
+        <label class="form-control w-full max-w-lg mb-4">
+            <div class="label">
+                <span class="label-text color-secondary font-bold">Message</span>
+                <span class="label-text-alt color-error" asp-validation-for="ContactForm.Message"></span>
+            </div>
+            <textarea class="textarea textarea-bordered h-36 w-full max-w-lg" asp-for="ContactForm.Message"></textarea>
+        </label>
+
+        <div class="row mb-3">
+            <div class="col">
+                @* <partial name="_CaptchaFeature" for="RecaptchaSiteKey" />
+                <span asp-validation-for="IsHuman" class="form-text"></span>*@
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    </form>
+}
