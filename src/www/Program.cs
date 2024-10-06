@@ -1,6 +1,9 @@
+using MawWww.Blog;
+
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.Services
+    .AddBlogServices()
     .AddRazorPages()
     .Services
     .AddRouting(opts => opts.LowercaseUrls = true);

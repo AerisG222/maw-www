@@ -1,0 +1,16 @@
+﻿@page
+@model NewsModel
+@{
+    Model.Title = "What's New";
+    Model.Area = PrimaryNavArea.About;
+    Model.SetHtmlPageTitle(PrimaryNavArea.About, "News");
+}
+
+@section sidebar {
+    <partial name="_AboutSidebar" />
+}
+
+@foreach(var post in Model.Posts) {
+    <h3>@post.Title</h3>
+    @Html.Raw(post.Description)
+}
