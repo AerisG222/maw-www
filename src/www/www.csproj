@@ -6,17 +6,21 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\MawWww.Blog\MawWww.Blog.csproj" />
+    </ItemGroup>
+
     <PropertyGroup>
         <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**;tsconfig.json;package.json</DefaultItemExcludes>
     </PropertyGroup>
 
     <Target Name="Assets" BeforeTargets="Build">
-        <Exec Command="pnpm install"/>
+        <Exec Command="pnpm install" />
 
-        <Exec Command="pnpm run css:build"/>
-        <Exec Command="pnpm run css:reset"/>
-        <Exec Command="pnpm run ts:build"/>
-        <Exec Command="pnpm run svg:build"/>
+        <Exec Command="pnpm run css:build" />
+        <Exec Command="pnpm run css:reset" />
+        <Exec Command="pnpm run ts:build" />
+        <Exec Command="pnpm run svg:build" />
     </Target>
 
 </Project>

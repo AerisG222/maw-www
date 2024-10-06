@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{838A83EC-486
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "www", "src\www\www.csproj", "{62FA2C7B-DA3A-45D6-8DFA-21940E616497}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MawWww.Blog", "src\MawWww.Blog\MawWww.Blog.csproj", "{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{62FA2C7B-DA3A-45D6-8DFA-21940E616497}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62FA2C7B-DA3A-45D6-8DFA-21940E616497}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62FA2C7B-DA3A-45D6-8DFA-21940E616497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{62FA2C7B-DA3A-45D6-8DFA-21940E616497} = {838A83EC-4862-4139-BBBF-5877619C7BF2}
+		{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091} = {838A83EC-4862-4139-BBBF-5877619C7BF2}
 	EndGlobalSection
 EndGlobal
