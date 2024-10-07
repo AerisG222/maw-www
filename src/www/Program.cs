@@ -1,11 +1,22 @@
+using Microsoft.FeatureManagement;
 using MawWww.Blog;
+using MawWww.Captcha;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
+builder.Configuration
+    .AddEnvironmentVariables("MAW_WWW_");
+
 builder.Services
+    .AddFeatureManagement()
+        .Services
     .AddBlogServices()
+    .AddCaptchaFeature(
+        builder.Configuration.GetSection("CloudflareTurnstile"),
+        builder.Configuration.GetSection("GoogleRecaptcha")
+    )
     .AddRazorPages()
-    .Services
+        .Services
     .AddRouting(opts => opts.LowercaseUrls = true);
 
 var app = builder.Build();

@@ -10,8 +10,12 @@
     <partial name="_AboutSidebar" />
 }
 
+@section scripts_head {
+    <partial name="_js_CaptchaFeature" />
+}
+
 @section scripts_footer {
-    <partial name="_JqueryValidation" />
+    <partial name="_js_JqueryValidation" />
 }
 
 @{
@@ -64,12 +68,10 @@
             <textarea class="textarea textarea-bordered h-36 w-full max-w-lg" asp-for="ContactForm.Message"></textarea>
         </label>
 
-        <div class="row mb-3">
-            <div class="col">
-                @* <partial name="_CaptchaFeature" for="RecaptchaSiteKey" />
-                <span asp-validation-for="IsHuman" class="form-text"></span>*@
-            </div>
-        </div>
+        <label class="form-control w-full max-w-lg mb-4">
+            <partial name="_CaptchaFeature" for="CaptchaSiteKey" />
+            <span asp-validation-for="IsHuman" class="form-text"></span>
+        </label>
 
         <button type="submit" class="btn btn-primary mt-4">Submit</button>
     </form>
