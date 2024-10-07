@@ -1,6 +1,7 @@
 using Microsoft.FeatureManagement;
 using MawWww.Blog;
 using MawWww.Captcha;
+using MawWww.Email;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -14,6 +15,9 @@ builder.Services
     .AddCaptchaFeature(
         builder.Configuration.GetSection("CloudflareTurnstile"),
         builder.Configuration.GetSection("GoogleRecaptcha")
+    )
+    .AddEmailServices(
+        builder.Configuration.GetSection("Gmail")
     )
     .AddRazorPages()
         .Services
