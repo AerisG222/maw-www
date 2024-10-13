@@ -1,6 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using MawWww.Captcha;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
+using Fluid;
+using MawWww.Captcha;
+using MawWww.Email;
 using www.Models;
 
 namespace www.Pages.About;
@@ -10,26 +14,41 @@ public class ContactModel
 {
     readonly ILogger _log;
     readonly ICaptchaFeature _captchaFeature;
+    readonly ContactConfig _config;
+    readonly IEmailService _emailService;
+    readonly FluidParser _fluidParser;
     ICaptchaService? _captchaService;
+    object _contactUsTemplateLock = new();
+    IFluidTemplate? _contactUsTemplate;
+
+    static string TemplateDir => Path.Combine(AppContext.BaseDirectory, "EmailTemplates");
 
     public bool SubmitAttempted { get; private set; }
     public bool SubmitSuccess { get; private set; }
     public bool IsHuman { get; private set; }
     public string CaptchaSiteKey => _captchaService?.SiteKey ?? string.Empty;
 
-
     [BindProperty]
     public ContactForm ContactForm { get; set; } = new();
 
     public ContactModel(
         ILogger<ContactModel> log,
-        ICaptchaFeature captchaFeature
+        IOptions<ContactConfig> contactOpts,
+        ICaptchaFeature captchaFeature,
+        IEmailService emailService,
+        FluidParser fluidParser
     ) {
         ArgumentNullException.ThrowIfNull(log);
+        ArgumentNullException.ThrowIfNull(contactOpts);
         ArgumentNullException.ThrowIfNull(captchaFeature);
+        ArgumentNullException.ThrowIfNull(emailService);
+        ArgumentNullException.ThrowIfNull(fluidParser);
 
         _log = log;
+        _config = contactOpts.Value;
         _captchaFeature = captchaFeature;
+        _emailService = emailService;
+        _fluidParser = fluidParser;
     }
 
     public async Task<IActionResult> OnGet()
@@ -39,16 +58,34 @@ public class ContactModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(IFormCollection collection)
     {
+        ArgumentNullException.ThrowIfNull(collection);
         await GetCaptchaService();
+        SubmitAttempted = true;
 
-        if (!ModelState.IsValid)
+        if(ModelState.IsValid)
         {
-            return Page();
-        }
+            var response = collection[_captchaService!.ResponseFormFieldName].FirstOrDefault();
 
-        await Task.CompletedTask;
+            if(string.IsNullOrEmpty(response))
+            {
+                ModelState.AddModelError(nameof(IsHuman), "Please solve the Captcha");
+            }
+            else
+            {
+                IsHuman = await _captchaService.VerifyAsync(response);
+
+                if (!IsHuman)
+                {
+                    ModelState.AddModelError(nameof(IsHuman), "The Captcha was not solved correctly, please try again");
+                }
+                else
+                {
+                    SubmitSuccess = await SendEmailAsync();
+                }
+            }
+        }
 
         return Page();
     }
@@ -61,6 +98,67 @@ public class ContactModel
         {
             throw new ApplicationException("Captcha service should not be null!");
         }
+    }
+
+    async Task<bool> SendEmailAsync()
+    {
+        try
+        {
+            var template = GetContactUsTemplate();
+
+            if(template == null)
+            {
+                return false;
+            }
+
+            var options = new TemplateOptions()
+            {
+                FileProvider = new PhysicalFileProvider(TemplateDir)
+            };
+
+            var model = new {
+                _config.Subject,
+                ContactForm.Email,
+                ContactForm.Name,
+                ContactForm.Message
+            };
+
+            var body = template.Render(new TemplateContext(model, options));
+
+            await _emailService.SendHtmlAsync(
+                _config.To,
+                _config.To,  // from
+                _config.Subject,
+                body
+            );
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _log.LogError(ex, "There was an error sending an email: {ErrorMessage}", ex.Message);
+
+            return false;
+        }
+    }
+
+    IFluidTemplate GetContactUsTemplate()
+    {
+        if(_contactUsTemplate == null)
+        {
+            lock(_contactUsTemplateLock)
+            {
+                if(_contactUsTemplate == null)
+                {
+                    var templatePath = Path.Combine(TemplateDir, "ContactUs.liquid");
+                    var templateSource = System.IO.File.ReadAllText(templatePath);
+
+                    _contactUsTemplate = _fluidParser.Parse(templateSource);
+                }
+            }
+        }
+
+        return _contactUsTemplate;
     }
 }
 

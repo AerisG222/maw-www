@@ -1,0 +1,28 @@
+{% render "_HtmlHeader" %}
+
+<strong><font size="4">Contact Us Form Submission</font></strong>
+
+<p/>
+
+<table cellpadding="4" cellspacing="4">
+    <tr>
+        <td align="right"><strong>Name:</strong></td>
+        <td>{{ Name }}</td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Email:</strong></td>
+        <td><a href="mailto:{{ Email }}"><font color="#c8c8c8">{{ Email }}</font></a></td>
+    </tr>
+</table>
+
+<p />
+<p />
+
+<strong>Message:</strong>
+
+<p />
+<p>
+    {{ Message }}
+</p>
+
+{% render "_HtmlFooter" %}

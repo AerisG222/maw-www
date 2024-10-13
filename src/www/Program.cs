@@ -2,6 +2,8 @@ using Microsoft.FeatureManagement;
 using MawWww.Blog;
 using MawWww.Captcha;
 using MawWww.Email;
+using www.Models;
+using Fluid;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Configuration
     .AddEnvironmentVariables("MAW_WWW_");
 
 builder.Services
+    .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
     .AddFeatureManagement()
         .Services
     .AddBlogServices()
@@ -16,9 +19,8 @@ builder.Services
         builder.Configuration.GetSection("CloudflareTurnstile"),
         builder.Configuration.GetSection("GoogleRecaptcha")
     )
-    .AddEmailServices(
-        builder.Configuration.GetSection("Gmail")
-    )
+    .AddEmailServices(builder.Configuration.GetSection("Gmail"))
+    .AddSingleton<FluidParser>()
     .AddRazorPages()
         .Services
     .AddRouting(opts => opts.LowercaseUrls = true);
