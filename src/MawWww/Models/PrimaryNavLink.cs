@@ -1,4 +1,4 @@
-namespace www.Models;
+namespace MawWww.Models;
 
 public record PrimaryNavLink (
     string Url,

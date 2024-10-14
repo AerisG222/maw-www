@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{838A83EC-4862-4139-BBBF-5877619C7BF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "www", "src\www\www.csproj", "{62FA2C7B-DA3A-45D6-8DFA-21940E616497}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MawWww", "src\MawWww\MawWww.csproj", "{62FA2C7B-DA3A-45D6-8DFA-21940E616497}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MawWww.Blog", "src\MawWww.Blog\MawWww.Blog.csproj", "{963A82AB-0BE6-4FA5-B8D9-7D1FC2515091}"
 EndProject

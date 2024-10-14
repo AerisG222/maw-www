@@ -1,6 +1,6 @@
-using www.Models;
+using MawWww.Models;
 
-namespace www.Pages.Reference;
+namespace MawWww.Pages.Reference;
 
 public static class ReferenceMenu
 {

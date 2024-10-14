@@ -5,9 +5,9 @@ using Microsoft.Extensions.Options;
 using Fluid;
 using MawWww.Captcha;
 using MawWww.Email;
-using www.Models;
+using MawWww.Models;
 
-namespace www.Pages.About;
+namespace MawWww.Pages.About;
 
 public class ContactModel
     : MawPageModel

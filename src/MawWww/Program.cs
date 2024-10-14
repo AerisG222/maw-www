@@ -2,7 +2,7 @@ using Microsoft.FeatureManagement;
 using MawWww.Blog;
 using MawWww.Captcha;
 using MawWww.Email;
-using www.Models;
+using MawWww.Models;
 using Fluid;
 
 var builder = WebApplication.CreateSlimBuilder(args);

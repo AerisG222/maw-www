@@ -1,7 +1,7 @@
 using MawWww.Blog;
-using www.Models;
+using MawWww.Models;
 
-namespace www.Pages.About;
+namespace MawWww.Pages.About;
 
 public class NewsModel
     : MawPageModel

@@ -24,9 +24,9 @@ tools/*.log
 hosting/.~lock.architecture.odg#
 
 # static assets that will be automatically built
-src/www/wwwroot/css/reset.css
-src/www/wwwroot/css/styles.css
-src/www/wwwroot/js/jquery*
-src/www/wwwroot/js/site.js
-src/www/wwwroot/js/site.js.map
-src/www/wwwroot/favicon.svg
+src/MawWww/wwwroot/css/reset.css
+src/MawWww/wwwroot/css/styles.css
+src/MawWww/wwwroot/js/jquery*
+src/MawWww/wwwroot/js/site.js
+src/MawWww/wwwroot/js/site.js.map
+src/MawWww/wwwroot/favicon.svg

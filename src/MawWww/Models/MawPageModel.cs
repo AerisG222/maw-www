@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace www.Models;
+namespace MawWww.Models;
 
 public class MawPageModel
     : PageModel

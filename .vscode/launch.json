@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/www/bin/Debug/net8.0/www.dll",
+            "program": "${workspaceFolder}/src/MawWww/bin/Debug/net8.0/MawWww.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/www",
+            "cwd": "${workspaceFolder}/src/MawWww",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
