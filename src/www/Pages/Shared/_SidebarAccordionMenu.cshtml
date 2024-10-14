@@ -1,0 +1,11 @@
+@model SidebarMenu
+
+<div class="join join-vertical w-full">
+    <div class="collapse collapse-arrow join-item border-base-300 border">
+        <input type="radio" name="my-accordion-4" checked="checked" />
+        <div class="collapse-title text-xl font-medium">@Model.Title</div>
+        <div class="collapse-content">
+            @await Html.PartialAsync("_SidebarMenu", new SidebarMenu(Model.Items))
+        </div>>
+    </div>
+</div>

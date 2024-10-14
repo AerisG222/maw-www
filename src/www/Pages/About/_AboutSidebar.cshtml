@@ -1,9 +1,1 @@
-﻿@{
-    SidebarMenuItem[] sidebarItems = [
-        new SidebarMenuItem("./index",   "About Us"),
-        new SidebarMenuItem("./news",    "News"),
-        new SidebarMenuItem("./contact", "Contact"),
-    ];
-}
-
-@await Html.PartialAsync("_SidebarMenu", sidebarItems)
+﻿@await Html.PartialAsync("_SidebarMenu", AboutMenu.Menu)

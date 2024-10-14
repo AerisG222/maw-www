@@ -1,4 +1,4 @@
-@model IEnumerable<SidebarMenuItem>
+@model SidebarMenu
 
 @{
     var rv = ViewContext.RouteData.Values;
@@ -9,7 +9,11 @@
 
 <nav>
     <ul class="menu bg-base-200 rounded-box w-56 mt-4">
-    @foreach(var item in Model) {
+    @if(!string.IsNullOrEmpty(Model.Title)) {
+        <li class="menu-title">@Model.Title</li>
+    }
+
+    @foreach(var item in Model.Items) {
         var href = Url.Page(item.Page);
 
         <li><a href="@href" class="@(href == activePage ? "active" : "") hover:bg-secondary hover:color-secondary-content">@item.Title</a></li>
