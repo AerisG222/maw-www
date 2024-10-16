@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.HtmlPageTitle</title>
+    <partial name="_Favicons" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("scripts_head", required: false)
+</head>
+<body class="grid
+    grid-rows-[max-content_100vh] grid-cols-[100vw]
+    md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
+>
+    <header class="bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
+        <partial name="_PrimaryNav" />
+    </header>
+
+    <main class="prose max-w-none overflow-y-auto">
+        @RenderBody()
+
+        <footer class="p-8 mt-24 bg-base-200">
+            <partial name="_Footer" />
+        </footer>
+    </main>
+
+    @await RenderSectionAsync("scripts_footer", required: false)
+</body>
+</html>

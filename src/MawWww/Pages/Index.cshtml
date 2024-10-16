@@ -1,39 +1,32 @@
 ﻿@page
+@using MawWww.Pages.Shared
 @model MawPageModel
 @{
-    Model.Title = "Home";
+    Layout = "_LayoutBase";
     Model.Area = PrimaryNavArea.Home;
     Model.SetHtmlPageTitle(PrimaryNavArea.Home);
+
+    NavCard[] navCards = [
+        new NavCard("/about/news", "i-mdi-flag-variant", "News", "See what's new"),
+        new NavCard("https://photos.mikeandwan.us", "i-mdi-camera", "Photos", "Checkout the latest photos and videos"),
+        new NavCard("/tools", "i-mdi-tools", "Tools", "Assorted tools that may be useful")
+    ];
 }
 
-<div class="text-center">
-    <h1 class="text-[#ff0] font-brand">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="min-h-[120px] h-[340px] b-b-1px b-b-black
+    bg-no-repeat bg-fixed bg-[top_50%]
+    bg-[url('/img/banner_xs.jpg')]
+    sm:bg-[url('/img/banner_sm.jpg')]
+    md:bg-[url('/img/banner_lg.jpg')]
+    xxl:bg-[url('/img/banner_xl.jpg')]
+">
+    <div class="bg-black bg-op-60">
+        <h1 class="p-2 color-primary text-[64px] text-center font-400 font-brand my-0">mikeandwan.us</h1>
+    </div>
+</div>
 
-    <button class="btn">
-        <span class="loading loading-spinner"></span>
-        loading
-    </button>
-
-    <div class="collapse collapse-arrow bg-base-200">
-        <input type="radio" name="my-accordion-2" />
-        <div class="collapse-title text-xl font-medium">Click to open this one and close others</div>
-        <div class="collapse-content">
-            <p>hello</p>
-        </div>
-        </div>
-        <div class="collapse collapse-arrow bg-base-200">
-        <input type="radio" name="my-accordion-2" checked="checked" />
-        <div class="collapse-title text-xl font-medium">Click to open this one and close others</div>
-        <div class="collapse-content">
-            <p>hello</p>
-        </div>
-        </div>
-        <div class="collapse collapse-arrow bg-base-200">
-        <input type="radio" name="my-accordion-2" />
-        <div class="collapse-title text-xl font-medium">Click to open this one and close others</div>
-        <div class="collapse-content">
-            <p>hello</p>
-        </div>
-        </div>
+<div class="flex flex-grow flex-justify-between mx-8 mt-12">
+@foreach(var card in navCards) {
+    @await Html.PartialAsync("_NavCard", card)
+}
 </div>

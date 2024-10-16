@@ -1,44 +1,23 @@
-﻿<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@Model.HtmlPageTitle</title>
-    <partial name="_Favicons" />
-    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-    <script src="~/js/site.js" asp-append-version="true"></script>
+﻿@{ Layout = "_LayoutBase"; }
+
+@section scripts_head {
     @await RenderSectionAsync("scripts_head", required: false)
-</head>
-<body class="grid
-    grid-rows-[max-content_100vh] grid-cols-[100vw]
-    md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
->
-    <header class="bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
-        <partial name="_PrimaryNav" />
-    </header>
+}
 
-    <main class="prose max-w-none overflow-y-auto">
-        <article class="mx-8 grid
-            grid-rows-[max-content_auto_0] grid-cols-[100%]
-            md:grid-rows-[auto] md:grid-cols-[auto_max-content] md:gap-8"
-        >
-            <section>
-                <h1>@Model.Title</h1>
-
-                @RenderBody()
-            </section>
-
-            <aside>
-                @await RenderSectionAsync("sidebar", required: false)
-            </aside>
-        </article>
-
-        <footer class="p-8 mt-24 bg-base-200">
-            <partial name="_Footer" />
-        </footer>
-    </main>
-
+@section scripts_footer {
     @await RenderSectionAsync("scripts_footer", required: false)
-</body>
-</html>
+}
+
+<article class="mx-8 grid
+    grid-rows-[max-content_auto_0] grid-cols-[100%]
+    md:grid-rows-[auto] md:grid-cols-[auto_max-content] md:gap-8"
+>
+    <section>
+        <h1>@Model.Title</h1>
+        @RenderBody()
+    </section>
+
+    <aside>
+        @await RenderSectionAsync("sidebar", required: false)
+    </aside>
+</article>

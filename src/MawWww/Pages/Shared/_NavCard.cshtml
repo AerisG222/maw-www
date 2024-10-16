@@ -1,0 +1,12 @@
+@using MawWww.Pages.Shared
+@model MawWww.Pages.Shared.NavCard
+
+<a href="@Model.Url">
+    <div class="card bg-base-200 w-64">
+        <div class="card-body text-center center">
+            <span class="@Model.Icon mx-auto text-32"></span>
+            <h2 class="card-title mx-auto my-0">@Model.Title</h2>
+            <p class="my-0">@Model.Description</p>
+        </div>
+    </div>
+</a>
