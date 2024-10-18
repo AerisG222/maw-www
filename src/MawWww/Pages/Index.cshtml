@@ -13,20 +13,24 @@
     ];
 }
 
-<div class="min-h-[120px] h-[340px] b-b-1px b-b-black
+<div class="min-h-[120px] b-b-1px b-b-black
     bg-no-repeat bg-fixed bg-[top_50%]
-    bg-[url('/img/banner_xs.jpg')]
-    sm:bg-[url('/img/banner_sm.jpg')]
-    md:bg-[url('/img/banner_lg.jpg')]
-    xxl:bg-[url('/img/banner_xl.jpg')]
+    bg-[url('/img/banner_sm.jpg')]
+    sm:bg-[url('/img/banner_sm.jpg')] h-[240px]
+    md:bg-[url('/img/banner_lg.jpg')] md:h-[340px]
+    lg:bg-[url('/img/banner_xl.jpg')] lg:h-[460px]
 ">
     <div class="bg-black bg-op-60">
-        <h1 class="p-2 color-primary text-[64px] text-center font-400 font-brand my-0">mikeandwan.us</h1>
+        <h1 class="p-2 text-[64px] text-center font-400 font-brand my-0">mikeandwan.us</h1>
     </div>
 </div>
 
-<div class="flex flex-grow flex-justify-between mx-8 mt-12">
-@foreach(var card in navCards) {
-    @await Html.PartialAsync("_NavCard", card)
-}
+<div class="flex justify-center mx-8 mt-12">
+    <div class="flex flex-col gap-4 flex-wrap max-w-[1320px]
+        lg:flex-row lg:flex-justify-between lg:flex-grow
+    ">
+    @foreach(var card in navCards) {
+        @await Html.PartialAsync("_NavCard", card)
+    }
+    </div>
 </div>
