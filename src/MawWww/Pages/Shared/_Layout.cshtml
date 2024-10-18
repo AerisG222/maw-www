@@ -8,16 +8,16 @@
     @await RenderSectionAsync("scripts_footer", required: false)
 }
 
-<article class="mx-8 grid
+<article class="mx-auto grid max-w-[1320px]
     grid-rows-[max-content_auto_0] grid-cols-[100%]
     md:grid-rows-[auto] md:grid-cols-[auto_max-content] md:gap-8"
 >
-    <section>
+    <section class="ml-8">
         <h1>@Model.Title</h1>
         @RenderBody()
     </section>
 
-    <aside>
+    <aside class="mr-8">
         @await RenderSectionAsync("sidebar", required: false)
     </aside>
 </article>
