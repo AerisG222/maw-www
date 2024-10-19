@@ -1,8 +1,12 @@
-import { defineConfig, presetUno } from 'unocss';
-import presetIcons from '@unocss/preset-icons';
-import presetWebFonts from "@unocss/preset-web-fonts";
+import {
+    defineConfig,
+    presetAttributify,
+    presetIcons,
+    presetTypography,
+    presetUno,
+    presetWebFonts
+} from 'unocss';
 import { presetDaisy } from "@logs404/unocss-preset-daisy";
-import { presetTypography } from 'unocss'
 
 import { allThemes } from './theme';
 
@@ -16,20 +20,21 @@ export default defineConfig({
         }
     },
     presets: [
+        presetUno(),
+        presetAttributify(),
         presetIcons({
             extraProperties: {
                 "display": "inline-block",
                 "vertical-align": "middle",
             }
         }),
+        presetTypography(),
         presetWebFonts({
             provider: "google",
             fonts: {
                 brand: "Tangerine"
             }
         }),
-        presetUno(),
-        presetTypography(),
         presetDaisy({
             themes: allThemes
         }),

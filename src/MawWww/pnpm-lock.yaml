@@ -26,15 +26,6 @@ importers:
       '@unocss/cli':
         specifier: ^0.63.4
         version: 0.63.4(rollup@4.24.0)
-      '@unocss/preset-icons':
-        specifier: ^0.63.4
-        version: 0.63.4
-      '@unocss/preset-uno':
-        specifier: ^0.63.4
-        version: 0.63.4
-      '@unocss/preset-web-fonts':
-        specifier: ^0.63.4
-        version: 0.63.4
       '@unocss/reset':
         specifier: ^0.63.4
         version: 0.63.4
