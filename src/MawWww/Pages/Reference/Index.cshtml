@@ -1,12 +1,13 @@
 @page
 @model MawPageModel
 @{
+    Layout = "_Layout";
     Model.Title = "Reference";
     Model.Area = PrimaryNavArea.Reference;
     Model.SetHtmlPageTitle(PrimaryNavArea.Reference);
 }
 
-<div class="flex gap-8">
+<div class="flex justify-between gap-8">
     @await Html.PartialAsync("_SidebarMenu", ReferenceMenu.HtmlMenu)
     @await Html.PartialAsync("_SidebarMenu", ReferenceMenu.HttpMenu)
     @await Html.PartialAsync("_SidebarMenu", ReferenceMenu.DotnetGuidelinesMenu)
