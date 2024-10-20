@@ -1,0 +1,21 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Pong";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Pong");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Want to play a game?
+    <ul>
+        <li>Hit 'space' to start</li>
+        <li>Move your mouse to control the paddle</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/pong.html")

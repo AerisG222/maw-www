@@ -1,0 +1,20 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Me";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Me");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    There are surprises all around me!
+    <ul>
+        <li>Click around to find different surprises</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/me.html")

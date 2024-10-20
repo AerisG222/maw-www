@@ -1,0 +1,22 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Work and Fade";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Work and Fade");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Lets go to school
+    <ul>
+        <li>Press 'right' to pull the car</li>
+        <li>Press 'a', 'b', and 'd' to talk</li>
+        <li>Press 'space' to fade out the mouse</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/work-and-fade.html")

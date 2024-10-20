@@ -1,0 +1,17 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Scratch";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch);
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Here are some of Alyssa's <a href="https://scratch.mit.edu/">Scratch</a> creations.  Thanks to the
+    <a href="https://turbowarp.org/">TurboWarp</a> project for providing a packager to make it very easy to share these via
+    this site.
+</p>

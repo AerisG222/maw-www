@@ -1,0 +1,23 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Race Car 2000";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Race Car 2000");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Welcome to the race track!  Can you beat your friends?
+    <ul>
+        <li>Press 'left' to change the direction of the blue car</li>
+        <li>Press 'right' to move the blue car in the direction it is facing</li>
+        <li>Press 'down' to change the direction of the green car</li>
+        <li>Press 'up' to move the green car in the direction it is facing</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/race-car-2000.html")

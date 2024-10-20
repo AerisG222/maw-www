@@ -1,0 +1,20 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Who's Faster";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Who's Faster");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Can anyone beat the dragon?
+    <ul>
+        <li>Move the dragon by pressing 'right'</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/whos-faster.html")

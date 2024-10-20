@@ -1,0 +1,20 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Hide and Seek";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Hide and Seek");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Can you find me?
+    <ul>
+        <li>Click random buttons to search for me</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/hide-and-seek.html")

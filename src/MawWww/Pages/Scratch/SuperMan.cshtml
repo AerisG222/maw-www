@@ -1,0 +1,22 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Super Man";
+    Model.Area = PrimaryNavArea.Scratch;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Scratch, "Super Man");
+}
+
+@section sidebar {
+    <partial name="_ScratchSidebar" />
+}
+
+<p>
+    Fly like Super Man!
+    <ul>
+        <li>Press 'up' to fly up</li>
+        <li>Press 'down' to fly down</li>
+        <li>Don't hit the poor girl!</li>
+    </ul>
+</p>
+
+@await Html.PartialAsync("_ScratchApp", "/scratch/super-man.html")
