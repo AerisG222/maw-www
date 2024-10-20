@@ -10,6 +10,7 @@ public static class WebGlMenu
             new SidebarMenuItem("./cube",      "Cube"),
             new SidebarMenuItem("./shader",    "Shader"),
             new SidebarMenuItem("./text",      "Text")
-        ]
+        ],
+        "WebGL Demos"
     );
 }
