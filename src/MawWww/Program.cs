@@ -4,6 +4,7 @@ using MawWww.Captcha;
 using MawWww.Email;
 using MawWww.Models;
 using Fluid;
+using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -34,7 +35,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions {
+    ContentTypeProvider = GetCustomMimeTypeProvider()
+});
 
 app.UseRouting();
 
@@ -43,3 +46,12 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+static FileExtensionContentTypeProvider GetCustomMimeTypeProvider()
+{
+    var provider = new FileExtensionContentTypeProvider();
+
+    provider.Mappings[".gltf"] = "model/gltf+json";
+
+    return provider;
+}

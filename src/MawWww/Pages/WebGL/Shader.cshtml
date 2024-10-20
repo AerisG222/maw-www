@@ -1,0 +1,14 @@
+@page
+@model MawPageModel
+@{
+    Layout = "_LayoutSidebar";
+    Model.Title = "WebGL Shader";
+    Model.Area = PrimaryNavArea.WebGL;
+    Model.SetHtmlPageTitle(PrimaryNavArea.WebGL, "Shader");
+}
+
+@section sidebar {
+    <partial name="_WebGlSidebar" />
+}
+
+@await Html.PartialAsync("_WebGlApp", "/js/webgl-shader/index.html")

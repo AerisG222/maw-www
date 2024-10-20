@@ -29,4 +29,8 @@ src/MawWww/wwwroot/css/styles.css
 src/MawWww/wwwroot/js/jquery*
 src/MawWww/wwwroot/js/site.js
 src/MawWww/wwwroot/js/site.js.map
+src/MawWww/wwwroot/js/webgl-blender
+src/MawWww/wwwroot/js/webgl-cube
+src/MawWww/wwwroot/js/webgl-shader
+src/MawWww/wwwroot/js/webgl-text
 src/MawWww/wwwroot/favicon.svg

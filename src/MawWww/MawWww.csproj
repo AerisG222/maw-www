@@ -40,4 +40,31 @@
         <Exec Command="pnpm run svg:build" />
     </Target>
 
+    <Target Name="webgl-blender-model" BeforeTargets="Build">
+        <RemoveDir Directories="wwwroot/js/webgl-blender" />
+        <Exec WorkingDirectory="../webgl-blender-model" Command="pnpm install" />
+        <Exec WorkingDirectory="../webgl-blender-model" Command="pnpm run prod_build" />
+        <Exec Command="cp -r ../webgl-blender-model/dist wwwroot/js/webgl-blender" />
+    </Target>
+
+    <Target Name="webgl-cube" BeforeTargets="Build">
+        <RemoveDir Directories="wwwroot/js/webgl-cube" />
+        <Exec WorkingDirectory="../webgl-cube" Command="pnpm install" />
+        <Exec WorkingDirectory="../webgl-cube" Command="pnpm run prod_build" />
+        <Exec Command="cp -r ../webgl-cube/dist wwwroot/js/webgl-cube" />
+    </Target>
+
+    <Target Name="webgl-shader" BeforeTargets="Build">
+        <RemoveDir Directories="wwwroot/js/webgl-shader" />
+        <Exec WorkingDirectory="../webgl-shader" Command="pnpm install" />
+        <Exec WorkingDirectory="../webgl-shader" Command="pnpm run prod_build" />
+        <Exec Command="cp -r ../webgl-shader/dist wwwroot/js/webgl-shader" />
+    </Target>
+
+    <Target Name="webgl-text" BeforeTargets="Build">
+        <RemoveDir Directories="wwwroot/js/webgl-text" />
+        <Exec WorkingDirectory="../webgl-text" Command="pnpm install" />
+        <Exec WorkingDirectory="../webgl-text" Command="pnpm run prod_build" />
+        <Exec Command="cp -r ../webgl-text/dist wwwroot/js/webgl-text" />
+    </Target>
 </Project>

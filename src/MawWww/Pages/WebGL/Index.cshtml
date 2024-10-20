@@ -1,0 +1,21 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "WebGL";
+    Model.Area = PrimaryNavArea.WebGL;
+    Model.SetHtmlPageTitle(PrimaryNavArea.WebGL);
+}
+
+@section sidebar {
+    <partial name="_WebGlSidebar" />
+}
+
+<p>
+    I've always had a fascination with computer graphics.  Over the years I've dabbled in OpenGL and
+    3D tools like Blender but never got to a point where I was any good at it.  I hope to change that
+    and the links on this page are some of the things I've built as I try to learn.
+</p>
+<p>
+    To this end, the samples below leverage the <a href="http://threejs.org/">ThreeJS</a> library which helps make
+    WebGL more approachable.
+</p>
