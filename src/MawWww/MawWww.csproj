@@ -40,31 +40,52 @@
         <Exec Command="pnpm run svg:build" />
     </Target>
 
+    <Target Name="BuildClientApp">
+        <RemoveDir Directories="wwwroot/js/$(MAW_CLIENT_APP)" />
+        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="pnpm install" />
+        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="pnpm run build" />
+        <Exec Command="cp -r ../$(MAW_CLIENT_APP)/dist wwwroot/js/$(MAW_CLIENT_APP)" />
+    </Target>
+
+    <Target Name="solid-binary-clock" BeforeTargets="Build">
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=solid-binary-clock"
+            Targets="BuildClientApp" />
+    </Target>
+
+    <Target Name="solid-weekend-countdown" BeforeTargets="Build">
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=solid-weekend-countdown"
+            Targets="BuildClientApp" />
+    </Target>
+
     <Target Name="webgl-blender-model" BeforeTargets="Build">
-        <RemoveDir Directories="wwwroot/js/webgl-blender" />
-        <Exec WorkingDirectory="../webgl-blender-model" Command="pnpm install" />
-        <Exec WorkingDirectory="../webgl-blender-model" Command="pnpm run prod_build" />
-        <Exec Command="cp -r ../webgl-blender-model/dist wwwroot/js/webgl-blender" />
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=webgl-blender-model"
+            Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-cube" BeforeTargets="Build">
-        <RemoveDir Directories="wwwroot/js/webgl-cube" />
-        <Exec WorkingDirectory="../webgl-cube" Command="pnpm install" />
-        <Exec WorkingDirectory="../webgl-cube" Command="pnpm run prod_build" />
-        <Exec Command="cp -r ../webgl-cube/dist wwwroot/js/webgl-cube" />
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=webgl-cube"
+            Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-shader" BeforeTargets="Build">
-        <RemoveDir Directories="wwwroot/js/webgl-shader" />
-        <Exec WorkingDirectory="../webgl-shader" Command="pnpm install" />
-        <Exec WorkingDirectory="../webgl-shader" Command="pnpm run prod_build" />
-        <Exec Command="cp -r ../webgl-shader/dist wwwroot/js/webgl-shader" />
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=webgl-shader"
+            Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-text" BeforeTargets="Build">
-        <RemoveDir Directories="wwwroot/js/webgl-text" />
-        <Exec WorkingDirectory="../webgl-text" Command="pnpm install" />
-        <Exec WorkingDirectory="../webgl-text" Command="pnpm run prod_build" />
-        <Exec Command="cp -r ../webgl-text/dist wwwroot/js/webgl-text" />
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=webgl-text"
+            Targets="BuildClientApp" />
     </Target>
 </Project>
