@@ -54,6 +54,13 @@
             Targets="BuildClientApp" />
     </Target>
 
+    <Target Name="solid-google-maps" BeforeTargets="Build">
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=solid-google-maps"
+            Targets="BuildClientApp" />
+    </Target>
+
     <Target Name="solid-weekend-countdown" BeforeTargets="Build">
         <MSBuild
             Projects ="$(MSBuildProjectFullPath)"
