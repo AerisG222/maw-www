@@ -61,6 +61,13 @@
             Targets="BuildClientApp" />
     </Target>
 
+    <Target Name="solid-learning" BeforeTargets="Build">
+        <MSBuild
+            Projects ="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=solid-learning"
+            Targets="BuildClientApp" />
+    </Target>
+
     <Target Name="solid-weekend-countdown" BeforeTargets="Build">
         <MSBuild
             Projects ="$(MSBuildProjectFullPath)"
