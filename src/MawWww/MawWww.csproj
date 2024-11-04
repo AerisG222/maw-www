@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Fluid.Core" Version="2.11.1" />
-        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="3.5.0" />
+        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="4.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -48,58 +48,38 @@
     </Target>
 
     <Target Name="solid-binary-clock" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=solid-binary-clock"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-binary-clock" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="solid-google-maps" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=solid-google-maps"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-google-maps" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="solid-learning" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=solid-learning"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-learning" Targets="BuildClientApp" />
+    </Target>
+
+    <Target Name="solid-memory" BeforeTargets="Build">
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-memory" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="solid-weekend-countdown" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=solid-weekend-countdown"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-weekend-countdown" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-blender-model" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=webgl-blender-model"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-blender-model" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-cube" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=webgl-cube"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-cube" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-shader" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=webgl-shader"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-shader" Targets="BuildClientApp" />
     </Target>
 
     <Target Name="webgl-text" BeforeTargets="Build">
-        <MSBuild
-            Projects ="$(MSBuildProjectFullPath)"
-            Properties="MAW_CLIENT_APP=webgl-text"
-            Targets="BuildClientApp" />
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-text" Targets="BuildClientApp" />
     </Target>
 </Project>
