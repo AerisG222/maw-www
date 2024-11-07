@@ -1,0 +1,13 @@
+.animate-winner { animation: show_winner 800ms ease-out 1 normal forwards; }
+
+@keyframes show_winner {
+    0% {
+        opacity: 0;
+        transform: scale(0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
