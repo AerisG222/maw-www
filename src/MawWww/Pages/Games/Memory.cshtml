@@ -1,0 +1,13 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Memory";
+    Model.Area = PrimaryNavArea.Games;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Games, "Memory");
+}
+
+@section sidebar {
+    <partial name="_GamesSidebar" />
+}
+
+@await Html.PartialAsync("_GamesApp", "/js/solid-memory/index.html")

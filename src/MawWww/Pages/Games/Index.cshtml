@@ -1,0 +1,16 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Games";
+    Model.Area = PrimaryNavArea.Games;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Games);
+}
+
+@section sidebar {
+    <partial name="_GamesSidebar" />
+}
+
+<p>
+    Our daughter enjoys playing and creating games.  Here are a couple games that she came up with.  Hopefully
+    more will be added in the future that she designs and builds herself!
+</p>

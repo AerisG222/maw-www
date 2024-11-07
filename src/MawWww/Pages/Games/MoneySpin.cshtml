@@ -1,0 +1,13 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Money Spin";
+    Model.Area = PrimaryNavArea.Games;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Games, "Money Spin");
+}
+
+@section sidebar {
+    <partial name="_GamesSidebar" />
+}
+
+@await Html.PartialAsync("_GamesApp", "/js/solid-money-spin/index.html")
