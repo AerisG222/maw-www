@@ -63,6 +63,10 @@
         <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-memory" Targets="BuildClientApp" />
     </Target>
 
+    <Target Name="solid-money-spin" BeforeTargets="Build">
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-money-spin" Targets="BuildClientApp" />
+    </Target>
+
     <Target Name="solid-weekend-countdown" BeforeTargets="Build">
         <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-weekend-countdown" Targets="BuildClientApp" />
     </Target>
