@@ -24,6 +24,11 @@ for client in clients:
     print(f"{Colors.HEADER}Updating: {client}{Colors.END}")
 
     subprocess.run(
+        ["pnpm", "install"],
+        cwd = client
+    )
+
+    subprocess.run(
         ["pnpm", "up", "-Lri"],
         cwd = client
     )
