@@ -27,7 +27,18 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**;tsconfig.json;package.json</DefaultItemExcludes>
     </PropertyGroup>
 
-    <Target Name="Assets" BeforeTargets="Build">
+    <!-- choose a couple of assets to identify when things need to be built -->
+    <!-- not perfect, but should avoid delays when running dotnet watch (and we typically have another window for css:dev) -->
+    <ItemGroup>
+        <AssetInput Include="assets/svg/favicon.svg;wwwroot/js/*.ts" />
+        <AssetOutput Include="wwwroot/favicon.svg;wwwroot/css/styles.css;wwwroot/js/site.js" />
+    </ItemGroup>
+
+    <Target
+        Name="Assets"
+        Inputs="@(AssetInput)"
+        Outputs="@(AssetOutput)"
+        BeforeTargets="Build">
         <Exec Command="pnpm install" />
 
         <Exec Command="cp node_modules/jquery/dist/jquery.min.js wwwroot/js" />
@@ -47,43 +58,152 @@
         <Exec Command="cp -r ../$(MAW_CLIENT_APP)/dist wwwroot/js/$(MAW_CLIENT_APP)" />
     </Target>
 
-    <Target Name="solid-binary-clock" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-binary-clock" Targets="BuildClientApp" />
+    <PropertyGroup>
+        <SolidBinaryClockDir>solid-binary-clock</SolidBinaryClockDir>
+        <SolidGoogleMapsDir>solid-google-maps</SolidGoogleMapsDir>
+        <SolidLearningDir>solid-learning</SolidLearningDir>
+        <SolidMemoryDir>solid-memory</SolidMemoryDir>
+        <SolidMoneySpinDir>solid-money-spin</SolidMoneySpinDir>
+        <SolidWeekendCountdownDir>solid-weekend-countdown</SolidWeekendCountdownDir>
+
+        <WebglBlenderModelDir>webgl-blender-model</WebglBlenderModelDir>
+        <WebglCubeDir>webgl-cube</WebglCubeDir>
+        <WebglShaderDir>webgl-shader</WebglShaderDir>
+        <WebglTextDir>webgl-text</WebglTextDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- we include index.html in the output list so that it can detect when it has not been built yet -->
+        <SolidBinaryClockInput Include="../$(SolidBinaryClockDir)/package.json;../$(SolidBinaryClockDir)/src/**/*.*" />
+        <SolidBinaryClockOutput Include="wwwroot/js/$(SolidBinaryClockDir)/index.html;wwwroot/js/$(SolidBinaryClockDir)/**/*.*" />
+        <SolidGoogleMapsInput Include="../$(SolidGoogleMapsDir)/package.json;../$(SolidGoogleMapsDir)/src/**/*.*" />
+        <SolidGoogleMapsOutput Include="wwwroot/js/$(SolidGoogleMapsDir)/index.html;wwwroot/js/$(SolidGoogleMapsDir)/**/*.*" />
+        <SolidLearningInput Include="../$(SolidLearningDir)/package.json;../$(SolidLearningDir)/src/**/*.*" />
+        <SolidLearningOutput Include="wwwroot/js/$(SolidLearningDir)/index.html;wwwroot/js/$(SolidLearningDir)/**/*.*" />
+        <SolidMemoryInput Include="../$(SolidMemoryDir)/package.json;../$(SolidMemoryDir)/src/**/*.*" />
+        <SolidMemoryOutput Include="wwwroot/js/$(SolidMemoryDir)/index.html;wwwroot/js/$(SolidMemoryDir)/**/*.*" />
+        <SolidMoneySpinInput Include="../$(SolidMoneySpinDir)/package.json;../$(SolidMoneySpinDir)/src/**/*.*" />
+        <SolidMoneySpinOutput Include="wwwroot/js/$(SolidMoneySpinDir)/index.html;wwwroot/js/$(SolidMoneySpinDir)/**/*.*" />
+        <SolidWeekendCountdownInput Include="../$(SolidWeekendCountdownDir)/package.json;../$(SolidWeekendCountdownDir)/src/**/*.*" />
+        <SolidWeekendCountdownOutput Include="wwwroot/js/$(SolidWeekendCountdownDir)/index.html;wwwroot/js/$(SolidWeekendCountdownDir)/**/*.*" />
+
+        <WebglBlenderModelInput Include="../$(WebglBlenderModelDir)/package.json;../$(WebglBlenderModelDir)/src/**/*.*" />
+        <WebglBlenderModelOutput Include="wwwroot/js/$(WebglBlenderModelDir)/index.html;wwwroot/js/$(WebglBlenderModelDir)/**/*.*" />
+        <WebglCubeInput Include="../$(WebglCubeDir)/package.json;../$(WebglCubeDir)/src/**/*.*" />
+        <WebglCubeOutput Include="wwwroot/js/$(WebglCubeDir)/index.html;wwwroot/js/$(WebglCubeDir)/**/*.*" />
+        <WebglShaderInput Include="../$(WebglShaderDir)/package.json;../$(WebglShaderDir)/src/**/*.*" />
+        <WebglShaderOutput Include="wwwroot/js/$(WebglShaderDir)/index.html;wwwroot/js/$(WebglShaderDir)/**/*.*" />
+        <WebglTextInput Include="../$(WebglTextDir)/package.json;../$(WebglTextDir)/src/**/*.*" />
+        <WebglTextOutput Include="wwwroot/js/$(WebglTextDir)/index.html;wwwroot/js/$(WebglTextDir)/**/*.*" />
+    </ItemGroup>
+
+    <Target
+        Name="solid-binary-clock"
+        Inputs="@(SolidBinaryClockInput)"
+        Outputs="@(SolidBinaryClockOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(SolidBinaryClockDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="solid-google-maps" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-google-maps" Targets="BuildClientApp" />
+    <Target
+        Name="solid-google-maps"
+        Inputs="@(SolidGoogleMapsInput)"
+        Outputs="@(SolidGoogleMapsOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(SolidGoogleMapsDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="solid-learning" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-learning" Targets="BuildClientApp" />
+    <Target
+        Name="solid-learning"
+        Inputs="@(SolidLearningInput)"
+        Outputs="@(SolidLearningOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(SolidLearningDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="solid-memory" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-memory" Targets="BuildClientApp" />
+    <Target
+        Name="solid-memory"
+        Inputs="@(SolidMemoryInput)"
+        Outputs="@(SolidMemoryOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(SolidMemoryDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="solid-money-spin" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-money-spin" Targets="BuildClientApp" />
+    <Target
+        Name="solid-money-spin"
+        Inputs="@(SolidMoneySpinInput)"
+        Outputs="@(SolidMoneySpinOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(SolidMoneySpinDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="solid-weekend-countdown" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=solid-weekend-countdown" Targets="BuildClientApp" />
+    <Target
+        Name="solid-weekend-countdown"
+        Inputs="@(SolidWeekendCountdownInput)"
+        Outputs="@(SolidWeekendCountdownOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(SolidWeekendCountdownDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="webgl-blender-model" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-blender-model" Targets="BuildClientApp" />
+    <Target
+        Name="webgl-blender-model"
+        Inputs="@(WebglBlenderModelInput)"
+        Outputs="@(WebglBlenderModelOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(WebglBlenderModelDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="webgl-cube" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-cube" Targets="BuildClientApp" />
+    <Target
+        Name="webgl-cube"
+        Inputs="@(WebglCubeInput)"
+        Outputs="@(WebglCubeOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(WebglCubeDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="webgl-shader" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-shader" Targets="BuildClientApp" />
+    <Target
+        Name="webgl-shader"
+        Inputs="@(WebglShaderInput)"
+        Outputs="@(WebglShaderOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(WebglShaderDir)"
+            Targets="BuildClientApp" />
     </Target>
 
-    <Target Name="webgl-text" BeforeTargets="Build">
-        <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="MAW_CLIENT_APP=webgl-text" Targets="BuildClientApp" />
+    <Target
+        Name="webgl-text"
+        Inputs="@(WebglTextInput)"
+        Outputs="@(WebglTextOutput)"
+        BeforeTargets="Build">
+        <MSBuild
+            Projects="$(MSBuildProjectFullPath)"
+            Properties="MAW_CLIENT_APP=$(WebglTextDir)"
+            Targets="BuildClientApp" />
     </Target>
 </Project>
