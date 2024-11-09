@@ -6,13 +6,13 @@
 }
 
 <nav class="flex md:flex-col md:h-100vh">
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/",          Title: "Home",      ImageUrl: "/favicon.svg",          IsActive: IsInArea(PrimaryNavArea.Home)))
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/about",     Title: "About",     Icon: "i-mdi-help-circle-outline", IsActive: IsInArea(PrimaryNavArea.About)))
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/reference", Title: "Reference", Icon: "i-mdi-bookshelf",           IsActive: IsInArea(PrimaryNavArea.Reference)))
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/tools",     Title: "Tools",     Icon: "i-mdi-tools",               IsActive: IsInArea(PrimaryNavArea.Tools)))
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/games",     Title: "Games",     Icon: "i-mdi-gamepad",             IsActive: IsInArea(PrimaryNavArea.Games)))
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/webgl",     Title: "WebGL",     Icon: "i-mdi-cube-outline",        IsActive: IsInArea(PrimaryNavArea.WebGL)))
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/scratch",   Title: "Scratch",   Icon: "i-simple-icons-scratch",    IsActive: IsInArea(PrimaryNavArea.Scratch)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Index"),           Title: "Home",      ImageUrl: "/favicon.svg",          IsActive: IsInArea(PrimaryNavArea.Home)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/About/Index"),     Title: "About",     Icon: "i-mdi-help-circle-outline", IsActive: IsInArea(PrimaryNavArea.About)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Reference/Index"), Title: "Reference", Icon: "i-mdi-bookshelf",           IsActive: IsInArea(PrimaryNavArea.Reference)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Tools/Index"),     Title: "Tools",     Icon: "i-mdi-tools",               IsActive: IsInArea(PrimaryNavArea.Tools)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Games/Index"),     Title: "Games",     Icon: "i-mdi-gamepad",             IsActive: IsInArea(PrimaryNavArea.Games)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/WebGL/Index"),     Title: "WebGL",     Icon: "i-mdi-cube-outline",        IsActive: IsInArea(PrimaryNavArea.WebGL)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Scratch/Index"),   Title: "Scratch",   Icon: "i-simple-icons-scratch",    IsActive: IsInArea(PrimaryNavArea.Scratch)))
 
     <span class="flex-grow-1"></span>
 

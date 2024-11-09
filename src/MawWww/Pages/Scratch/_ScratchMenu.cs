@@ -22,7 +22,6 @@ public static class ScratchMenu
             new SidebarMenuItem("./WhosFaster",        "Who's Faster"),
             new SidebarMenuItem("./WorkAndFade",       "Work and Fade"),
             new SidebarMenuItem("./YummyYummyBaby",    "Yummy Yummy Baby")
-        ],
-        "Scratch Apps"
+        ]
     );
 }

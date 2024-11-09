@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.FeatureManagement;
+using Fluid;
+using MawWww;
 using MawWww.Blog;
 using MawWww.Captcha;
 using MawWww.Email;
 using MawWww.Models;
-using Fluid;
-using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -22,9 +24,11 @@ builder.Services
     )
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<FluidParser>()
-    .AddRazorPages()
+    .AddRazorPages(options => {
+        options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
+    })
         .Services
-    .AddRouting(opts => opts.LowercaseUrls = true);
+    .AddRouting();
 
 var app = builder.Build();
 

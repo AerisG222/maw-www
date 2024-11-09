@@ -1,16 +1,16 @@
 using MawWww.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MawWww.Pages.WebGL;
 
 public static class WebGlMenu
 {
-    public static readonly SidebarMenu Menu = new (
-        [
-            new SidebarMenuItem("./blender",   "Blender Model"),
-            new SidebarMenuItem("./cube",      "Cube"),
-            new SidebarMenuItem("./shader",    "Shader"),
-            new SidebarMenuItem("./text",      "Text")
-        ],
-        "WebGL Demos"
-    );
+    public static SidebarMenu GenerateMenu(IUrlHelper urlHelper) {
+        return new([
+            new SidebarMenuItem("./Blender", "Blender Model"),
+            new SidebarMenuItem("./Cube",    "Cube"),
+            new SidebarMenuItem("./Shader",  "Shader"),
+            new SidebarMenuItem("./Text",    "Text")
+        ]);
+    }
 }

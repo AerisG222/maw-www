@@ -6,9 +6,9 @@ public static class AboutMenu
 {
     public static readonly SidebarMenu Menu = new (
         [
-            new SidebarMenuItem("./index",   "About Us"),
-            new SidebarMenuItem("./news",    "News"),
-            new SidebarMenuItem("./contact", "Contact")
+            new SidebarMenuItem("./Index",   "About Us"),
+            new SidebarMenuItem("./News",    "News"),
+            new SidebarMenuItem("./Contact", "Contact")
         ]
     );
 }
