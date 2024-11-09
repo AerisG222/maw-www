@@ -49,6 +49,6 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/BinaryClock/BinaryClock", "Binary Clock"),
             new SidebarMenuItem("/Tools/BinaryClock/About",       "About Binary Clock")
         ],
-        "Networking"
+        "Binary Clock"
     );
 }

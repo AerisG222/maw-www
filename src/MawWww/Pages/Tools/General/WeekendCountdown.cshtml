@@ -1,0 +1,18 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Weekend Countdown";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "Weekend Countdown");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+<p>
+    The maps below are "linked" together so that you can look at the same area at different zoom levels
+    and have them pan together.
+</p>
+
+@await Html.PartialAsync("_IFrame", new IFrame("/js/solid-weekend-countdown/index.html", 680, 600))
