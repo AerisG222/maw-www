@@ -13,7 +13,7 @@ const App: Component = () => {
         setH(theDate.getHours());
         setM(theDate.getMinutes());
         setS(theDate.getSeconds());
-    }
+    };
 
     const getCellClass = (value: number, compareBit: number, isTens: boolean) => {
         const position = isTens ? 1 : 0;
@@ -25,7 +25,9 @@ const App: Component = () => {
         } else {
             return styles.bc_off;
         }
-    }
+    };
+
+    const pad = (val: number) => String(val).padStart(2, "0");
 
     const interval = setInterval(() => setDate(new Date()), 300);
 
@@ -77,7 +79,7 @@ const App: Component = () => {
                     </tr>
                     <tr>
                         <td colspan="8" class={ styles.center }>
-                            {currentTime().getHours()} : {currentTime().getMinutes()} : {currentTime().getSeconds()}
+                            {pad(currentTime().getHours())} : {pad(currentTime().getMinutes())} : {pad(currentTime().getSeconds())}
                         </td>
                     </tr>
                 </tbody>
