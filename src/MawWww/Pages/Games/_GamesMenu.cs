@@ -6,6 +6,7 @@ public static class GamesMenu
 {
     public static readonly SidebarMenu Menu = new (
         [
+            new SidebarMenuItem("./Learning",   "Learning"),
             new SidebarMenuItem("./Memory",     "Memory"),
             new SidebarMenuItem("./MoneySpin",  "Money Spin"),
         ]

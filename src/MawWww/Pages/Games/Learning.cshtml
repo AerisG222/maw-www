@@ -1,0 +1,13 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Learning";
+    Model.Area = PrimaryNavArea.Games;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Games, "Learning");
+}
+
+@section sidebar {
+    <partial name="_GamesSidebar" />
+}
+
+@await Html.PartialAsync("_GamesApp", "/js/solid-learning/index.html")
