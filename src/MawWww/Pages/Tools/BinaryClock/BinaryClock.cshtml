@@ -1,0 +1,13 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Binary Clock";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "Binary Clock");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@await Html.PartialAsync("_IFrame", new IFrame("/js/solid-binary-clock/index.html", 800, 600))
