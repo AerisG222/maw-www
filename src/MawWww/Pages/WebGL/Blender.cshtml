@@ -10,4 +10,4 @@
     <partial name="_WebGlSidebar" />
 }
 
-@await Html.PartialAsync("_WebGlApp", "/js/webgl-blender-model/index.html")
+@await Html.PartialAsync("_IFrame", new IFrame("/js/webgl-blender-model/index.html", 800, 600))

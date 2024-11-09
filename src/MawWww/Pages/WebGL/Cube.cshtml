@@ -10,4 +10,4 @@
     <partial name="_WebGlSidebar" />
 }
 
-@await Html.PartialAsync("_WebGlApp", "/js/webgl-cube/index.html")
+@await Html.PartialAsync("_IFrame", new IFrame("/js/webgl-cube/index.html", 800, 600))
