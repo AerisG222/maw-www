@@ -1,5 +1,5 @@
 @page
-@model MawPageModel
+@model FileSizeModel
 @{
     Model.Title = "File Size Calculator";
     Model.Area = PrimaryNavArea.Tools;
@@ -8,4 +8,57 @@
 
 @section sidebar {
     <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please select a valid time unit."
+))
+
+<p>
+    Use the form below to see the size of a file in different units.
+</p>
+
+<form method="post" autocomplete="off" role="form">
+    <label class="form-control w-full max-w-xs mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Size of File</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.SizeOfFile"></span>
+        </div>
+        <input type="number" inputmode="numeric" class="input input-bordered w-full max-w-xs input-number" asp-for="Form.SizeOfFile" autofocus />
+    </label>
+
+    <label class="form-control w-full max-w-xs mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Unit of Time</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.Unit"></span>
+        </div>
+        <select class="input input-bordered w-full max-w-xs" asp-for="Form.Unit">
+            @foreach(var unit in Model.AllUnits) {
+                <option value="@unit.ToLower()">@unit</option>
+            }
+        </select>
+    </label>
+
+    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+</form>
+
+@if(Model.Results.Count > 0) {
+    <table class="not-prose mt-8 table-auto border-collapse border">
+        <tr class="border-b-1">
+            <th class="px-4 py-1 text-left">Name</th>
+            <th class="px-4 py-1 text-left">Abbreviation</th>
+            <th class="px-4 py-1 text-right">Amount</th>
+        </tr>
+        @foreach(var result in Model.Results) {
+        <tr class="even:bg-secondary:12">
+            <td class="px-4 py-1">@result.Unit.Name</td>
+            <td class="px-4 py-1">@result.Unit.Abbreviation</td>
+            <td class="px-4 py-1 text-right">@result.SizeInUnits</td>
+        </tr>
+        }
+    </table>
 }
