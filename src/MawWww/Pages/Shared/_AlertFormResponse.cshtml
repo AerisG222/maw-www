@@ -1,0 +1,9 @@
+@model AlertProps
+
+@{
+    var alert = Model.Alert;
+
+    if(alert != null) {
+        @await Html.PartialAsync("_Alert", alert)
+    }
+}

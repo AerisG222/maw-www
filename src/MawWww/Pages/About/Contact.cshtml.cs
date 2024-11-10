@@ -10,26 +10,21 @@ using MawWww.Models;
 namespace MawWww.Pages.About;
 
 public class ContactModel
-    : MawPageModel
+    : MawFormPageModel<ContactForm>
 {
     readonly ILogger _log;
     readonly ICaptchaFeature _captchaFeature;
     readonly ContactConfig _config;
     readonly IEmailService _emailService;
     readonly FluidParser _fluidParser;
+    readonly object _contactUsTemplateLock = new();
     ICaptchaService? _captchaService;
-    object _contactUsTemplateLock = new();
     IFluidTemplate? _contactUsTemplate;
 
     static string TemplateDir => Path.Combine(AppContext.BaseDirectory, "EmailTemplates");
 
-    public bool SubmitAttempted { get; private set; }
-    public bool SubmitSuccess { get; private set; }
     public bool IsHuman { get; private set; }
     public string CaptchaSiteKey => _captchaService?.SiteKey ?? string.Empty;
-
-    [BindProperty]
-    public ContactForm ContactForm { get; set; } = new();
 
     public ContactModel(
         ILogger<ContactModel> log,
@@ -118,9 +113,9 @@ public class ContactModel
 
             var model = new {
                 _config.Subject,
-                ContactForm.Email,
-                ContactForm.Name,
-                ContactForm.Message
+                Form.Email,
+                Form.Name,
+                Form.Message
             };
 
             var body = template.Render(new TemplateContext(model, options));
