@@ -54,7 +54,7 @@
         </tr>
         @foreach(var result in Model.Results) {
         <tr class="even:bg-secondary:12">
-            <td class="px-4 py-1">@result.TimeUnit</td>
+            <td class="px-4 py-1">@result.Scale.Name</td>
             <td class="px-4 py-1 text-right">@result.LengthOfTime</td>
         </tr>
         }

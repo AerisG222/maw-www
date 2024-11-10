@@ -7,7 +7,7 @@ namespace MawWww.Pages.Tools.Calculators;
 public class TimeModel
     : MawFormPageModel<TimeForm>
 {
-    public List<Result> Results { get; private set; } = [];
+    public List<TimeResult> Results { get; private set; } = [];
     public IEnumerable<string> AllUnits = TimeScale.AllScales.Select(x => x.Name);
 
     public IActionResult OnGet()
@@ -29,8 +29,6 @@ public class TimeModel
 
     bool CalculateResults()
     {
-        double timeInSeconds = 0;
-
         var timeScale = TimeScale.AllScales
             .SingleOrDefault(x => string.Equals(x.Name, Form.Unit, StringComparison.OrdinalIgnoreCase));
 
@@ -39,11 +37,11 @@ public class TimeModel
             return false;
         }
 
-        timeInSeconds = Form.LengthOfTime * timeScale.SecondsInUnit;
+        var timeInSeconds = Form.LengthOfTime * timeScale.SecondsInUnit;
 
         foreach (var scale in TimeScale.AllScales)
         {
-            Results.Add(new Result(scale.Name, timeInSeconds / scale.SecondsInUnit));
+            Results.Add(new TimeResult(scale, timeInSeconds / scale.SecondsInUnit));
         }
 
         return true;
@@ -94,7 +92,7 @@ public record TimeScale(
     ];
 }
 
-public record Result (
-    string TimeUnit,
+public record TimeResult (
+    TimeScale Scale,
     double LengthOfTime
 );
