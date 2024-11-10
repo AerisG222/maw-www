@@ -1,0 +1,12 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Bandwidth Calculator";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "Calculators", "Bandwidth");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+

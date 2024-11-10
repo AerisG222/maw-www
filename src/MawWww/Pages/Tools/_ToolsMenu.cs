@@ -37,11 +37,11 @@ public static class ToolsMenu
 
     public static SidebarMenu NetworkingMenu = new (
         [
-            new SidebarMenuItem("/Tools/Networking/BandwidthCalculator", "Bandwidth Calculator"),
-            new SidebarMenuItem("/Tools/Networking/FileSize",            "File Size"),
-            new SidebarMenuItem("/Tools/Networking/Time",                "Time")
+            new SidebarMenuItem("/Tools/Calculators/Bandwidth", "Bandwidth"),
+            new SidebarMenuItem("/Tools/Calculators/FileSize",  "File Size"),
+            new SidebarMenuItem("/Tools/Calculators/Time",      "Time")
         ],
-        "Networking"
+        "Calculators"
     );
 
     public static SidebarMenu BinaryClockMenu = new (
