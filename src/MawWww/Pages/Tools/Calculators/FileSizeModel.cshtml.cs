@@ -51,7 +51,7 @@ public class FileSizeModel
 public class FileSizeForm
 {
     [Required(ErrorMessage = "Please enter size of file.")]
-    public double SizeOfFile { get; set; } = 0;
+    public double SizeOfFile { get; set; } = 100;
 
     [Required(ErrorMessage = "Please select size unit.")]
     public string Unit { get; set; } = FileSizeUnit.UnitMB.Name;
@@ -62,22 +62,22 @@ public record FileSizeUnit (
     string Abbreviation,
     double BitsInUnit
 ) {
-    public static readonly FileSizeUnit UnitBits =  new("Bits",      "b",   1);
-    public static readonly FileSizeUnit UnitBytes = new("Bytes",     "B",   8);
-    public static readonly FileSizeUnit UnitKB =    new("Kilobyte",  "KB",  8d * 1000);
-    public static readonly FileSizeUnit UnitKiB =   new("Kibibyte",  "KiB", 8d * 1024);
-    public static readonly FileSizeUnit UnitMB =    new("Megabyte",  "MB",  8d * 1000 * 1000);
-    public static readonly FileSizeUnit UnitMiB =   new("Mebibyte",  "MiB", 8d * 1024 * 1024);
-    public static readonly FileSizeUnit UnitGB =    new("Gigabyte",  "GB",  8d * 1000 * 1000 * 1000);
-    public static readonly FileSizeUnit UnitGiB =   new("Gibibyte",  "GiB", 8d * 1024 * 1024 * 1024);
-    public static readonly FileSizeUnit UnitTB =    new("Terabyte",  "TB",  8d * 1000 * 1000 * 1000 * 1000);
-    public static readonly FileSizeUnit UnitTiB =   new("Tebibyte",  "TiB", 8d * 1024 * 1024 * 1024 * 1024);
-    public static readonly FileSizeUnit UnitPB =    new("Petabyte",  "PB",  8d * 1000 * 1000 * 1000 * 1000);
-    public static readonly FileSizeUnit UnitPiB =   new("Pebibyte",  "PiB", 8d * 1024 * 1024 * 1024 * 1024);
-    public static readonly FileSizeUnit UnitEB =    new("Exabyte",   "EB",  8d * 1000 * 1000 * 1000 * 1000 * 1000);
-    public static readonly FileSizeUnit UnitEiB =   new("Exbibyte",  "EiB", 8d * 1024 * 1024 * 1024 * 1024 * 1024);
-    public static readonly FileSizeUnit UnitZB =    new("Zettabyte", "ZB",  8d * 1000 * 1000 * 1000 * 1000 * 1000 * 1000);
-    public static readonly FileSizeUnit UnitZiB =   new("Zebibyte",  "ZiB", 8d * 1024 * 1024 * 1024 * 1024 * 1024 * 1024);
+    public static readonly FileSizeUnit UnitBits =  new("Bits",       "b",   1);
+    public static readonly FileSizeUnit UnitBytes = new("Bytes",      "B",   8);
+    public static readonly FileSizeUnit UnitKB =    new("Kilobytes",  "KB",  8d * 1000);
+    public static readonly FileSizeUnit UnitKiB =   new("Kibibytes",  "KiB", 8d * 1024);
+    public static readonly FileSizeUnit UnitMB =    new("Megabytes",  "MB",  8d * 1000 * 1000);
+    public static readonly FileSizeUnit UnitMiB =   new("Mebibytes",  "MiB", 8d * 1024 * 1024);
+    public static readonly FileSizeUnit UnitGB =    new("Gigabytes",  "GB",  8d * 1000 * 1000 * 1000);
+    public static readonly FileSizeUnit UnitGiB =   new("Gibibytes",  "GiB", 8d * 1024 * 1024 * 1024);
+    public static readonly FileSizeUnit UnitTB =    new("Terabytes",  "TB",  8d * 1000 * 1000 * 1000 * 1000);
+    public static readonly FileSizeUnit UnitTiB =   new("Tebibytes",  "TiB", 8d * 1024 * 1024 * 1024 * 1024);
+    public static readonly FileSizeUnit UnitPB =    new("Petabytes",  "PB",  8d * 1000 * 1000 * 1000 * 1000);
+    public static readonly FileSizeUnit UnitPiB =   new("Pebibytes",  "PiB", 8d * 1024 * 1024 * 1024 * 1024);
+    public static readonly FileSizeUnit UnitEB =    new("Exabytes",   "EB",  8d * 1000 * 1000 * 1000 * 1000 * 1000);
+    public static readonly FileSizeUnit UnitEiB =   new("Exbibytes",  "EiB", 8d * 1024 * 1024 * 1024 * 1024 * 1024);
+    public static readonly FileSizeUnit UnitZB =    new("Zettabytes", "ZB",  8d * 1000 * 1000 * 1000 * 1000 * 1000 * 1000);
+    public static readonly FileSizeUnit UnitZiB =   new("Zebibytes",  "ZiB", 8d * 1024 * 1024 * 1024 * 1024 * 1024 * 1024);
 
     public static readonly FileSizeUnit[] AllUnits = [
             UnitBits,

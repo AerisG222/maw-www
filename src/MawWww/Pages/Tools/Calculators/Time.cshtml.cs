@@ -51,7 +51,7 @@ public class TimeModel
 public class TimeForm
 {
     [Required(ErrorMessage = "Please enter length of time.")]
-    public double LengthOfTime { get; set; } = 0;
+    public double LengthOfTime { get; set; } = 100;
 
     [Required(ErrorMessage = "Please select unit of time.")]
     public string Unit { get; set; } = TimeScale.Seconds.Name;
