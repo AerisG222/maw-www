@@ -1,0 +1,53 @@
+@page
+@model ByteCounterModel
+@{
+    Model.Title = "Byte Counter";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "Calculators", "Byte Counter");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please enter valid options"
+))
+
+<p>
+    I developed this page after often having a desire to quickly get a count of bytes that are used
+    in ViewState in an ASP.Net page.  Although I no longer use webforms and hence am not so concerned
+    with ViewState, this still can come in handy on occasions.
+</p>
+
+<form method="post" autocomplete="off" role="form">
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Text</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.Text"></span>
+        </div>
+        <textarea class="input input-bordered w-full input-number h-[300px]" asp-for="Form.Text" autofocus></textarea>
+    </label>
+
+    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    <button type="reset" class="btn mt-4">Reset</button>
+</form>
+
+@if(Model.Results.Count > 0) {
+    <table class="not-prose mt-8 table-auto border-collapse border">
+        <tr class="border-b-1">
+            <th class="px-4 py-1">Unit</th>
+            <th class="px-4 py-1 text-right">Size</th>
+        </tr>
+        @foreach(var result in Model.Results) {
+        <tr class="even:bg-secondary:12">
+            <td class="px-4 py-1">@result.Unit</td>
+            <td class="px-4 py-1 text-right">@result.Size.ToString(result.Format)</td>
+        </tr>
+        }
+    </table>
+}
