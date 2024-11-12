@@ -10,7 +10,6 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/Dotnet/DateFormatting",     "Date Formatting"),
             new SidebarMenuItem("/Tools/Dotnet/NumberFormatting",   "Number Formatting"),
             new SidebarMenuItem("/Tools/Dotnet/DateDifference",     "Date Difference"),
-            new SidebarMenuItem("/Tools/Dotnet/ColorConverter",     "Color Converter"),
             new SidebarMenuItem("/Tools/Dotnet/HtmlEncodeDecode",   "Html Encode / Decode"),
             new SidebarMenuItem("/Tools/Dotnet/Paths",              "Paths"),
             new SidebarMenuItem("/Tools/Dotnet/RandomBytes",        "Random Bytes"),
@@ -26,6 +25,7 @@ public static class ToolsMenu
         [
             new SidebarMenuItem("/Tools/General/RollTheDice",              "Roll the Dice"),
             new SidebarMenuItem("/Tools/General/GoogleMaps",               "Google Maps"),
+            new SidebarMenuItem("/Tools/General/ColorConverter",           "Color Converter"),
             new SidebarMenuItem("/Tools/General/WeekendCountdown",         "Weekend Countdown"),
             new SidebarMenuItem("/Tools/General/Weather",                  "Weather"),
             new SidebarMenuItem("/Tools/General/GpsCoordinateConversions", "GPS Coordinate Conversions"),

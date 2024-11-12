@@ -47,7 +47,6 @@ public class ByteCounterForm
     public string Text { get; set; } = string.Empty;
 }
 
-
 public record ByteCounterResult (
     string Unit,
     string Format,
