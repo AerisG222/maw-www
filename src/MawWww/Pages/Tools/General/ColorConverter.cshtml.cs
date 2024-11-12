@@ -47,7 +47,7 @@ public class ColorConverterForm
             case METHOD_FROM_HEX:
                 if (string.IsNullOrEmpty(HexCode))
                 {
-                    yield return new ValidationResult("Color code must be provided.", [nameof(HexCode)]);
+                    yield return new ValidationResult("Color code is required.", [nameof(HexCode)]);
                 }
                 else if (!ValidateHexCode())
                 {
@@ -58,15 +58,15 @@ public class ColorConverterForm
             case METHOD_FROM_RGB:
                 if (Red == null)
                 {
-                    yield return new ValidationResult("Red component must be provided.", [nameof(Red)]);
+                    yield return new ValidationResult("Red component is required.", [nameof(Red)]);
                 }
                 if (Green == null)
                 {
-                    yield return new ValidationResult("Green component must be provided.", [nameof(Green)]);
+                    yield return new ValidationResult("Green component is required.", [nameof(Green)]);
                 }
                 if (Blue == null)
                 {
-                    yield return new ValidationResult("Blue component must be provided.", [nameof(Blue)]);
+                    yield return new ValidationResult("Blue component is required.", [nameof(Blue)]);
                 }
                 break;
             default:
