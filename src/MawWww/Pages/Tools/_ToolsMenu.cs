@@ -9,7 +9,6 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/Dotnet/RegularExpressions", "Regular Expressions"),
             new SidebarMenuItem("/Tools/Dotnet/DateFormatting",     "Date Formatting"),
             new SidebarMenuItem("/Tools/Dotnet/NumberFormatting",   "Number Formatting"),
-            new SidebarMenuItem("/Tools/Dotnet/DateDifference",     "Date Difference"),
             new SidebarMenuItem("/Tools/Dotnet/HtmlEncodeDecode",   "Html Encode / Decode"),
             new SidebarMenuItem("/Tools/Dotnet/Paths",              "Paths"),
             new SidebarMenuItem("/Tools/Dotnet/RandomBytes",        "Random Bytes"),
@@ -34,12 +33,13 @@ public static class ToolsMenu
         "General"
     );
 
-    public static SidebarMenu NetworkingMenu = new (
+    public static SidebarMenu CalculatorMenu = new (
         [
-            new SidebarMenuItem("/Tools/Calculators/Bandwidth",   "Bandwidth"),
-            new SidebarMenuItem("/Tools/Calculators/FileSize",    "File Size"),
-            new SidebarMenuItem("/Tools/Calculators/Time",        "Time"),
-            new SidebarMenuItem("/Tools/Calculators/ByteCounter", "Byte Counter"),
+            new SidebarMenuItem("/Tools/Calculators/DateDifference", "Date Difference"),
+            new SidebarMenuItem("/Tools/Calculators/Bandwidth",      "Bandwidth"),
+            new SidebarMenuItem("/Tools/Calculators/FileSize",       "File Size"),
+            new SidebarMenuItem("/Tools/Calculators/Time",           "Time"),
+            new SidebarMenuItem("/Tools/Calculators/ByteCounter",    "Byte Counter"),
         ],
         "Calculators"
     );

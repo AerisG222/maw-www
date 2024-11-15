@@ -57,7 +57,7 @@
         <tr class="even:bg-secondary:12">
             <td class="px-4 py-1">@result.Unit.Name</td>
             <td class="px-4 py-1">@result.Unit.Abbreviation</td>
-            <td class="px-4 py-1 text-right">@result.SizeInUnits</td>
+            <td class="px-4 py-1 text-right">@result.SizeInUnits.ToString("N3")</td>
         </tr>
         }
     </table>
