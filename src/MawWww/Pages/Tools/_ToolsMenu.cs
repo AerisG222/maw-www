@@ -7,8 +7,8 @@ public static class ToolsMenu
     public static SidebarMenu DotnetMenu = new (
         [
             new SidebarMenuItem("/Tools/Dotnet/RegularExpressions", "Regular Expressions"),
-            new SidebarMenuItem("/Tools/Dotnet/DateFormatting",     "Date Formatting"),
-            new SidebarMenuItem("/Tools/Dotnet/NumberFormatting",   "Number Formatting"),
+            new SidebarMenuItem("/Tools/Dotnet/DateFormats",        "Date Formats"),
+            new SidebarMenuItem("/Tools/Dotnet/NumberFormats",      "Number Formats"),
             new SidebarMenuItem("/Tools/Dotnet/HtmlEncodeDecode",   "Html Encode / Decode"),
             new SidebarMenuItem("/Tools/Dotnet/Paths",              "Paths"),
             new SidebarMenuItem("/Tools/Dotnet/RandomBytes",        "Random Bytes"),

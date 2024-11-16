@@ -1,0 +1,20 @@
+@page
+@model NumberFormatsPageModel
+@{
+    Model.Title = "Number Formats";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, ".NET", "Number Formats");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+<p>
+    The following are examples that show the output of formatting <strong>1,234.125678</strong>. Note
+    for the set of examples below, we use a double value unless otherwise stated.  For (significantly)
+    more detail, visit the API documentation at
+    <a href="https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings">Microsoft Learn</a>.
+</p>
+
+<partial name="_FormatExamples" model="@NumberFormatsPageModel.Examples" />
