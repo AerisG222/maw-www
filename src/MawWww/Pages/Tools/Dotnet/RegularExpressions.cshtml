@@ -1,0 +1,164 @@
+@page
+@using System.Text.RegularExpressions
+@model RegularExpressionsModel
+@{
+    Model.Title = "Regular Expressions";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, ".NET", "Regular Expressions");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please correct the errors below."
+))
+
+<p>
+    This tool will demonstrate if the input string results in a match based on the supplied regex.
+</p>
+
+<form method="post" autocomplete="off" role="form">
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">RegEx Pattern</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.RegExPattern"></span>
+        </div>
+        <textarea inputmode="numeric" class="input input-bordered w-full input-number h-24" asp-for="Form.RegExPattern" autofocus></textarea>
+    </label>
+
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Example Input</span>
+            <span class="label-text-alt color-error text-right" asp-validation-for="Form.ExampleInput"></span>
+        </div>
+        <textarea inputmode="numeric" class="input input-bordered w-full input-number h-24" asp-for="Form.ExampleInput" autofocus></textarea>
+    </label>
+
+    <div>
+        <span class="label-text color-secondary font-bold">Options</span>
+        <span class="label-text-alt color-error ml-12" asp-validation-for="Form.OptionNone"></span>
+    </div>
+
+    <div class="grid grid-cols-3 gap-col-12 grid-rows-auto *:max-w-[220px] mb-4">
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Culture Invariant</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionCultureInvariant" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">ECMA Script</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionEcmaScript" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Explicit Capture</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionExplicitCapture" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Ignore Case</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionIgnoreCase" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Ignore Pattern Whitespace</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionIgnorePatternWhitespace" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Multiline</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionMultiline" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">None</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionNone" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Right to Left</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionRightToLeft" />
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Single Line</span>
+                <input type="checkbox" class="checkbox" asp-for="Form.OptionSingleLine" />
+            </label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+</form>
+
+@if(Model.RegexMatches != null) {
+    string? results = null;
+
+    switch(Model.RegexMatches.Count)     {
+        case 0:
+            results = "No matches found.";
+            break;
+        case 1:
+            results = "1 match found.";
+            break;
+        default:
+            results = string.Concat(Model.RegexMatches.Count, " matches found.");
+            break;
+    }
+
+    <div class="mt-12">
+        <strong>@results</strong>
+
+        <ul>
+        @foreach(Match match in Model.RegexMatches) {
+            <li>Match: @match.Value
+            @if(match.Groups != null && match.Groups.Count > 0) {
+                int groupid = 0;
+
+                <ul>
+                @foreach(Group group in match.Groups) {
+                    string name = string.Concat("[", groupid, " : ", Model.Form.RegEx?.GroupNameFromNumber(groupid), "]");
+
+                    <li>Group: @name : @group.Value
+                    @if(group.Captures != null && group.Captures.Count > 1) {
+                        int captureid = 0;
+                        <ul>
+                        @foreach(Capture capture in group.Captures) {
+                            <li>Capture: @capture.Value</li>
+                            captureid++;
+                        }
+                        </ul>
+                    }
+                    </li>
+
+                    groupid++;
+                }
+                </ul>
+            }
+            </li>
+        }
+        </ul>
+    </div>
+}
