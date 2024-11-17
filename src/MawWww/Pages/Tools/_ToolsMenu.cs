@@ -9,6 +9,7 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/Dotnet/RegularExpressions", "Regular Expressions"),
             new SidebarMenuItem("/Tools/Dotnet/DateFormats",        "Date Formats"),
             new SidebarMenuItem("/Tools/Dotnet/NumberFormats",      "Number Formats"),
+            new SidebarMenuItem("/Tools/Dotnet/GuidGenerator",      "GUID Generator"),
             new SidebarMenuItem("/Tools/Dotnet/HtmlEncodeDecode",   "Html Encode / Decode"),
             new SidebarMenuItem("/Tools/Dotnet/Paths",              "Paths"),
             new SidebarMenuItem("/Tools/Dotnet/RandomBytes",        "Random Bytes"),
@@ -27,8 +28,7 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/General/ColorConverter",   "Color Converter"),
             new SidebarMenuItem("/Tools/General/WeekendCountdown", "Weekend Countdown"),
             new SidebarMenuItem("/Tools/General/Weather",          "Weather"),
-            new SidebarMenuItem("/Tools/General/GpsConverter",     "GPS Converter"),
-            new SidebarMenuItem("/Tools/General/GuidGenerator",    "GUID Generator"),
+            new SidebarMenuItem("/Tools/General/GpsConverter",     "GPS Converter")
         ],
         "General"
     );
@@ -39,7 +39,7 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/Calculators/Bandwidth",      "Bandwidth"),
             new SidebarMenuItem("/Tools/Calculators/FileSize",       "File Size"),
             new SidebarMenuItem("/Tools/Calculators/Time",           "Time"),
-            new SidebarMenuItem("/Tools/Calculators/ByteCounter",    "Byte Counter"),
+            new SidebarMenuItem("/Tools/Calculators/ByteCounter",    "Byte Counter")
         ],
         "Calculators"
     );
