@@ -1,0 +1,47 @@
+@page
+@model HtmlEncodeModel
+@{
+    Model.Title = "HTML Encode / Decode";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "General", "Html Encode / Decode");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please correct the errors below."
+))
+
+<p>This page allows you to encode and decode values suitable for HTML content.</p>
+
+<form method="post" autocomplete="off" role="form">
+    <input type="hidden" asp-for="Form.Mode" value="@HtmlEncodeMode.Encode" />
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Decoded String</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.DecodedString"></span>
+        </div>
+        <textarea class="input input-bordered w-full h-24" asp-for="Form.DecodedString" autofocus></textarea>
+    </label>
+
+    <button type="submit" class="btn btn-primary">Encode</button>
+</form>
+
+<form method="post" class="mt-8" autocomplete="off" role="form">
+    <input type="hidden" asp-for="Form.Mode" value="@HtmlEncodeMode.Decode" />
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Encoded String</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.EncodedString"></span>
+        </div>
+        <textarea class="input input-bordered w-full h-24" asp-for="Form.EncodedString"></textarea>
+    </label>
+
+    <button type="submit" class="btn btn-primary">Decode</button>
+</form>

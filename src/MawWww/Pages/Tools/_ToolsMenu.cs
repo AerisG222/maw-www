@@ -10,10 +10,8 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/Dotnet/DateFormats",        "Date Formats"),
             new SidebarMenuItem("/Tools/Dotnet/NumberFormats",      "Number Formats"),
             new SidebarMenuItem("/Tools/Dotnet/GuidGenerator",      "GUID Generator"),
-            new SidebarMenuItem("/Tools/Dotnet/HtmlEncodeDecode",   "Html Encode / Decode"),
             new SidebarMenuItem("/Tools/Dotnet/Paths",              "Paths"),
             new SidebarMenuItem("/Tools/Dotnet/RandomBytes",        "Random Bytes"),
-            new SidebarMenuItem("/Tools/Dotnet/UrlEncodeDecode",    "Url Encode / Decode"),
             new SidebarMenuItem("/Tools/Dotnet/XmlValidator",       "Xml Validator"),
             new SidebarMenuItem("/Tools/Dotnet/XsdValidator",       "Xsd Validator"),
             new SidebarMenuItem("/Tools/Dotnet/XslTransform",       "Xsl Transform")
@@ -26,6 +24,8 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/General/RollTheDice",      "Roll the Dice"),
             new SidebarMenuItem("/Tools/General/GoogleMaps",       "Google Maps"),
             new SidebarMenuItem("/Tools/General/ColorConverter",   "Color Converter"),
+            new SidebarMenuItem("/Tools/General/HtmlEncode",       "Html Encode / Decode"),
+            new SidebarMenuItem("/Tools/General/UrlEncode",        "Url Encode / Decode"),
             new SidebarMenuItem("/Tools/General/WeekendCountdown", "Weekend Countdown"),
             new SidebarMenuItem("/Tools/General/Weather",          "Weather"),
             new SidebarMenuItem("/Tools/General/GpsConverter",     "GPS Converter")
