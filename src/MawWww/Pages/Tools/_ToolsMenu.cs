@@ -22,13 +22,13 @@ public static class ToolsMenu
 
     public static SidebarMenu GeneralMenu = new (
         [
-            new SidebarMenuItem("/Tools/General/RollTheDice",              "Roll the Dice"),
-            new SidebarMenuItem("/Tools/General/GoogleMaps",               "Google Maps"),
-            new SidebarMenuItem("/Tools/General/ColorConverter",           "Color Converter"),
-            new SidebarMenuItem("/Tools/General/WeekendCountdown",         "Weekend Countdown"),
-            new SidebarMenuItem("/Tools/General/Weather",                  "Weather"),
-            new SidebarMenuItem("/Tools/General/GpsCoordinateConversions", "GPS Coordinate Conversions"),
-            new SidebarMenuItem("/Tools/General/GuidGenerator",            "GUID Generator"),
+            new SidebarMenuItem("/Tools/General/RollTheDice",      "Roll the Dice"),
+            new SidebarMenuItem("/Tools/General/GoogleMaps",       "Google Maps"),
+            new SidebarMenuItem("/Tools/General/ColorConverter",   "Color Converter"),
+            new SidebarMenuItem("/Tools/General/WeekendCountdown", "Weekend Countdown"),
+            new SidebarMenuItem("/Tools/General/Weather",          "Weather"),
+            new SidebarMenuItem("/Tools/General/GpsConverter",     "GPS Converter"),
+            new SidebarMenuItem("/Tools/General/GuidGenerator",    "GUID Generator"),
         ],
         "General"
     );
