@@ -1,0 +1,34 @@
+@page
+@model PathsPageModel
+@{
+    Model.Title = "Paths";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, ".NET", "Paths");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+<p>
+    The following illustrates how .NET evaluates different file paths.
+</p>
+
+<table class="table table-zebra table-sm">
+    <thead>
+        <tr>
+            <th class="text-left">API Call</th>
+            <th class="text-left">Result</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @foreach(var (apiCall, value) in PathsPageModel.Examples) {
+        <tr>
+            <td>@apiCall</td>
+            <td>@value</td>
+        </tr>
+    }
+
+    </tbody>
+</table>
