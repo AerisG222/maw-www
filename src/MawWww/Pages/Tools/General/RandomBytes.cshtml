@@ -1,0 +1,56 @@
+@page
+@model RandomBytesModel
+@{
+    Model.Title = "Random Bytes";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "General", "Random Bytes");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please correct the errors below."
+))
+
+<p>
+    This page allows you to generate a list of random bytes.  I've created this after wanting a more random
+    sequence of bytes than manually typing these in, primarily for use in the machinekey section of the
+    web.config for a prior version of this site.  Additionally, this uses a cryptographic random number
+    generator, so it should result in a good random value.
+</p>
+
+<form method="post" autocomplete="off" role="form">
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Number of Bytes</span>
+        </div>
+        <input class="input input-bordered input-number max-w-xs" asp-for="Form.Size" autofocus />
+        <span class="label-text-alt color-error" asp-validation-for="Form.Size"></span>
+    </label>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@if(!string.IsNullOrEmpty(Model.RandomBytes)) {
+    <h2>Results</h2>
+
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Random Bytes (hex)</span>
+        </div>
+        <textarea class="input input-bordered w-full h-36" asp-for="RandomBytes" autofocus></textarea>
+    </label>
+
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Random Bytes (base64)</span>
+        </div>
+        <textarea class="input input-bordered w-full h-36" asp-for="RandomBytesBase64"></textarea>
+    </label>
+}
