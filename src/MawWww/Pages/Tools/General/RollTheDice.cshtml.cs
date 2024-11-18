@@ -76,9 +76,9 @@ public class RollTheDiceForm
 {
     [Required(ErrorMessage = "Please enter the number of sides")]
     [Range(1, 20)]
-    public int Sides { get; set; }
+    public int Sides { get; set; } = 5;
 
     [Required(ErrorMessage = "Please enter the number of throws")]
     [Range(1, 1000000)]
-    public int Throws { get; set; }
+    public int Throws { get; set; } = 10_000;
 }
