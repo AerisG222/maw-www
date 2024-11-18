@@ -1,0 +1,58 @@
+@page
+@model XmlValidatorModel
+@{
+    Model.Title = "XML Validator";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, ".NET", "XML Validator");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please correct the errors below."
+))
+
+<p>
+    This page allows you to validate the contents of an XML document, to make sure it is
+    well formed, and optionally, that it adheres to the supplied DTD / XSD.
+</p>
+
+<form method="post" autocomplete="off" role="form">
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">XML Source</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.XmlSource"></span>
+        </div>
+        <textarea class="input input-bordered w-full h-24" asp-for="Form.XmlSource" autofocus></textarea>
+    </label>
+
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">Schema / DTD Source</span>
+            <span class="label-text-alt color-error text-right" asp-validation-for="Form.SchemaOrDtdSource"></span>
+        </div>
+        <textarea class="input input-bordered w-full h-24" asp-for="Form.SchemaOrDtdSource"></textarea>
+    </label>
+
+    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+</form>
+
+@if(Model.SubmitAttempted) {
+    <div class="mt-8">
+        @if(!Model.AreErrors) {
+            <p>
+                <strong>The XML document is VALID!</strong>
+            </p>
+        }
+        else {
+            <p>Your XML document is not well formed.  The following outlines the errors encountered:</p>
+            <textarea class="input input-bordered w-full h-48" disabled>@Model.ErrorMessage</textarea>
+        }
+    </div>
+}

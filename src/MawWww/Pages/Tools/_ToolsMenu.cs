@@ -11,9 +11,9 @@ public static class ToolsMenu
             new SidebarMenuItem("/Tools/Dotnet/NumberFormats",      "Number Formats"),
             new SidebarMenuItem("/Tools/Dotnet/GuidGenerator",      "GUID Generator"),
             new SidebarMenuItem("/Tools/Dotnet/Paths",              "Paths"),
-            new SidebarMenuItem("/Tools/Dotnet/XmlValidator",       "Xml Validator"),
-            new SidebarMenuItem("/Tools/Dotnet/XsdValidator",       "Xsd Validator"),
-            new SidebarMenuItem("/Tools/Dotnet/XslTransform",       "Xsl Transform")
+            new SidebarMenuItem("/Tools/Dotnet/XmlValidator",       "XML Validator"),
+            new SidebarMenuItem("/Tools/Dotnet/XsdValidator",       "XSD Validator"),
+            new SidebarMenuItem("/Tools/Dotnet/XslTransform",       "XSL Transform")
         ],
         ".NET"
     );

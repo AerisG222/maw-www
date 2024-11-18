@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using MawWww.Models;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace MawWww.Pages.Tools.General;
 
@@ -34,7 +33,7 @@ public class RandomBytesModel
     {
         var randomBytes = GenerateRandom(Form.Size);
 
-        RandomBytes = ToHexString(randomBytes)[..Form.Size];
+        RandomBytes = Utils.ToHexString(randomBytes)[..Form.Size];
         RandomBytesBase64 = Convert.ToBase64String(randomBytes);
     }
 
@@ -49,25 +48,11 @@ public class RandomBytesModel
 
         return randomBytes;
     }
-
-    public static string ToHexString(byte[] byteArray)
-    {
-        ArgumentNullException.ThrowIfNull(byteArray);
-
-        StringBuilder builder = new(byteArray.Length);
-
-        foreach (byte b in byteArray)
-        {
-            builder.Append(FormattableString.Invariant($"{b:X}"));
-        }
-
-        return builder.ToString();
-    }
 }
 
 public class RandomBytesForm
 {
     [Required(ErrorMessage = "Please enter the number of bytes")]
     [Range(1, 8192)]
-    public int Size { get; set; }
+    public int Size { get; set; } = 100;
 }
