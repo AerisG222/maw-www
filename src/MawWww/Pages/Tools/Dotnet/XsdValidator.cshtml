@@ -1,0 +1,49 @@
+@page
+@model XsdValidatorModel
+@{
+    Model.Title = "XSD Validator";
+    Model.Area = PrimaryNavArea.Tools;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, ".NET", "XSD Validator");
+}
+
+@section sidebar {
+    <partial name="_ToolsSidebar" />
+}
+
+@section scripts_footer {
+    <partial name="_js_JqueryValidation" />
+}
+
+@await Html.PartialAsync("_AlertFormResponse", new AlertProps(Model,
+    ErrorMessage: "Please correct the errors below."
+))
+
+<p>
+    This page allows you to validate an XML Schema document.
+</p>
+
+<form method="post" autocomplete="off" role="form">
+    <label class="form-control w-full mb-4">
+        <div class="label">
+            <span class="label-text color-secondary font-bold">XML Schema Source</span>
+            <span class="label-text-alt color-error" asp-validation-for="Form.XmlSchemaSource"></span>
+        </div>
+        <textarea class="input input-bordered w-full h-48" asp-for="Form.XmlSchemaSource" autofocus></textarea>
+    </label>
+
+    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+</form>
+
+@if(Model.SubmitAttempted) {
+    if(!Model.AreErrors) {
+        <p>
+            <strong>The XML schema is VALID!</strong>
+        </p>
+    }
+    else {
+        <p>Your XML Schema is invalid.  The following outlines the errors encountered:</p>
+        <textarea class="input input-bordered w-full h-48" disabled>
+@Model.ErrorMessage
+        </textarea>
+    }
+}
