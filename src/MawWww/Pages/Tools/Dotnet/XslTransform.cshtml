@@ -1,7 +1,7 @@
 @page
-@model XmlValidatorModel
+@model XslTransformModel
 @{
-    Model.Title = "XML Validator";
+    Model.Title = "XSL Transform";
     Model.Area = PrimaryNavArea.Tools;
     Model.SetHtmlPageTitle(PrimaryNavArea.Tools, ".NET", "XML Validator");
 }
@@ -19,8 +19,7 @@
 ))
 
 <p>
-    This page allows you to validate the contents of an XML document, to make sure it is
-    well formed, and optionally, that it adheres to the supplied DTD / XSD.
+    This page allows you to view the output of an XSL Transform when applied to an XML document.
 </p>
 
 <form method="post" autocomplete="off" role="form">
@@ -34,10 +33,10 @@
 
     <label class="form-control w-full mb-4">
         <div class="label">
-            <span class="label-text color-secondary font-bold">Schema / DTD Source</span>
-            <span class="label-text-alt color-error text-right" asp-validation-for="Form.SchemaOrDtdSource"></span>
+            <span class="label-text color-secondary font-bold">XSLT Source</span>
+            <span class="label-text-alt color-error text-right" asp-validation-for="Form.XsltSource"></span>
         </div>
-        <textarea class="input input-bordered w-full h-48" asp-for="Form.SchemaOrDtdSource"></textarea>
+        <textarea class="input input-bordered w-full h-48" asp-for="Form.XsltSource"></textarea>
     </label>
 
     <button type="submit" class="btn btn-primary mb-4">Submit</button>
@@ -45,14 +44,14 @@
 
 @if(Model.SubmitAttempted) {
     <div class="mt-8">
-        @if(!Model.AreErrors) {
-            <p>
-                <strong>The XML document is VALID!</strong>
-            </p>
-        }
-        else {
-            <p>Your XML document is not well formed.  The following outlines the errors encountered:</p>
-            <textarea class="input input-bordered w-full h-48" disabled>@Model.ErrorMessage</textarea>
-        }
+        <h2 class="color-secondary">Transform Results</h2>
+
+        <textarea class="input input-bordered w-full h-48" disabled>
+            @if(Model.AreErrors) {
+                <text>@Model.ErrorMessage</text>
+            } else {
+                <text>@Model.TransformResult</text>
+            }
+        </textarea>
     </div>
 }

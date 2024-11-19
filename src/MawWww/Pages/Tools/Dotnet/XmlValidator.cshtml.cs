@@ -101,7 +101,7 @@ public class XmlValidatorModel
         catch (XmlException ex)
         {
             _currError++;
-            _errors.Append($"[{ _currError }] Error Parsing XML Schema\n");
+            _errors.Append($"[{ _currError }] Error Parsing XML\n");
             _errors.Append($"[{ _currError }] Line: { ex.LineNumber }\n");
             _errors.Append($"[{ _currError }] Position: { ex.LinePosition }\n");
             _errors.Append($"[{ _currError }] Message: { ex.Message }\n\n");
@@ -131,9 +131,6 @@ public class XmlValidatorModel
 public class XmlValidatorForm
 {
     [Required(ErrorMessage = "Please enter the XML source")]
-    [DataType(DataType.MultilineText)]
     public string? XmlSource { get; set; } = string.Empty;
-
-    [DataType(DataType.MultilineText)]
     public string? SchemaOrDtdSource { get; set; }
 }
