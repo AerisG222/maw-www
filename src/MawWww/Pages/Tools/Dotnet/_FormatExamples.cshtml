@@ -6,29 +6,22 @@
 
 @foreach(var group in Model)
 {
-    <div class="card">
-        <div class="card-body">
-            <strong class="card-title">@group.Name</strong>
+    <div>
+        <h3>@group.Name</h3>
 
-            <table class="table table-zebra table-sm">
-                <thead>
-                    <tr>
-                        <th class="text-left">Format String</th>
-                        <th class="text-left">Result</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <table class="table table-zebra-zebra border-collapse border w-full">
+            <tr class="border-b-1">
+                <th class="text-left">Format String</th>
+                <th class="text-left">Result</th>
+            </tr>
 
-                @foreach(var example in group.Examples)
-                {
-                    <tr>
-                        <td>@example.FormatString</td>
-                        <td>@example.Result</td>
-                    </tr>
-                }
-
-                </tbody>
-            </table>
-        </div>
+            @foreach(var example in group.Examples)
+            {
+            <tr>
+                <td>@example.FormatString</td>
+                <td>@example.Result</td>
+            </tr>
+            }
+        </table>
     </div>
 }

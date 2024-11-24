@@ -60,17 +60,17 @@
 </form>
 
 @if(Model.Results.Count > 0) {
-    <table class="not-prose mt-8 table-auto border-collapse border">
+    <table class="mt-8 table table-zebra-zebra border-collapse border w-full">
         <tr class="border-b-1">
-            <th class="px-4 py-1 text-left">Name</th>
-            <th class="px-4 py-1 text-left">Speed</th>
-            <th class="px-4 py-1 text-right">Transfer Time (@Model.Form.Scale) </th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Speed</th>
+            <th class="text-right">Transfer Time (@Model.Form.Scale) </th>
         </tr>
         @foreach(var result in Model.Results) {
-        <tr class="even:bg-secondary:12">
-            <td class="px-4 py-1">@result.BandwidthSizeInfo.Name</td>
-            <td class="px-4 py-1">@result.BandwidthSizeInfo.Speed</td>
-            <td class="px-4 py-1 text-right">@result.Time.ToString("N3")</td>
+        <tr>
+            <td>@result.BandwidthSizeInfo.Name</td>
+            <td>@result.BandwidthSizeInfo.Speed</td>
+            <td class="text-right">@result.Time.ToString("N3")</td>
         </tr>
         }
     </table>

@@ -47,15 +47,15 @@
 </form>
 
 @if(Model.Results.Count > 0) {
-    <table class="not-prose mt-8 table-auto border-collapse border">
+    <table class="mt-8 table table-zebra-zebra border-collapse border w-full">
         <tr class="border-b-1">
-            <th class="px-4 py-1 text-left">Unit</th>
-            <th class="px-4 py-1 text-right">Amount</th>
+            <th class="text-left">Unit</th>
+            <th class="text-right">Amount</th>
         </tr>
         @foreach(var result in Model.Results) {
-        <tr class="even:bg-secondary:12">
-            <td class="px-4 py-1">@result.Scale.Name</td>
-            <td class="px-4 py-1 text-right">@result.LengthOfTime.ToString("N3")</td>
+        <tr>
+            <td>@result.Scale.Name</td>
+            <td class="text-right">@result.LengthOfTime.ToString("N3")</td>
         </tr>
         }
     </table>

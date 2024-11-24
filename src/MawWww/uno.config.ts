@@ -6,7 +6,7 @@ import {
     presetUno,
     presetWebFonts
 } from 'unocss';
-import { presetDaisy } from "@logs404/unocss-preset-daisy";
+import { presetDaisy } from "@aerisg222/unocss-preset-daisyui";
 
 import { allThemes } from './theme';
 
@@ -28,15 +28,15 @@ export default defineConfig({
                 "vertical-align": "middle",
             }
         }),
+        presetDaisy({
+            themes: allThemes
+        }),
         presetTypography(),
         presetWebFonts({
             provider: "google",
             fonts: {
                 brand: "Tangerine"
             }
-        }),
-        presetDaisy({
-            themes: allThemes
         }),
     ],
     safelist: [

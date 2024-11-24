@@ -14,21 +14,16 @@
     The following illustrates how .NET evaluates different file paths.
 </p>
 
-<table class="table table-zebra table-sm">
-    <thead>
-        <tr>
-            <th class="text-left">API Call</th>
-            <th class="text-left">Result</th>
-        </tr>
-    </thead>
-    <tbody>
+<table class="mt-8 table table-zebra-zebra border-collapse border w-full">
+    <tr class="border-b-1">
+        <th class="text-left">API Call</th>
+        <th class="text-left">Result</th>
+    </tr>
 
     @foreach(var (apiCall, value) in PathsPageModel.Examples) {
-        <tr>
-            <td>@apiCall</td>
-            <td>@value</td>
-        </tr>
+    <tr>
+        <td>@apiCall</td>
+        <td>@value</td>
+    </tr>
     }
-
-    </tbody>
 </table>
