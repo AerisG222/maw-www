@@ -72,7 +72,7 @@ export class CubeDemo {
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;
             texture.repeat.set(9, 9);
-            const floorMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.TwoPassDoubleSide }); //
+            const floorMaterial = new THREE.MeshBasicMaterial({ map: texture }); //
             const floor = new THREE.Mesh(floorPlane, floorMaterial);
             floor.position.y = -30;
             floor.rotation.x = (Math.PI / 2) - .3;
