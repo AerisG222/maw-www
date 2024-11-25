@@ -5,7 +5,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.General;
 
-public class RollTheDiceModel
+public class RollTheDicePageModel
     : MawFormPageModel<RollTheDiceForm>
 {
     public List<int>? ThrowCounts { get; private set; }

@@ -7,7 +7,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class XsdValidatorModel
+public class XsdValidatorPageModel
     : MawFormPageModel<XsdValidatorForm>
 {
     readonly StringBuilder _errors = new();

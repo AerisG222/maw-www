@@ -3,14 +3,14 @@ using MawWww.Models;
 
 namespace MawWww.Pages.About;
 
-public class NewsModel
+public class NewsPageModel
     : MawPageModel
 {
     readonly IBlogService _blogService;
 
     public IEnumerable<Post> Posts { get; set; } = [];
 
-    public NewsModel (
+    public NewsPageModel (
         IBlogService blogService
     ) {
         ArgumentNullException.ThrowIfNull(blogService);

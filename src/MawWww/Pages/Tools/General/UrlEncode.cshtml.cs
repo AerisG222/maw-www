@@ -5,7 +5,7 @@ using System.Net;
 
 namespace MawWww.Pages.Tools.General;
 
-public class UrlEncodeModel
+public class UrlEncodePageModel
     : MawFormPageModel<UrlEncodeForm>
 {
     public IActionResult OnGet()

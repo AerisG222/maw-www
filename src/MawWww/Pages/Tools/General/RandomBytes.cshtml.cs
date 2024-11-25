@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace MawWww.Pages.Tools.General;
 
-public class RandomBytesModel
+public class RandomBytesPageModel
     : MawFormPageModel<RandomBytesForm>
 {
     public string? RandomBytes { get; private set; }

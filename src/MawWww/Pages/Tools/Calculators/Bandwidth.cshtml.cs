@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class BandwidthModel
+public class BandwidthPageModel
     : MawFormPageModel<BandwidthForm>
 {
     public List<BandwidthResult> Results { get; private set; } = [];

@@ -7,7 +7,7 @@ using System.Xml.Xsl;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class XslTransformModel
+public class XslTransformPageModel
     : MawFormPageModel<XslTransformForm>
 {
     readonly StringBuilder _errors = new();

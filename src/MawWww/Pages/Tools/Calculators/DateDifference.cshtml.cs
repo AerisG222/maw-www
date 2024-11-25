@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class DateDifferenceModel
+public class DateDifferencePageModel
     : MawFormPageModel<DateDifferenceForm>
 {
     public List<DateDifference> Results { get; set; } = [];

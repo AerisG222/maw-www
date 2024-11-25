@@ -5,7 +5,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.General;
 
-public class GpsConverterModel
+public class GpsConverterPageModel
     : MawFormPageModel<GpsConverterForm>
 {
     public IActionResult OnGet()

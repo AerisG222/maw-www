@@ -9,7 +9,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.About;
 
-public class ContactModel
+public class ContactPageModel
     : MawFormPageModel<ContactForm>
 {
     readonly ILogger _log;
@@ -26,8 +26,8 @@ public class ContactModel
     public bool IsHuman { get; private set; }
     public string CaptchaSiteKey => _captchaService?.SiteKey ?? string.Empty;
 
-    public ContactModel(
-        ILogger<ContactModel> log,
+    public ContactPageModel(
+        ILogger<ContactPageModel> log,
         IOptions<ContactConfig> contactOpts,
         ICaptchaFeature captchaFeature,
         IEmailService emailService,

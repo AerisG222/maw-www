@@ -6,7 +6,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class RegularExpressionsModel
+public class RegularExpressionsPageModel
     : MawFormPageModel<RegularExpressionsForm>
 {
     public MatchCollection? RegexMatches { get; private set; }

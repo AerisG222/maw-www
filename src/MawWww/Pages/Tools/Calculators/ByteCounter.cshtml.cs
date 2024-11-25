@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class ByteCounterModel
+public class ByteCounterPageModel
     : MawFormPageModel<ByteCounterForm>
 {
     public List<ByteCounterResult> Results { get; private set; } = [];

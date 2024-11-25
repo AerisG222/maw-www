@@ -5,7 +5,7 @@ using System.Net;
 
 namespace MawWww.Pages.Tools.General;
 
-public class HtmlEncodeModel
+public class HtmlEncodePageModel
     : MawFormPageModel<HtmlEncodeForm>
 {
     public IActionResult OnGet()

@@ -5,7 +5,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.General;
 
-public class ColorConverterModel
+public class ColorConverterPageModel
     : MawFormPageModel<ColorConverterForm>
 {
     public string? HtmlColorCode => Form.GetHtmlColorCodeFromComponents();

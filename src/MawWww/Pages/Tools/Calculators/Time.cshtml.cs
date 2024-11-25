@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class TimeModel
+public class TimePageModel
     : MawFormPageModel<TimeForm>
 {
     public List<TimeResult> Results { get; private set; } = [];

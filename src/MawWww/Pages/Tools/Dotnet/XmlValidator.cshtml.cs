@@ -7,7 +7,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class XmlValidatorModel
+public class XmlValidatorPageModel
     : MawFormPageModel<XmlValidatorForm>
 {
     readonly StringBuilder _errors = new();
