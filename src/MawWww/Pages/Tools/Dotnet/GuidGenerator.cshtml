@@ -12,15 +12,19 @@
 
 <p>This page allows you to generate GUIDs.</p>
 
-<div class="mb-4">
-    <strong class="color-secondary mr-3">GUID (UUIDv4):</strong>
-    <span>@(Guid.NewGuid())</span>
-</div>
+<label class="form-control w-full mb-4">
+    <div class="label">
+        <span class="label-text color-secondary font-bold">GUID (UUIDv4)</span>
+    </div>
+    <input type="text" class="input input-bordered" value="@(Guid.NewGuid())" />
+</label>
 
-<div class="mb-4">
-    @*<strong class="color-secondary mr-3">UUIDv7:</strong>
-    <span>@(Guid.CreateVersion7())</span> *@
-</div>
+<label class="form-control w-full mb-4">
+    <div class="label">
+        <span class="label-text color-secondary font-bold">UUIDv7</span>
+    </div>
+    <input type="text" class="input input-bordered" value="@(Guid.CreateVersion7())" />
+</label>
 
 <div class="mt-8">
     <a asp-page="./GuidGenerator" class="btn btn-primary">Generate</a>
