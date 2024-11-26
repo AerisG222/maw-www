@@ -1,5 +1,6 @@
 // https://oklch.com/
 // https://color.adobe.com/create/color-wheel
+// https://coolors.co/palettes/popular
 
 const themeDark: Record<string, string> = {
     "base-100":        "#15151f",
@@ -14,15 +15,15 @@ const themeDark: Record<string, string> = {
 };
 
 const themeLight: Record<string, string> = {
-    "base-100":      "#ffffff",
-    "base-200":      "#fafafe",
-    "base-300":      "#f1f1f7",
-    "base-content":  "#444444",
+    "base-100":      "#fff",
+    "base-200":      "#f6f6f6",
+    "base-300":      "#e9e9e9",
+    "base-content":  "#333333",
 
-    primary:         "#eb4927",
-    secondary:       "#ffb842",
-    accent:          "#ffb842",
-    neutral:         "#dfdfdf",
+    primary:         "#001845",
+    secondary:       "#0353a4",
+    accent:          "#33415c",
+    neutral:         "#979dac",
 };
 
 export const allThemes: Record<string, Record<string, string>>[] = [
