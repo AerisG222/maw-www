@@ -30,5 +30,3 @@ export const allThemes: Record<string, Record<string, string>>[] = [
     { "dark": themeDark },
     { "light": themeLight }
 ];
-
-export const defaultTheme = "dusk";

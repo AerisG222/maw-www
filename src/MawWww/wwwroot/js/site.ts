@@ -1,5 +1,5 @@
 const keyTheme = "maw-theme";
-const themeDusk = "dusk";
+const themeDark = "dark";
 const themeLight = "light";
 const keyPrimaryNavCollapsed = "maw-primary-nav-collapsed";
 
@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
     setTheme(getTheme());
     setPrimaryNavCollapseState(getPrimaryNavCollapseState());
 });
+
+function prefersDarkMode() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
 
 function getTheme() {
     return validateTheme(localStorage.getItem(keyTheme));
@@ -24,21 +28,21 @@ function nextTheme() {
     var currTheme = getTheme();
 
     switch(currTheme) {
-        case themeDusk:
+        case themeDark:
             setTheme(themeLight);
             break;
         default:
-            setTheme(themeDusk);
+            setTheme(themeDark);
     }
 }
 
 function validateTheme(theme: string) {
     switch(theme) {
-        case themeDusk:
+        case themeDark:
         case themeLight:
             return theme;
         default:
-            return themeDusk;
+            return prefersDarkMode() ? themeDark : themeLight;
     }
 }
 
