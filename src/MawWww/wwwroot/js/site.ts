@@ -56,7 +56,9 @@ function setPrimaryNavCollapseState(isCollapsed: boolean) {
     var els = document.getElementsByClassName("maw-primary-nav-title");
 
     for(var el of els) {
-        (el as HTMLElement).style.display = isCollapsed ? "none" : "block";
+        // only force display to none when requesting collapse
+        // otherwise, allow (responsive) class styles to determine display type
+        (el as HTMLElement).style.display = isCollapsed ? "none" : "";
     }
 
     var btn = document.getElementById("maw-primary-nav-title");
