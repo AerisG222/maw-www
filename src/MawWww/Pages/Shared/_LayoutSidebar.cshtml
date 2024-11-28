@@ -9,15 +9,15 @@
 }
 
 <article class="mx-auto grid max-w-[1320px]
-    grid-rows-[max-content_auto_0] grid-cols-[100%]
-    md:grid-rows-[auto] md:grid-cols-[auto_max-content] md:gap-8"
+    grid-rows-[max-content_auto] grid-cols-[100%]
+    md:grid-rows-[auto] md:grid-cols-[auto_max-content]"
 >
-    <section class="ml-8">
+    <section class="mx-8">
         <h1>@Model.Title</h1>
         @RenderBody()
     </section>
 
-    <aside class="mr-8">
+    <aside class="mx-auto md:mr-8 order-first md:order-last">
         @await RenderSectionAsync("sidebar", required: false)
     </aside>
 </article>
