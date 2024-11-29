@@ -7,9 +7,4 @@
     Model.SetHtmlPageTitle(PrimaryNavArea.Tools);
 }
 
-<div class="flex justify-between gap-8">
-    @await Html.PartialAsync("_Menu", ToolsMenu.GeneralMenu)
-    @await Html.PartialAsync("_Menu", ToolsMenu.CalculatorMenu)
-    @await Html.PartialAsync("_Menu", ToolsMenu.DotnetMenu)
-    @await Html.PartialAsync("_Menu", ToolsMenu.BinaryClockMenu)
-</div>
+@await Html.PartialAsync("_PageMenuList", ToolsMenu.Menus)

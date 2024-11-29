@@ -3,7 +3,7 @@
 <div class="flex justify-between">
     <div></div>
 
-    <div id="sidebar-menu" class="hidden md:block md:mx-0">
+    <div id="sidebar-menu" class="hidden md:block md:mx-0 *:mt-4 first:*:mt-0">
         @foreach(var menu in Model) {
             @await Html.PartialAsync("_Menu", menu)
         }
