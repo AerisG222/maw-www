@@ -1,0 +1,20 @@
+@model Menu
+
+<nav class="mt-4 first:mt-0">
+    <ul class="menu rounded-lg bg-base-200 w-56 p-0 m-0
+        [&_li_a]:rounded-none [&_li:first-child_a]:rounded-t-lg [&_li:last-child_a]:rounded-b-lg
+    ">
+    @if(!string.IsNullOrEmpty(Model.Title)) {
+        <li class="menu-title">@Model.Title</li>
+    }
+
+    @foreach(var item in Model.Items) {
+        var href = Url.Page(item.Page);
+        var active = string.Equals(href, Context.Request.Path, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+
+        <li>
+            <a href="@href" class="@active no-underline hover:bg-secondary hover:color-secondary-content">@item.Title</a>
+        </li>
+    }
+    </ul>
+</nav>

@@ -4,24 +4,26 @@ namespace MawWww.Pages.Scratch;
 
 public static class ScratchMenu
 {
-    public static readonly SidebarMenu Menu = new (
+    public static readonly Menu Menu = new (
         [
-            new SidebarMenuItem("./DressUp",           "Dress Up"),
-            new SidebarMenuItem("./FishyFishy",        "Fishy Fishy Cross My Ocean"),
-            new SidebarMenuItem("./GoofyCarRace",      "Goofy Car Race"),
-            new SidebarMenuItem("./HideAndSeek",       "Hide and Seek"),
-            new SidebarMenuItem("./Hipnotize",         "Hipnotize"),
-            new SidebarMenuItem("./KittyKittyScratch", "Kitty Kitty Scratch"),
-            new SidebarMenuItem("./Maze",              "Maze"),
-            new SidebarMenuItem("./Me",                "Me"),
-            new SidebarMenuItem("./MooSic",            "Moo Sic"),
-            new SidebarMenuItem("./Pong",              "Pong"),
-            new SidebarMenuItem("./RaceCar2000",       "Race Car 2000"),
-            new SidebarMenuItem("./SuperMan",          "Super Man"),
-            new SidebarMenuItem("./Untitled",          "Untitled"),
-            new SidebarMenuItem("./WhosFaster",        "Who's Faster"),
-            new SidebarMenuItem("./WorkAndFade",       "Work and Fade"),
-            new SidebarMenuItem("./YummyYummyBaby",    "Yummy Yummy Baby")
+            new MenuItem("./DressUp",           "Dress Up"),
+            new MenuItem("./FishyFishy",        "Fishy Fishy Cross My Ocean"),
+            new MenuItem("./GoofyCarRace",      "Goofy Car Race"),
+            new MenuItem("./HideAndSeek",       "Hide and Seek"),
+            new MenuItem("./Hipnotize",         "Hipnotize"),
+            new MenuItem("./KittyKittyScratch", "Kitty Kitty Scratch"),
+            new MenuItem("./Maze",              "Maze"),
+            new MenuItem("./Me",                "Me"),
+            new MenuItem("./MooSic",            "Moo Sic"),
+            new MenuItem("./Pong",              "Pong"),
+            new MenuItem("./RaceCar2000",       "Race Car 2000"),
+            new MenuItem("./SuperMan",          "Super Man"),
+            new MenuItem("./Untitled",          "Untitled"),
+            new MenuItem("./WhosFaster",        "Who's Faster"),
+            new MenuItem("./WorkAndFade",       "Work and Fade"),
+            new MenuItem("./YummyYummyBaby",    "Yummy Yummy Baby")
         ]
     );
+
+    public static readonly IEnumerable<Menu> Menus = [Menu];
 }

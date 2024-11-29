@@ -4,11 +4,13 @@ namespace MawWww.Pages.About;
 
 public static class AboutMenu
 {
-    public static readonly SidebarMenu Menu = new (
+    public static readonly Menu Menu = new (
         [
-            new SidebarMenuItem("./Index",   "About Us"),
-            new SidebarMenuItem("./News",    "News"),
-            new SidebarMenuItem("./Contact", "Contact")
+            new MenuItem("./Index",   "About Us"),
+            new MenuItem("./News",    "News"),
+            new MenuItem("./Contact", "Contact")
         ]
     );
+
+    public static readonly IEnumerable<Menu> Menus = [Menu];
 }

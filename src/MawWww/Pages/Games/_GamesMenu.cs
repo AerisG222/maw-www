@@ -4,11 +4,13 @@ namespace MawWww.Pages.Games;
 
 public static class GamesMenu
 {
-    public static readonly SidebarMenu Menu = new (
+    public static readonly Menu Menu = new (
         [
-            new SidebarMenuItem("./Learning",   "Learning"),
-            new SidebarMenuItem("./Memory",     "Memory"),
-            new SidebarMenuItem("./MoneySpin",  "Money Spin"),
+            new MenuItem("./Learning",   "Learning"),
+            new MenuItem("./Memory",     "Memory"),
+            new MenuItem("./MoneySpin",  "Money Spin"),
         ]
     );
+
+    public static readonly IEnumerable<Menu> Menus = [Menu];
 }

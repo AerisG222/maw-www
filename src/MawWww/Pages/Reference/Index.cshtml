@@ -8,7 +8,7 @@
 }
 
 <div class="flex justify-between gap-8">
-    @await Html.PartialAsync("_SidebarMenu", ReferenceMenu.HtmlMenu)
-    @await Html.PartialAsync("_SidebarMenu", ReferenceMenu.HttpMenu)
-    @await Html.PartialAsync("_SidebarMenu", ReferenceMenu.DotnetGuidelinesMenu)
+    @await Html.PartialAsync("_Menu", ReferenceMenu.HtmlMenu)
+    @await Html.PartialAsync("_Menu", ReferenceMenu.HttpMenu)
+    @await Html.PartialAsync("_Menu", ReferenceMenu.DotnetGuidelinesMenu)
 </div>

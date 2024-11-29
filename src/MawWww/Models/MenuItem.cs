@@ -1,6 +1,6 @@
 namespace MawWww.Models;
 
-public record SidebarMenuItem(
+public record MenuItem(
     string Page,
     string Title
 );

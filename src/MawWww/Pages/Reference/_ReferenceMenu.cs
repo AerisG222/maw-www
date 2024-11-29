@@ -4,34 +4,40 @@ namespace MawWww.Pages.Reference;
 
 public static class ReferenceMenu
 {
-    public static SidebarMenu DotnetGuidelinesMenu = new (
+    public static readonly Menu DotnetGuidelinesMenu = new (
         [
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/Fundamentals",           "Fundamentals"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/Naming",                 "Naming"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/TypeDesign",             "Type Design"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/MemberDesign",           "Member Design"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/DesignForExtensibility", "Design for Extensibility"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/Exceptions",             "Exceptions"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/UsageGuidelines",        "Usage Guidelines"),
-            new SidebarMenuItem("/Reference/Dotnet/Guidelines/CommonPatterns",         "Common Patterns")
+            new MenuItem("/Reference/Dotnet/Guidelines/Fundamentals",           "Fundamentals"),
+            new MenuItem("/Reference/Dotnet/Guidelines/Naming",                 "Naming"),
+            new MenuItem("/Reference/Dotnet/Guidelines/TypeDesign",             "Type Design"),
+            new MenuItem("/Reference/Dotnet/Guidelines/MemberDesign",           "Member Design"),
+            new MenuItem("/Reference/Dotnet/Guidelines/DesignForExtensibility", "Design for Extensibility"),
+            new MenuItem("/Reference/Dotnet/Guidelines/Exceptions",             "Exceptions"),
+            new MenuItem("/Reference/Dotnet/Guidelines/UsageGuidelines",        "Usage Guidelines"),
+            new MenuItem("/Reference/Dotnet/Guidelines/CommonPatterns",         "Common Patterns")
         ],
         ".Net Design Guidelines"
     );
 
-    public static SidebarMenu HtmlMenu = new (
+    public static readonly Menu HtmlMenu = new (
         [
-            new SidebarMenuItem("/Reference/Html/ColorCodes", "Color Codes"),
-            new SidebarMenuItem("/Reference/Html/Doctypes",   "Doctypes"),
-            new SidebarMenuItem("/Reference/Html/Entities",   "Entities")
+            new MenuItem("/Reference/Html/ColorCodes", "Color Codes"),
+            new MenuItem("/Reference/Html/Doctypes",   "Doctypes"),
+            new MenuItem("/Reference/Html/Entities",   "Entities")
         ],
         "HTML"
     );
 
-    public static SidebarMenu HttpMenu = new (
+    public static readonly Menu HttpMenu = new (
         [
-            new SidebarMenuItem("/Reference/Http/StatusCodes", "Status Codes"),
-            new SidebarMenuItem("/Reference/Http/Rfcs",        "RFCs")
+            new MenuItem("/Reference/Http/StatusCodes", "Status Codes"),
+            new MenuItem("/Reference/Http/Rfcs",        "RFCs")
         ],
         "HTTP"
     );
+
+    public static readonly IEnumerable<Menu> Menus = [
+        DotnetGuidelinesMenu,
+        HtmlMenu,
+        HttpMenu
+    ];
 }
