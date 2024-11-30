@@ -44,7 +44,7 @@ export default defineConfig({
         "alert-success", "alert-info", "alert-warning", "alert-error",
         "i-mdi-success-circle-outline", "i-mdi-information-outline", "i-mdi-warning-circle-outline", "i-mdi-error-outline",
         "input-validation-error",
-        "mx-8", "my-8"
+        "mx-8", "my-8", "table-zebra"
     ],
     shortcuts: {
         "maw-primary-nav-link": "text-8 px-4 py-2 color-primary hover:color-primary-content hover:bg-primary-focus",
