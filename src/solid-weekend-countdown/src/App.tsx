@@ -1,8 +1,6 @@
 import { createSignal, onCleanup, type Component } from 'solid-js';
 import { formatDuration, intervalToDuration, isFriday, isWeekend, nextFriday } from 'date-fns';
 
-import styles from './App.module.css';
-
 const App: Component = () => {
     const WEEKEND_MSG = "Sweet!  It's the weekend!";
     var [countdown, setCountdown] = createSignal("");
@@ -44,7 +42,7 @@ const App: Component = () => {
     onCleanup(() => clearInterval(interval));
 
     return (
-        <div class={styles.App}>
+        <div class="m-12 font-bold text-4xl text-center">
             {countdown()}
         </div>
     );

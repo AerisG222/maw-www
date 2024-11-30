@@ -1,0 +1,22 @@
+@model string
+@inject IWebHostEnvironment env
+
+@{
+    var indexHtml = System.IO.Path.Combine(env.WebRootPath, Model);
+
+    if(!File.Exists(indexHtml)) {
+        throw new ApplicationException($"solid app index not found: {indexHtml}");
+    }
+
+    using var sr = new StreamReader(File.OpenRead(indexHtml));
+
+    for(var line = await sr.ReadLineAsync(); line != null; line = await sr.ReadLineAsync())
+    {
+        line = line.Trim();
+
+        if(line.StartsWith("<link") || line.StartsWith("<script"))
+        {
+            @Html.Raw(line.Replace("./assets", $"/{Model.Replace("index.html", string.Empty)}/assets"))
+        }
+    }
+}

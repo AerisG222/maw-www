@@ -10,9 +10,8 @@
     <partial name="_ToolsSidebar" />
 }
 
-<p>
-    The maps below are "linked" together so that you can look at the same area at different zoom levels
-    and have them pan together.
-</p>
+@section scripts_head {
+    @await Html.PartialAsync("_SolidAppAssets", "js/solid-weekend-countdown/index.html")
+}
 
-@await Html.PartialAsync("_IFrame", new IFrame("/js/solid-weekend-countdown/index.html", 600))
+<partial name="_SolidAppRoot" />
