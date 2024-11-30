@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@unocss/reset':
-        specifier: 0.65.0-beta.2
-        version: 0.65.0-beta.2
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -21,6 +18,9 @@ importers:
       '@aerisg222/unocss-preset-daisyui':
         specifier: ^0.1.6
         version: 0.1.6(daisyui@4.12.14(postcss@8.4.49))(unocss@0.62.3(postcss@8.4.49)(rollup@4.27.4)(vite@5.4.11))
+      '@unocss/reset':
+        specifier: 0.62.3
+        version: 0.62.3
       daisyui:
         specifier: ^4.12.14
         version: 4.12.14(postcss@8.4.49)
@@ -838,9 +838,6 @@ packages:
 
   '@unocss/reset@0.62.3':
     resolution: {integrity: sha512-XVKPkbm8y9SGzRaG3x+HygGZURm50MvKLVHXsbxi67RbIir9Ouyt9hQTV6Xs3RicRZFWOpJx3wMRb8iKUOe5Zw==}
-
-  '@unocss/reset@0.65.0-beta.2':
-    resolution: {integrity: sha512-Ur2wQZkJxnA6ib5k1TGtH0MzYI8U9o7COEKSIUZnJF5P2+f+8rLUDOg2jWkwe0mopzwXdwyDS+cDaIEnkg2dIQ==}
 
   '@unocss/rule-utils@0.62.3':
     resolution: {integrity: sha512-qI37jHH//XzyR5Y2aN3Kpo4lQrQO+CaiXpqPSwMLYh2bIypc2RQVpqGVtU736x0eA6IIx41XEkKzUW+VtvJvmg==}
@@ -2232,8 +2229,6 @@ snapshots:
       '@unocss/rule-utils': 0.62.3
 
   '@unocss/reset@0.62.3': {}
-
-  '@unocss/reset@0.65.0-beta.2': {}
 
   '@unocss/rule-utils@0.62.3':
     dependencies:
