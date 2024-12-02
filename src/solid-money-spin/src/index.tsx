@@ -3,8 +3,9 @@ import { render } from 'solid-js/web';
 
 import { GameStateProvider } from './GameStateContext';
 
-import 'virtual:uno.css';
-import './index.css';
+//import "@unocss/reset/tailwind.css"
+import "uno.css";
+
 import App from './App';
 
 const root = document.getElementById('root');

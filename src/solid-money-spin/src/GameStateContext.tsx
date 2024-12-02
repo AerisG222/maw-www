@@ -56,17 +56,17 @@ export const GameStateProvider: ParentComponent = (props) => {
     const winningAmount = 25;
 
     const player1Characters: Character[] = [
-        { name: "C3P0",  imageUrl: "players/p1c3p0.png" },
-        { name: "R2D2",  imageUrl: "players/p1r2d2.png" },
-        { name: "Leo",   imageUrl: "players/p1leo.png" },
-        { name: "Mikey", imageUrl: "players/p1mikey.png" }
+        { name: "C3P0",  imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p1c3p0.png` },
+        { name: "R2D2",  imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p1r2d2.png` },
+        { name: "Leo",   imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p1leo.png` },
+        { name: "Mikey", imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p1mikey.png` }
     ];
 
     const player2Characters: Character[] = [
-        { name: "C3P0",  imageUrl: "players/p2c3p0.png" },
-        { name: "R2D2",  imageUrl: "players/p2r2d2.png" },
-        { name: "Leo",   imageUrl: "players/p2leo.png" },
-        { name: "Mikey", imageUrl: "players/p2mikey.png" }
+        { name: "C3P0",  imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p2c3p0.png` },
+        { name: "R2D2",  imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p2r2d2.png` },
+        { name: "Leo",   imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p2leo.png` },
+        { name: "Mikey", imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/p2mikey.png` }
     ];
 
     const getPlayer1Characters = () => player1Characters;

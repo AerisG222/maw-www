@@ -64,22 +64,22 @@ const GameBoardScreen: Component = () => {
 
     return (
         <>
-        <div class="grid grid-cols-[min-content_auto_min-content] gap-4">
+        <div class="maw-flex maw-gap-2">
             <CharacterScore
                 isActive={state.activePlayer === 1}
                 player={state.player1!} />
 
-            <div class="relative">
-                <img class="relative" src="board/board.png" />
-                <img class="absolute left-[200px] top-[149px]" style={{ transform: `rotate(${rotation()}deg)` }} src="board/arrow.png" />
+            <div class="maw-basis-4/6 maw-grid maw-place-items-center maw-[grid-template-areas:'board']">
+                <img class="maw-[grid-area:board]" src={`${import.meta.env.VITE_ASSET_ROOT}board/board.png`} />
+                <img class="maw-[grid-area:board]" style={{ transform: `rotate(${rotation()}deg)` }} src={`${import.meta.env.VITE_ASSET_ROOT}board/arrow.png`} />
             </div>
 
             <CharacterScore
                 isActive={state.activePlayer === 2}
                 player={state.player2!} />
         </div>
-        <div>
-            <button onClick={() => initiateSpin()} disabled={running()}>Spin</button>
+        <div class="maw-my-8 maw-text-center">
+            <button class="maw-btn maw-btn-primary maw-px-12" onClick={() => initiateSpin()} disabled={running()}>Spin</button>
         </div>
         </>
     );

@@ -9,23 +9,23 @@ export type Props = {
 
 const CharacterScore: Component<Props> = (props) => {
     const buildClassList = (): {[k: string]: boolean} => ({
-        "opacity-50": !props.isActive,
-        "color-[#c00]": props.isActive
+        "maw-opacity-50": !props.isActive,
+        "maw-color-[#c00]": props.isActive
     });
 
     const buildImgClassList = (): {[k:string]: boolean} => ({
-        "rounded-xl": true,
-        "border-solid": true,
-        "border-color-[transparent]": !props.isActive,
-        "border-color-[#c00]": props.isActive
+        "maw-rounded-xl": true,
+        "maw-border-solid": true,
+        "maw-border-color-[transparent]": !props.isActive,
+        "maw-border-color-[#c00]": props.isActive
     });
 
     return (
-        <div class="flex flex-col items-center justify-center" classList={buildClassList()}>
+        <div class="maw-basis-1/6 maw-flex maw-flex-col maw-items-center maw-justify-center" classList={buildClassList()}>
             <div classList={buildImgClassList()}>
-                <img class="w-[150px] h-[150px]" src={props.player.character.imageUrl} />
+                <img class="maw-w-[150px] maw-h-auto" src={props.player.character.imageUrl} />
             </div>
-            <div class="text-16 font-cursive">${props.player.score}</div>
+            <div class="maw-text-12 maw-font-cursive">${props.player.score}</div>
         </div>
     );
 }

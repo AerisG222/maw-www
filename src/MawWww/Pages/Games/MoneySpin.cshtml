@@ -10,4 +10,8 @@
     <partial name="_GamesSidebar" />
 }
 
-@await Html.PartialAsync("_IFrame", new IFrame("/js/solid-money-spin/index.html", 980))
+@section scripts_head {
+    @await Html.PartialAsync("_SolidAppAssets", "js/solid-money-spin/index.html")
+}
+
+<partial name="_SolidAppRoot" />
