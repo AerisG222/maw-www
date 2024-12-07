@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.DataProtection;
 
 namespace MawWww.Extensions;
 
-public static class IServiceCollectionExtensions
+public static class DataProtectionExtensions
 {
     public static IServiceCollection ConfigureDataProtection(
         this IServiceCollection services,

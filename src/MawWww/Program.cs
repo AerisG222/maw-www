@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.FeatureManagement;
@@ -17,9 +16,7 @@ builder.Configuration
 
 builder.Services
     .ConfigureDataProtection(builder.Configuration)
-    .Configure<ForwardedHeadersOptions>(opts => {
-        opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    })
+    .ConfigureForwardedHeaders()
     .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
     .AddSystemd()
     .AddFeatureManagement()
