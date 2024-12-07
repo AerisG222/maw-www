@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.FeatureManagement;
@@ -14,6 +15,9 @@ builder.Configuration
     .AddEnvironmentVariables("MAW_WWW_");
 
 builder.Services
+    .Configure<ForwardedHeadersOptions>(opts => {
+        opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    })
     .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
     .AddSystemd()
     .AddFeatureManagement()
@@ -33,22 +37,27 @@ builder.Services
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if(app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles(new StaticFileOptions {
-    ContentTypeProvider = GetCustomMimeTypeProvider()
-});
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapRazorPages();
+app
+    .UseForwardedHeaders()
+    .UseHttpsRedirection()
+    .UseStaticFiles(new StaticFileOptions {
+        ContentTypeProvider = GetCustomMimeTypeProvider()
+    })
+    .UseRouting()
+    .UseAuthorization()
+    .UseEndpoints(endpoints => {
+        endpoints.MapRazorPages();
+    });
 
 app.Run();
 
