@@ -15,6 +15,7 @@ builder.Configuration
 
 builder.Services
     .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
+    .AddSystemd()
     .AddFeatureManagement()
         .Services
     .AddBlogServices()
