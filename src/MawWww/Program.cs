@@ -7,6 +7,7 @@ using MawWww;
 using MawWww.Blog;
 using MawWww.Captcha;
 using MawWww.Email;
+using MawWww.Extensions;
 using MawWww.Models;
 
 var builder = WebApplication.CreateSlimBuilder(args);
@@ -15,6 +16,7 @@ builder.Configuration
     .AddEnvironmentVariables("MAW_WWW_");
 
 builder.Services
+    .ConfigureDataProtection(builder.Configuration)
     .Configure<ForwardedHeadersOptions>(opts => {
         opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
     })
