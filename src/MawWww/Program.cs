@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.FeatureManagement;
 using Fluid;
 using MawWww;
@@ -49,9 +48,7 @@ else
 app
     .UseForwardedHeaders()
     .UseHttpsRedirection()
-    .UseStaticFiles(new StaticFileOptions {
-        ContentTypeProvider = GetCustomMimeTypeProvider()
-    })
+    .UseCustomStaticFiles()
     .UseRouting()
     .UseAuthorization()
     .UseEndpoints(endpoints => {
@@ -59,12 +56,3 @@ app
     });
 
 app.Run();
-
-static FileExtensionContentTypeProvider GetCustomMimeTypeProvider()
-{
-    var provider = new FileExtensionContentTypeProvider();
-
-    provider.Mappings[".gltf"] = "model/gltf+json";
-
-    return provider;
-}
