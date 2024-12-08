@@ -17,20 +17,20 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "@aerisg222/unocss-preset-daisyui": "^0.1.6",
+        "@aerisg222/unocss-preset-daisyui": "^0.1.8",
         "@iconify-json/fa": "^1.2.0",
         "@iconify-json/fa6-brands": "^1.2.3",
         "@iconify-json/mdi": "^1.2.1",
-        "@iconify-json/simple-icons": "^1.2.12",
-        "@unocss/cli": "^0.64.1",
-        "@unocss/reset": "^0.64.1",
+        "@iconify-json/simple-icons": "^1.2.14",
+        "@unocss/cli": "^0.65.1",
+        "@unocss/reset": "^0.65.1",
         "daisyui": "^4.12.14",
         "jquery": "^3.7.1",
         "jquery-validation": "^1.21.0",
         "jquery-validation-unobtrusive": "^4.0.0",
         "svgo": "^3.3.2",
         "typescript": "^5.7.2",
-        "unocss": "^0.64.1"
+        "unocss": "^0.65.1"
     },
     "devDependencyComments": {
         "daisyui": "styled.css currently contains a rule for table-zebra-zebra that we use, check if this gets fixed and adjust our table styles to match"
