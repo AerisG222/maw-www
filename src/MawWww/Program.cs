@@ -46,6 +46,7 @@ else
 }
 
 app
+    .UseDefaultSecurityHeaders()
     .UseForwardedHeaders()
     .UseHttpsRedirection()
     .UseCustomStaticFiles()
