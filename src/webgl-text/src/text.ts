@@ -119,7 +119,7 @@ export class TextDemo {
                 font: response,
                 size: 60,
                 curveSegments: 48,
-                height: 24,
+                depth: 24,
                 bevelEnabled: false,
                 bevelThickness: 0,
                 bevelSize: 0
