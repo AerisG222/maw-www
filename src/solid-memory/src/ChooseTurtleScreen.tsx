@@ -9,11 +9,11 @@ const ChooseTurtleScreen: Component = () => {
 
     return (
         <>
-            <div class="flex gap-16">
+            <div class="maw-flex maw-gap-16">
                 <h2>Player 1 - Choose Your Turtle</h2>
                 <h2>Player 2 - Choose Your Turtle</h2>
             </div>
-            <div class="flex gap-16">
+            <div class="maw-flex maw-gap-16">
                 <TurtleSelectGrid
                     turtles={getAllTurtles()}
                     selectedTurtle={state.player1?.turtle}
@@ -24,9 +24,9 @@ const ChooseTurtleScreen: Component = () => {
                     selectedTurtle={state.player2?.turtle}
                     selectTurtle={setPlayer2Turtle} />
             </div>
-            <div class="flex gap-16">
+            <div class="maw-flex maw-gap-16">
                 <Show when={state.player1 && state.player2}>
-                    <button onClick={startGame}>Start</button>
+                    <button class="maw-btn maw-btn-primary" onClick={startGame}>Start</button>
                 </Show>
             </div>
         </>

@@ -2,7 +2,6 @@ import { Match, Switch, type Component } from 'solid-js';
 
 import { Status, useGameStateContext } from './GameStateContext';
 
-import styles from './App.module.css';
 import ChooseTurtleScreen from './ChooseTurtleScreen';
 import GameBoardScreen from './GameBoardScreen';
 import GameOverScreen from './GameOverScreen';
@@ -12,7 +11,7 @@ const App: Component = () => {
 
     // switch = poor mans router
     return (
-        <div class={styles.App}>
+        <div class="maw-flex maw-flex-col maw-place-content-center maw-m-4">
             <Switch>
                 <Match when={state.status === Status.PlayerSelect}>
                     <ChooseTurtleScreen />

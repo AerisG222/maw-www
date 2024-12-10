@@ -8,13 +8,13 @@ const ScoreBanner: Component = () => {
     const [state] = useGameStateContext();
 
     return (
-        <div class="grid grid-cols-[2fr_1fr_2fr] grid-rows-1 gap-3 mb-4 items-center">
+        <div class="maw-grid maw-grid-cols-[2fr_1fr_2fr] maw-grid-rows-1 maw-gap-3 maw-mb-4 maw-items-center">
             <TurtleScore
                 isFirst={true}
                 isActive={state.activePlayer === 1}
                 player={state.player1!} />
 
-            <div class="text-center font-cursive text-12 c-yellow-3">vs</div>
+            <div class="maw-text-center maw-font-cursive maw-text-12 maw-c-yellow-3">vs</div>
 
             <TurtleScore
                 isFirst={false}

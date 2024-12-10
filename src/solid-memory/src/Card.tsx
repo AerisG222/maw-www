@@ -49,12 +49,12 @@ const Card: Component<Props> = (props) => {
 
     return (
         <div classList={buildClassList()} onClick={onClickCard}>
-            <div class="flipper">
-                <div class="front">
-                    <img src={props.backUrl} />
+            <div class="flipper maw-w-[100px] md:maw-w-[120px] maw-h-[100px] md:maw-h-[120px]">
+                <div class="front maw-w-[100px] md:maw-w-[120px] maw-h-[100px] md:maw-h-[120px]">
+                    <img class="maw-w-[100px] md:maw-w-[120px] maw-h-[100px] md:maw-h-[120px]" src={props.backUrl} />
                 </div>
-                <div class="back">
-                    <img src={props.imageUrl} />
+                <div class="back maw-w-[100px] md:maw-w-[120px] maw-h-[100px] md:maw-h-[120px]">
+                    <img class="maw-w-[100px] md:maw-w-[120px] maw-h-[100px] md:maw-h-[120px]" src={props.imageUrl} />
                 </div>
             </div>
         </div>

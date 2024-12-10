@@ -22,9 +22,9 @@ const TurtleScore: Component<Props> = (props) => {
     };
 
     return (
-        <div class="grow flex justify-around items-center border-b-2 border-b-solid" classList={buildClassList()}>
-            <div class="text-16 font-cursive">{props.player.score}</div>
-            <div class={`${props.isFirst ? "order-first" : "order-last"}`}><img class="w-20 h-20 rounded-3xl" src={props.player.turtle.imageUrl} /></div>
+        <div class="maw-grow maw-flex maw-justify-around maw-items-center maw-border-b-2 maw-border-b-solid" classList={buildClassList()}>
+            <div class="maw-text-16 maw-font-cursive">{props.player.score}</div>
+            <div class={`${props.isFirst ? "maw-order-first" : "maw-order-last"}`}><img class="maw-w-20 maw-h-20 maw-rounded-3xl" src={props.player.turtle.imageUrl} /></div>
         </div>
     );
 }

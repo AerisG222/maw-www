@@ -27,7 +27,7 @@ const GameBoardScreen: Component = () => {
         "cards/card11.jpg"
     ];
 
-    const isGameOver = () => state.player1!.score + state.player2!.score === allCards.length;
+    const isGameOver = () => true; //state.player1!.score + state.player2!.score === allCards.length;
 
     const clearSelectedCards = () => {
         setSelectedCard1(undefined);
@@ -125,7 +125,11 @@ const GameBoardScreen: Component = () => {
         <div>
             <ScoreBanner />
 
-            <div class="grid grid-cols-[repeat(5,1fr)] grid-rows-[repeat(4,1fr)] gap-4">
+            <div class="maw-grid
+                maw-grid-cols-[repeat(5,1fr)]
+                maw-grid-rows-[repeat(4,1fr)]
+                maw-gap-4 maw-place-items-center maw-mx-auto maw-w-min
+            ">
             <For each={board}>{ card =>
                 <Card
                     backUrl={backCard}

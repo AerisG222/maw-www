@@ -12,17 +12,17 @@ export type Props = {
 const TurtleSelectGrid: Component<Props> = (props) => {
     const buildClasses = (turtle: Turtle) => {
         var classes: {[k: string]: boolean} = {
-            "cursor-pointer": true,
-            "text-center": true,
+            "maw-cursor-pointer": true,
+            "maw-text-center": true,
 
-            "opacity-75": props.selectedTurtle?.name !== turtle.name,
-            "opacity-100": props.selectedTurtle?.name === turtle.name,
-            "hover:opacity-100": true,
+            "maw-opacity-75": props.selectedTurtle?.name !== turtle.name,
+            "maw-opacity-100": props.selectedTurtle?.name === turtle.name,
+            "hover:maw-opacity-100": true,
 
-            "border-solid": true,
-            "border-[4px]": true,
-            "rounded-xl": true,
-            "border-color-transparent": props.selectedTurtle?.name !== turtle.name
+            "maw-border-solid": true,
+            "maw-border-[4px]": true,
+            "maw-rounded-xl": true,
+            "maw-border-color-transparent": props.selectedTurtle?.name !== turtle.name
         };
 
         classes[Style[`turtle-border-${turtle.color}`]] = props.selectedTurtle?.name === turtle.name;
@@ -34,10 +34,10 @@ const TurtleSelectGrid: Component<Props> = (props) => {
     };
 
     return (
-        <div class="grid grid-rows-[1fr_1fr] grid-cols-[1fr_1fr] gap-4">
+        <div class="maw-grid maw-grid-rows-[1fr_1fr] maw-grid-cols-[1fr_1fr] maw-gap-4">
         <For each={props.turtles}>{ turtle =>
             <div classList={buildClasses(turtle)} onClick={() => props.selectTurtle(turtle.name)}>
-                <img class="rounded-lg h-[192px] w-[150px]" src={turtle.imageUrl} />
+                <img class="maw-rounded-lg maw-h-auto maw-w-full maw-max-w-[150px]" src={turtle.imageUrl} />
                 <br/>
                 <strong>{turtle.name}</strong>
             </div>

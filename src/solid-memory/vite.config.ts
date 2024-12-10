@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
-import UnoCSS from 'unocss/vite';
+import unocssPlugin from 'unocss/vite';
 
 export default defineConfig({
+    envDir: "environments",
     plugins: [
-        UnoCSS(),
+        unocssPlugin(),
         solidPlugin()
     ],
     server: {
