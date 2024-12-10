@@ -12,19 +12,19 @@ const GameBoardScreen: Component = () => {
     const [turnCardOver, setTurnCardOver] = createSignal(false);
     const [removeCards, setRemoveCards] = createSignal(false);
     const [evaluatingTurn, setEvaluatingTurn] = createSignal(false);
-    const backCard = "cards/back.jpg";
+    const backCard = `${import.meta.env.VITE_ASSET_ROOT}cards/back.jpg`;
     const allCards = [
-        "cards/card1.jpg",
-        "cards/card2.jpg",
-        //"cards/card3.jpg",  // exclude to use 10 for game
-        "cards/card4.jpg",
-        "cards/card5.jpg",
-        "cards/card6.jpg",
-        "cards/card7.jpg",
-        "cards/card8.jpg",
-        "cards/card9.jpg",
-        "cards/card10.jpg",
-        "cards/card11.jpg"
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card1.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card2.jpg`,
+        //`${import.meta.env.VITE_ASSET_ROOT}cards/card3.jpg`,  // exclude to use 10 for game
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card4.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card5.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card6.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card7.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card8.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card9.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card10.jpg`,
+        `${import.meta.env.VITE_ASSET_ROOT}cards/card11.jpg`
     ];
 
     const isGameOver = () => true; //state.player1!.score + state.player2!.score === allCards.length;

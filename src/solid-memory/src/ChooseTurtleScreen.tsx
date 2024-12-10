@@ -24,7 +24,7 @@ const ChooseTurtleScreen: Component = () => {
                     selectedTurtle={state.player2?.turtle}
                     selectTurtle={setPlayer2Turtle} />
             </div>
-            <div class="maw-flex maw-gap-16">
+            <div class="maw-flex maw-gap-16 maw-mt-4 maw-mx-auto">
                 <Show when={state.player1 && state.player2}>
                     <button class="maw-btn maw-btn-primary" onClick={startGame}>Start</button>
                 </Show>

@@ -53,10 +53,10 @@ export const GameStateProvider: ParentComponent = (props) => {
     const [state, setState] = createStore(defaultGameState);
 
     const allTurtles: Turtle[] = [
-        { name: "Leonardo",      color: "blue",   imageUrl: "players/leonardo.jpg" },
-        { name: "Michaelangelo", color: "orange", imageUrl: "players/michaelangelo.jpg" },
-        { name: "Donatello",     color: "purple", imageUrl: "players/donatello.jpg" },
-        { name: "Raphael",       color: "red",    imageUrl: "players/raphael.jpg" }
+        { name: "Leonardo",      color: "blue",   imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/leonardo.jpg` },
+        { name: "Michaelangelo", color: "orange", imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/michaelangelo.jpg` },
+        { name: "Donatello",     color: "purple", imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/donatello.jpg` },
+        { name: "Raphael",       color: "red",    imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/raphael.jpg` }
     ];
 
     const getAllTurtles = () => allTurtles;
