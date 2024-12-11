@@ -1,7 +1,5 @@
 import { createSignal, For, onCleanup, type Component } from 'solid-js';
 
-import styles from './App.module.css';
-
 const App: Component = () => {
     let audio: HTMLAudioElement;
     let intervalId: number | undefined;
@@ -76,37 +74,57 @@ const App: Component = () => {
     }
 
     return (
-        <div class={styles.App}>
+        <div class="maw-flex maw-flex-col maw-items-center maw-justify-center maw-font-sans">
             <audio autoplay ref={audio!}></audio>
 
-            <div class={styles["learning-letter-container"]}>
-                <span class={styles["learning-letter"]}>{ char() }</span>
+            <div class="maw-min-w-[256px] maw-min-h-[152px] maw-b-2 maw-rounded-sm maw-mb-12 maw-text-center">
+                <span class="maw-font-brand maw-text-[128px]">{ char() }</span>
             </div>
 
-            <div class={styles["option-container-wrapper"]}>
-                <div class={styles["option-container"]}>
+            <div class="maw-flex maw-gap-16 maw-justify-center">
+                <div class="maw-flex maw-flex-col">
                     <strong>Speaker:</strong>
                     <For each={speakers}>{ (speaker) =>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="speaker" checked={currentSpeaker() === speaker} onChange={() => setCurrentSpeaker(speaker)} />
-                            {speaker}
-                        </label>
+                        <div class="maw-form-control">
+                            <label class="maw-label maw-cursor-pointer">
+                                <span class="maw-label-text">{speaker}</span>
+                                <input
+                                    type="radio"
+                                    name="speaker"
+                                    class="maw-radio checked:maw-bg-primary"
+                                    checked={currentSpeaker() === speaker}
+                                    onChange={() => setCurrentSpeaker(speaker)} />
+                            </label>
+                        </div>
                     }</For>
                 </div>
 
-                <div class={styles["option-container"]}>
+                <div class="maw-flex maw-flex-col">
                     <strong>Lesson:</strong>
                     <For each={lessons}>{ (lesson) =>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="lesson" checked={currentLesson() === lesson} onChange={() => setCurrentLesson(lesson)} />
-                            {lesson}
-                        </label>
+                        <div class="maw-form-control">
+                            <label class="maw-label maw-cursor-pointer">
+                                <span class="maw-label-text">{lesson}</span>
+                                <input
+                                    type="radio"
+                                    name="lesson"
+                                    class="maw-radio checked:maw-bg-primary"
+                                    checked={currentLesson() === lesson}
+                                    onChange={() => setCurrentLesson(lesson)} />
+                            </label>
+                        </div>
                     }</For>
                 </div>
             </div>
 
-            <div class={styles["action-container"]}>
-                <button type="submit" onClick={toggleRunning}>{ runButtonText() }</button>
+            <div class="maw-m-8">
+                <button
+                    type="submit"
+                    class="maw-btn maw-btn-primary"
+                    onClick={toggleRunning}
+                >
+                    { runButtonText() }
+                </button>
             </div>
         </div>
     );
