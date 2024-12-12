@@ -13,7 +13,7 @@ const App: Component = () => {
         setS(theDate.getSeconds());
     };
 
-    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-neutralContent";
+    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-solid maw-border-neutralContent";
     const classOn = `${classOff} maw-bg-neutralContent`;
 
     const getCellClass = (value: number, compareBit: number, isTens: boolean) => {
@@ -32,7 +32,7 @@ const App: Component = () => {
     onCleanup(() => clearInterval(interval));
 
     return (
-        <div class="maw-font-sans maw-font-[48px] maw-font-bold maw-flex maw-justify-center">
+        <div class="not-prose maw-font-sans maw-font-[48px] maw-font-bold maw-flex maw-justify-center">
             <table class="maw-my-4 maw-mx-auto maw-border-separate maw-border-spacing-[4px]">
                 <tbody>
                     <tr>

@@ -10,4 +10,8 @@
     <partial name="_ToolsSidebar" />
 }
 
-@await Html.PartialAsync("_IFrame", new IFrame("/js/solid-binary-clock/index.html", 600))
+@section scripts_head {
+    @await Html.PartialAsync("_SolidAppAssets", "js/solid-binary-clock/index.html")
+}
+
+<partial name="_SolidAppRoot" />

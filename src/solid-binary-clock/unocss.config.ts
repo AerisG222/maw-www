@@ -1,5 +1,6 @@
 import {
     defineConfig,
+    presetTypography,
     presetUno
 } from "unocss";
 import { presetDaisy } from "@aerisg222/unocss-preset-daisyui";
@@ -11,6 +12,7 @@ export default defineConfig({
         presetDaisy({
             themes: allThemes,
             prefix: 'maw-'
-        })
+        }),
+        presetTypography()
     ]
 });
