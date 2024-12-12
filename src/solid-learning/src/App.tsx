@@ -3,7 +3,7 @@ import { createSignal, For, onCleanup, type Component } from 'solid-js';
 const App: Component = () => {
     let audio: HTMLAudioElement;
     let intervalId: number | undefined;
-    const [char, setChar] = createSignal("");
+    const [char, setChar] = createSignal(" ");
     const [currentSpeaker, setCurrentSpeaker] = createSignal("Mommy");
     const [currentLesson, setCurrentLesson] = createSignal("Letters");
     const [runButtonText, setRunButtonText] = createSignal("Run");
@@ -77,7 +77,7 @@ const App: Component = () => {
         <div class="maw-flex maw-flex-col maw-items-center maw-justify-center maw-font-sans">
             <audio autoplay ref={audio!}></audio>
 
-            <div class="maw-min-w-[256px] maw-min-h-[152px] maw-b-2 maw-rounded-sm maw-mb-12 maw-text-center">
+            <div class="maw-w-[256px] maw-h-[192px] maw-border-solid maw-border-2 maw-rounded-2xl maw-mb-8 maw-text-center">
                 <span class="maw-font-brand maw-text-[128px]">{ char() }</span>
             </div>
 
@@ -91,7 +91,7 @@ const App: Component = () => {
                                 <input
                                     type="radio"
                                     name="speaker"
-                                    class="maw-radio checked:maw-bg-primary"
+                                    class="maw-ml-2 maw-radio checked:maw-bg-primary"
                                     checked={currentSpeaker() === speaker}
                                     onChange={() => setCurrentSpeaker(speaker)} />
                             </label>
@@ -108,7 +108,7 @@ const App: Component = () => {
                                 <input
                                     type="radio"
                                     name="lesson"
-                                    class="maw-radio checked:maw-bg-primary"
+                                    class="maw-ml-2 maw-radio checked:maw-bg-primary"
                                     checked={currentLesson() === lesson}
                                     onChange={() => setCurrentLesson(lesson)} />
                             </label>
@@ -117,7 +117,7 @@ const App: Component = () => {
                 </div>
             </div>
 
-            <div class="maw-m-8">
+            <div class="maw-m-4">
                 <button
                     type="submit"
                     class="maw-btn maw-btn-primary"
