@@ -1,7 +1,6 @@
 import { createResource, createSignal, Show, Suspense, type Component } from 'solid-js';
 import { Loader } from '@googlemaps/js-api-loader';
 
-import styles from './App.module.css';
 import MapWidget from './MapWidget';
 
 const App: Component = () => {
@@ -75,20 +74,22 @@ const App: Component = () => {
     };
 
     return (
-        <div class={styles.App}>
+        <div class="maw-font-sans">
             <Suspense fallback={<div>Loading...</div>}>
                 <p>
-                    Specify an address to start at.  You must specify either city and state, or the postal code, or both.
-                    <br />
+                    Specify an address to start at.  You must specify either city and state, postal code, or both.
+                </p>
+                <p>
                     Example: <a href="#" onClick={(evt) => showSampleAddress(evt, 'The White House')}>The White House</a>
                 </p>
 
-                <h2>Address:</h2>
-                <div class={styles.mb3}>
-                    <input type="text" value={address()} onChange={(evt) => setAddress(evt.target.value)} />
-                </div>
-                <div class={styles.mb3}>
-                    <button type="submit" onClick={showAddress} class="btn btn-primary">Submit</button>
+                <div class="maw-flex maw-items-center maw-mb-8">
+                    <label class="maw-label maw-max-w-xs">
+                        <span class="maw-label-text maw-color-secondary maw-font-bold maw-mr-4">Address</span>
+                        <input type="text" class="maw-input maw-input-bordered maw-w-full maw-max-w-xs" autofocus />
+                    </label>
+
+                    <button type="submit" class="maw-ml-8 maw-btn maw-btn-primary" onClick={showAddress}>Submit</button>
                 </div>
 
                 <Show when={showMaps()}>

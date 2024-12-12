@@ -1,7 +1,5 @@
 import { Component, createEffect, onMount } from "solid-js";
 
-import styles from "./MapWidget.module.css";
-
 export type MapWidgetProps = {
     mapApi: google.maps.MapsLibrary;
     markerApi: google.maps.MarkerLibrary;
@@ -95,7 +93,7 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
         }
     });
 
-    return <div class={styles.map} ref={mapEl}></div>;
+    return <div class="maw-mb-4 maw-w-full maw-h-[480px]" ref={mapEl}></div>;
 };
 
 export default MapWidget;
