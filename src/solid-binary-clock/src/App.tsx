@@ -1,7 +1,5 @@
 import { createSignal, onCleanup, type Component } from 'solid-js';
 
-import styles from './App.module.css';
-
 const App: Component = () => {
     var [currentTime, setCurrentTime] = createSignal(new Date());
     var [h, setH] = createSignal(0);
@@ -15,16 +13,16 @@ const App: Component = () => {
         setS(theDate.getSeconds());
     };
 
+    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-neutralContent";
+    const classOn = `${classOff} maw-bg-neutralContent`;
+
     const getCellClass = (value: number, compareBit: number, isTens: boolean) => {
         const position = isTens ? 1 : 0;
         const paddedValue = `0${value}`;  // either will be 0x or 0xx
         const digit = parseInt(paddedValue.charAt(paddedValue.length - 1 - position), 10);
+        const isOn = (digit & compareBit) === compareBit;
 
-        if ((digit & compareBit) === compareBit) {
-            return styles.bc_on;
-        } else {
-            return styles.bc_off;
-        }
+        return isOn ? classOn : classOff;
     };
 
     const pad = (val: number) => String(val).padStart(2, "0");
@@ -34,51 +32,51 @@ const App: Component = () => {
     onCleanup(() => clearInterval(interval));
 
     return (
-        <div class={styles.App}>
-            <table class={styles.binclock}>
+        <div class="maw-font-sans maw-font-[48px] maw-font-bold maw-flex maw-justify-center">
+            <table class="maw-my-4 maw-mx-auto maw-border-separate maw-border-spacing-[4px]">
                 <tbody>
                     <tr>
                         <td class={ getCellClass(h(), 8, true) }></td>
                         <td class={ getCellClass(h(), 8, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(m(), 8, true) }></td>
                         <td class={ getCellClass(m(), 8, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(s(), 8, true) }></td>
                         <td class={ getCellClass(s(), 8, false) }></td>
                     </tr>
                     <tr>
                         <td class={ getCellClass(h(), 4, true) }></td>
                         <td class={ getCellClass(h(), 4, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(m(), 4, true) }></td>
                         <td class={ getCellClass(m(), 4, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(s(), 4, true) }></td>
                         <td class={ getCellClass(s(), 4, false) }></td>
                     </tr>
                     <tr>
                         <td class={ getCellClass(h(), 2, true) }></td>
                         <td class={ getCellClass(h(), 2, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(m(), 2, true) }></td>
                         <td class={ getCellClass(m(), 2, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(s(), 2, true) }></td>
                         <td class={ getCellClass(s(), 2, false) }></td>
                     </tr>
                     <tr>
                         <td class={ getCellClass(h(), 1, true) }></td>
                         <td class={ getCellClass(h(), 1, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(m(), 1, true) }></td>
                         <td class={ getCellClass(m(), 1, false) }></td>
-                        <td class={ styles.spacer }></td>
+                        <td class="maw-w-4"></td>
                         <td class={ getCellClass(s(), 1, true) }></td>
                         <td class={ getCellClass(s(), 1, false) }></td>
                     </tr>
                     <tr>
-                        <td colspan="8" class={ styles.center }>
+                        <td colspan="8" class="maw-text-center maw-b-0">
                             {pad(currentTime().getHours())} : {pad(currentTime().getMinutes())} : {pad(currentTime().getSeconds())}
                         </td>
                     </tr>
