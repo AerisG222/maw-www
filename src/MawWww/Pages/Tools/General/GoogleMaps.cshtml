@@ -15,4 +15,8 @@
     and have them pan together.
 </p>
 
-@await Html.PartialAsync("_IFrame", new IFrame("/js/solid-google-maps/index.html", 1250))
+@section scripts_head {
+    @await Html.PartialAsync("_SolidAppAssets", "js/solid-google-maps/index.html")
+}
+
+<partial name="_SolidAppRoot" />
