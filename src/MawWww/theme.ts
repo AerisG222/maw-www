@@ -20,7 +20,7 @@ const themeLight: Record<string, string> = {
     "base-300":      "#e9e9e9",
     "base-content":  "#333333",
 
-    primary:         "#001845",
+    primary:         "#001855",
     secondary:       "#0353a4",
     accent:          "#33415c",
     neutral:         "#979dac",
