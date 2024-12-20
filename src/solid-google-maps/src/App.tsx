@@ -84,9 +84,9 @@ const App: Component = () => {
                 </p>
 
                 <div class="maw-flex maw-items-center maw-mb-8">
-                    <label class="maw-label maw-max-w-xs">
-                        <span class="maw-label-text maw-color-secondary maw-font-bold maw-mr-4">Address</span>
-                        <input type="text" class="maw-input maw-input-bordered maw-w-full maw-max-w-xs" autofocus />
+                    <label class="maw-label maw-w-sm">
+                        <span class="maw-label-text maw-font-bold maw-mr-4">Address</span>
+                        <input type="text" class="maw-input maw-input-bordered maw-w-full maw-max-w-xs maw-color-gray" autofocus value={address()} onInput={e => setAddress(e.target.value)} />
                     </label>
 
                     <button type="submit" class="maw-ml-8 maw-btn maw-btn-primary" onClick={showAddress}>Submit</button>

@@ -2,7 +2,7 @@ import {
     defineConfig,
     presetUno
 } from "unocss";
-import { presetDaisy } from "@aerisg222/unocss-preset-daisyui";
+import { presetDaisy } from "@ameinhardt/unocss-preset-daisy";
 import { allThemes } from '../MawWww/theme';
 
 export default defineConfig({
