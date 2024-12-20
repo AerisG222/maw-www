@@ -8,15 +8,10 @@ import { allThemes } from '../MawWww/theme';
 
 export default defineConfig({
     presets: [
-        presetUno({ prefix: 'maw-', safeList: [
-            'maw-bg-content'
-        ]}),
+        presetUno({ prefix: 'maw-' }),
         presetDaisy({
             themes: allThemes,
-            prefix: 'maw-',
-            safeList: [
-                'maw-bg-content'
-            ]
+            prefix: 'maw-'
         }),
         presetTypography()
     ]
