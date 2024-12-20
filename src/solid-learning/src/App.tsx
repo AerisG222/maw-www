@@ -3,7 +3,7 @@ import { createSignal, For, onCleanup, type Component } from 'solid-js';
 const App: Component = () => {
     let audio: HTMLAudioElement;
     let intervalId: number | undefined;
-    const [char, setChar] = createSignal(" ");
+    const [char, setChar] = createSignal("");
     const [currentSpeaker, setCurrentSpeaker] = createSignal("Mommy");
     const [currentLesson, setCurrentLesson] = createSignal("Letters");
     const [runButtonText, setRunButtonText] = createSignal("Run");
@@ -73,20 +73,28 @@ const App: Component = () => {
         return arr[i];
     }
 
+    const getDisplayChar = (char: string): string => {
+        if (char === "") {
+            return "&nbsp;";
+        }
+
+        return char;
+    };
+
     return (
         <div class="maw-flex maw-flex-col maw-items-center maw-justify-center maw-font-sans">
             <audio autoplay ref={audio!}></audio>
 
-            <div class="maw-w-[256px] maw-h-[192px] maw-border-solid maw-border-2 maw-rounded-2xl maw-mb-8 maw-text-center">
-                <span class="maw-font-brand maw-text-[128px]">{ char() }</span>
+            <div class="maw-w-[256px] maw-border-solid maw-border-2 maw-rounded-2xl maw-mb-8 maw-text-center">
+                <span class="maw-font-brand maw-text-[128px]" innerHTML={getDisplayChar(char())}></span>
             </div>
 
             <div class="maw-flex maw-gap-16 maw-justify-center">
                 <div class="maw-flex maw-flex-col">
-                    <strong>Speaker:</strong>
+                    <strong class="maw-mb-4">Speaker:</strong>
                     <For each={speakers}>{ (speaker) =>
                         <div class="maw-form-control">
-                            <label class="maw-label maw-cursor-pointer">
+                            <label class="maw-label maw-py-0 maw-cursor-pointer">
                                 <span class="maw-label-text">{speaker}</span>
                                 <input
                                     type="radio"
@@ -100,10 +108,10 @@ const App: Component = () => {
                 </div>
 
                 <div class="maw-flex maw-flex-col">
-                    <strong>Lesson:</strong>
+                    <strong class="maw-mb-4">Lesson:</strong>
                     <For each={lessons}>{ (lesson) =>
                         <div class="maw-form-control">
-                            <label class="maw-label maw-cursor-pointer">
+                            <label class="maw-label maw-py-0 maw-cursor-pointer">
                                 <span class="maw-label-text">{lesson}</span>
                                 <input
                                     type="radio"
@@ -117,7 +125,7 @@ const App: Component = () => {
                 </div>
             </div>
 
-            <div class="maw-m-4">
+            <div class="maw-m-8">
                 <button
                     type="submit"
                     class="maw-btn maw-btn-primary"
