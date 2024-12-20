@@ -27,7 +27,7 @@ const GameBoardScreen: Component = () => {
         `${import.meta.env.VITE_ASSET_ROOT}cards/card11.jpg`
     ];
 
-    const isGameOver = () => true; //state.player1!.score + state.player2!.score === allCards.length;
+    const isGameOver = () => state.player1!.score + state.player2!.score === allCards.length;
 
     const clearSelectedCards = () => {
         setSelectedCard1(undefined);
