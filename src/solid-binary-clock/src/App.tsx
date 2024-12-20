@@ -13,8 +13,9 @@ const App: Component = () => {
         setS(theDate.getSeconds());
     };
 
-    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-solid maw-border-neutralContent";
-    const classOn = `${classOff} maw-bg-neutralContent`;
+    // hmm - maw-bg-<semantic-color> not working, so use gray for now
+    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-solid";
+    const classOn = `${classOff} maw-bg-gray`;
 
     const getCellClass = (value: number, compareBit: number, isTens: boolean) => {
         const position = isTens ? 1 : 0;
