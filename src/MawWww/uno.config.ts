@@ -6,7 +6,7 @@ import {
     presetUno,
     presetWebFonts
 } from 'unocss';
-import { presetDaisy } from "@aerisg222/unocss-preset-daisyui";
+import { presetDaisy } from "@ameinhardt/unocss-preset-daisy";
 
 import { allThemes } from './theme';
 
