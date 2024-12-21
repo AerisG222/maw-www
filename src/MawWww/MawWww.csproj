@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Fluid.Core" Version="2.15.0" />
+        <PackageReference Include="Fluid.Core" Version="2.16.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.0" />
         <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="4.0.0" />
         <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.24.0" />
@@ -41,22 +41,22 @@
         Inputs="@(AssetInput)"
         Outputs="@(AssetOutput)"
         BeforeTargets="Build">
-        <Exec Command="pnpm install" />
+        <Exec Command="deno install" />
 
         <Exec Command="cp node_modules/jquery/dist/jquery.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation/dist/jquery.validate.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js wwwroot/js" />
 
-        <Exec Command="pnpm run css:build" />
-        <Exec Command="pnpm run css:reset" />
-        <Exec Command="pnpm run ts:build" />
-        <Exec Command="pnpm run svg:build" />
+        <Exec Command="deno task css:build" />
+        <Exec Command="deno task css:reset" />
+        <Exec Command="deno task ts:build" />
+        <Exec Command="deno task svg:build" />
     </Target>
 
     <Target Name="BuildClientApp">
         <RemoveDir Directories="wwwroot/js/$(MAW_CLIENT_APP)" />
-        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="pnpm install" />
-        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="pnpm run build" />
+        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="deno install" />
+        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="deno task build" />
         <Exec Command="cp -r ../$(MAW_CLIENT_APP)/dist wwwroot/js/$(MAW_CLIENT_APP)" />
     </Target>
 
