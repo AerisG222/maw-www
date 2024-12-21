@@ -2,19 +2,19 @@
   "version": "4",
   "specifiers": {
     "npm:@ameinhardt/unocss-preset-daisy@^1.1.3": "1.1.3_daisyui@4.12.22_unocss@0.65.2__typescript@5.7.2_postcss@8.4.49_typescript@5.7.2",
-    "npm:@iconify-json/fa6-brands@^1.2.3": "1.2.5",
-    "npm:@iconify-json/fa@^1.2.0": "1.2.1",
-    "npm:@iconify-json/mdi@^1.2.1": "1.2.2",
-    "npm:@iconify-json/simple-icons@^1.2.14": "1.2.16",
-    "npm:@unocss/cli@~0.65.1": "0.65.2",
-    "npm:@unocss/reset@~0.65.1": "0.65.2",
-    "npm:daisyui@^4.12.14": "4.12.22",
+    "npm:@iconify-json/fa6-brands@^1.2.5": "1.2.5",
+    "npm:@iconify-json/fa@^1.2.1": "1.2.1",
+    "npm:@iconify-json/mdi@^1.2.2": "1.2.2",
+    "npm:@iconify-json/simple-icons@^1.2.16": "1.2.16",
+    "npm:@unocss/cli@~0.65.2": "0.65.2",
+    "npm:@unocss/reset@~0.65.2": "0.65.2",
+    "npm:daisyui@^4.12.22": "4.12.22",
     "npm:jquery-validation-unobtrusive@4": "4.0.0_jquery@3.7.1",
     "npm:jquery-validation@^1.21.0": "1.21.0_jquery@3.7.1",
     "npm:jquery@^3.7.1": "3.7.1",
     "npm:svgo@^3.3.2": "3.3.2",
     "npm:typescript@^5.7.2": "5.7.2",
-    "npm:unocss@~0.65.1": "0.65.2_typescript@5.7.2"
+    "npm:unocss@~0.65.2": "0.65.2_typescript@5.7.2"
   },
   "npm": {
     "@ameinhardt/unocss-preset-daisy@1.1.3_daisyui@4.12.22_unocss@0.65.2__typescript@5.7.2_postcss@8.4.49_typescript@5.7.2": {
@@ -23,7 +23,7 @@
         "@tailwindcss/nesting",
         "daisyui@4.12.22_postcss@8.4.49",
         "postcss",
-        "unocss@0.65.2_typescript@5.7.2_postcss@8.4.49"
+        "unocss@0.65.2_postcss@8.4.49_typescript@5.7.2"
       ]
     },
     "@ampproject/remapping@2.3.0": {
@@ -583,19 +583,12 @@
         "csstype"
       ]
     },
-    "@vue/server-renderer@3.5.13": {
-      "integrity": "sha512-wAi4IRJV/2SAW3htkTlB+dHeRmpTiVIK1OGLWV1yeStVSebSQQOwGwIq0D3ZIoBj2C2qpgz5+vX9iEBkTdk5YA==",
-      "dependencies": [
-        "@vue/compiler-ssr",
-        "@vue/shared"
-      ]
-    },
     "@vue/server-renderer@3.5.13_vue@3.5.13__typescript@5.7.2": {
       "integrity": "sha512-wAi4IRJV/2SAW3htkTlB+dHeRmpTiVIK1OGLWV1yeStVSebSQQOwGwIq0D3ZIoBj2C2qpgz5+vX9iEBkTdk5YA==",
       "dependencies": [
         "@vue/compiler-ssr",
         "@vue/shared",
-        "vue@3.5.13_typescript@5.7.2"
+        "vue"
       ]
     },
     "@vue/shared@3.5.13": {
@@ -1146,7 +1139,7 @@
         "importx"
       ]
     },
-    "unocss@0.65.2_typescript@5.7.2": {
+    "unocss@0.65.2_postcss@8.4.49_typescript@5.7.2": {
       "integrity": "sha512-PEN8Yltr/n6xdNcI9iqIK4Dp/fpQ1bPa4aR2TwFg2lV6aRA2PNzarviqL62oOqXYSyQ4sqW3s/oaWD3JGOgJ1A==",
       "dependencies": [
         "@unocss/astro",
@@ -1168,7 +1161,7 @@
         "@unocss/vite"
       ]
     },
-    "unocss@0.65.2_typescript@5.7.2_postcss@8.4.49": {
+    "unocss@0.65.2_typescript@5.7.2": {
       "integrity": "sha512-PEN8Yltr/n6xdNcI9iqIK4Dp/fpQ1bPa4aR2TwFg2lV6aRA2PNzarviqL62oOqXYSyQ4sqW3s/oaWD3JGOgJ1A==",
       "dependencies": [
         "@unocss/astro",
@@ -1205,17 +1198,7 @@
     "vue-flow-layout@0.1.1_vue@3.5.13__typescript@5.7.2_typescript@5.7.2": {
       "integrity": "sha512-JdgRRUVrN0Y2GosA0M68DEbKlXMqJ7FQgsK8CjQD2vxvNSqAU6PZEpi4cfcTVtfM2GVOMjHo7GKKLbXxOBqDqA==",
       "dependencies": [
-        "vue@3.5.13"
-      ]
-    },
-    "vue@3.5.13": {
-      "integrity": "sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==",
-      "dependencies": [
-        "@vue/compiler-dom",
-        "@vue/compiler-sfc",
-        "@vue/runtime-dom",
-        "@vue/server-renderer@3.5.13",
-        "@vue/shared"
+        "vue"
       ]
     },
     "vue@3.5.13_typescript@5.7.2": {
@@ -1224,7 +1207,7 @@
         "@vue/compiler-dom",
         "@vue/compiler-sfc",
         "@vue/runtime-dom",
-        "@vue/server-renderer@3.5.13_vue@3.5.13__typescript@5.7.2",
+        "@vue/server-renderer",
         "@vue/shared",
         "typescript"
       ]
@@ -1234,19 +1217,19 @@
     "packageJson": {
       "dependencies": [
         "npm:@ameinhardt/unocss-preset-daisy@^1.1.3",
-        "npm:@iconify-json/fa6-brands@^1.2.3",
-        "npm:@iconify-json/fa@^1.2.0",
-        "npm:@iconify-json/mdi@^1.2.1",
-        "npm:@iconify-json/simple-icons@^1.2.14",
-        "npm:@unocss/cli@~0.65.1",
-        "npm:@unocss/reset@~0.65.1",
-        "npm:daisyui@^4.12.14",
+        "npm:@iconify-json/fa6-brands@^1.2.5",
+        "npm:@iconify-json/fa@^1.2.1",
+        "npm:@iconify-json/mdi@^1.2.2",
+        "npm:@iconify-json/simple-icons@^1.2.16",
+        "npm:@unocss/cli@~0.65.2",
+        "npm:@unocss/reset@~0.65.2",
+        "npm:daisyui@^4.12.22",
         "npm:jquery-validation-unobtrusive@4",
         "npm:jquery-validation@^1.21.0",
         "npm:jquery@^3.7.1",
         "npm:svgo@^3.3.2",
         "npm:typescript@^5.7.2",
-        "npm:unocss@~0.65.1"
+        "npm:unocss@~0.65.2"
       ]
     }
   }
