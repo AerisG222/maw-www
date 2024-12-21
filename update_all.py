@@ -24,17 +24,17 @@ for client in clients:
     print(f"{Colors.HEADER}Updating: {client}{Colors.END}")
 
     subprocess.run(
-        ["pnpm", "install"],
+        ["deno", "install"],
         cwd = client
     )
 
     subprocess.run(
-        ["pnpm", "up", "-Lri"],
+        ["deno", "outdated", "-u"],
         cwd = client
     )
 
     subprocess.run(
-        ["pnpm", "run", "build"],
+        ["deno", "task", "build"],
         cwd = client
     )
 
