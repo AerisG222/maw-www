@@ -9,5 +9,6 @@ public enum PrimaryNavArea
     Tools,
     Games,
     WebGL,
-    Scratch
+    Scratch,
+    Admin
 }

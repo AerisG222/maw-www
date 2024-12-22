@@ -17,7 +17,7 @@
     <span class="flex-grow-1"></span>
 
     <partial name="_ThemeSwitcher" />
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("#", Title: "Account", Icon: "i-mdi-user", IsActive: false))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/Admin/Index", Title: "Admin", Icon: "i-mdi-gear", IsActive: IsInArea(PrimaryNavArea.Admin)))
 
     <div class="divider my-0 h-auto"></div>
     <partial name="_PrimaryNavCollapseButton" />

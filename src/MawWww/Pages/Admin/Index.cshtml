@@ -1,0 +1,13 @@
+@page
+@model MawPageModel
+@{
+    Model.Title = "Admin";
+    Model.Area = PrimaryNavArea.Admin;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Admin);
+}
+
+@section sidebar {
+    <partial name="_AdminSidebar" />
+}
+
+ADMIN!
