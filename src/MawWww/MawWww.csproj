@@ -48,7 +48,7 @@
         <Exec Command="cp node_modules/jquery-validation/dist/jquery.validate.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js wwwroot/js" />
 
-        <Exec Command="deno task css:build" />
+        <Exec Command="npm run css:build" />
         <Exec Command="deno task css:reset" />
         <Exec Command="deno task ts:build" />
         <Exec Command="deno task svg:build" />
