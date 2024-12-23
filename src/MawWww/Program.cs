@@ -17,6 +17,7 @@ builder.Services
     .ConfigureDataProtection(builder.Configuration)
     .ConfigureForwardedHeaders()
     .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
+    .ConfigureSameSiteNoneCookies()
     .AddSystemd()
     .AddFeatureManagement()
         .Services
@@ -27,9 +28,13 @@ builder.Services
     )
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<FluidParser>()
-    .AddRazorPages(options => {
-        options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
-    })
+    .AddAuth0Authentication(builder.Configuration)
+    .AddRazorPages(options =>
+        {
+            options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
+            options.Conventions.AuthorizePage("/Account/Logout");
+            options.Conventions.AuthorizeFolder("/Admin");
+        })
         .Services
     .AddRouting();
 
@@ -51,7 +56,9 @@ app
     .UseForwardedHeaders()
     .UseHttpsRedirection()
     .UseCustomStaticFiles()
+    .UseCookiePolicy()
     .UseRouting()
+    .UseAuthentication()
     .UseAuthorization()
     .UseEndpoints(endpoints => {
         endpoints.MapRazorPages();
