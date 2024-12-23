@@ -49,7 +49,7 @@ export default defineConfig({
         "mx-8", "my-8", "table-zebra"
     ],
     shortcuts: {
-        "maw-primary-nav-link": "text-8 px-4 py-2 color-primary hover:color-primary-content hover:bg-primary",
+        "maw-primary-nav-link": "text-8 px-4 py-2 color-primary transition hover:color-primary-content hover:bg-primary",
         // jquery validation emits the below, struggled to find a better way, so settling for the below for now
         "input-validation-error": "!border-color-error",
         //https://stackoverflow.com/questions/71296535/how-to-remove-arrow-on-input-type-number-with-tailwind-css
