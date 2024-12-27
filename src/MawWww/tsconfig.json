@@ -13,5 +13,5 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true
     },
-    "include": ["./wwwroot/js/site.ts"]
+    "include": ["assets/ts/site.ts"]
 }

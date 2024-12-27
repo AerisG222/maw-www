@@ -5,7 +5,7 @@ export default defineConfig({
         emptyOutDir: false,
         outDir: 'wwwroot/js',
         lib: {
-            entry: 'wwwroot/js/site.ts',
+            entry: 'assets/ts/site.ts',
             name: 'MaW',
             fileName: (format, name) => `${name}.js`,
             formats: ['es']
