@@ -57,6 +57,7 @@ app
     .UseHttpsRedirection()
     .UseCustomStaticFiles()
     .UseCookiePolicy()
+    .UseMawUserPreferences()
     .UseRouting()
     .UseAuthentication()
     .UseAuthorization()

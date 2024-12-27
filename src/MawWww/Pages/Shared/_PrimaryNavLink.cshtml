@@ -1,5 +1,9 @@
+@using MawWww.Extensions
 @model PrimaryNavLink
-
+@{
+    var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
+    var titleStyle = collapsed ? "display: none;" : "";
+}
 <a class="maw-primary-nav-link @(Model.IsActive ? "color-primary-content bg-primary" : "")" href="@Model.Url" title="@Model.Title">
     <div class="flex">
         @if(@Model.Icon != null) {
@@ -10,6 +14,6 @@
             <img src="@Model.ImageUrl" class="w-8 h-8" />
         }
 
-        <span class="hidden md:block font-bold text-lg ml-3 maw-primary-nav-title">@Model.Title</span>
+        <span style="@titleStyle" class="hidden md:block font-bold text-lg ml-3 maw-primary-nav-title">@Model.Title</span>
     </div>
 </a>

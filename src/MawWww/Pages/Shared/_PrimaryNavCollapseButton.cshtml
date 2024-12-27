@@ -1,7 +1,12 @@
+@using MawWww.Extensions
+@{
+    var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
+    var icon = collapsed ? "i-mdi-chevron-double-right" : "i-mdi-chevron-double-left";
+}
 <button
+    id="maw-primary-nav-collapse-button"
     class="hidden md:block py-1 color-secondary transition hover:color-secondary-content hover:bg-secondary"
-    onclick="togglePrimaryNavCollapseState(); return false;"
     title="Expand/Collapse Nav"
 >
-    <span id="maw-primary-nav-title" class="text-6 i-mdi-chevron-double-left"></span>
+    <span id="maw-primary-nav-title" class="text-6 @icon"></span>
 </button>

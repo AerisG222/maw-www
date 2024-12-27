@@ -1,5 +1,6 @@
+@using MawWww.Extensions
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="@Context.GetMawUserPreferences()?.Theme">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,7 @@
     <partial name="_Favicons" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" type="module" asp-append-version="true"></script>
     @await RenderSectionAsync("scripts_head", required: false)
 </head>
 <body class="grid

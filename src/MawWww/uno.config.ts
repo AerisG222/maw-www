@@ -42,7 +42,7 @@ export default defineConfig({
         }),
     ],
     safelist: [
-        "rotate-180",
+        "i-mdi-chevron-double-right", "i-mdi-chevron-double-left",
         "alert-success", "alert-info", "alert-warning", "alert-error",
         "i-mdi-success-circle-outline", "i-mdi-information-outline", "i-mdi-warning-circle-outline", "i-mdi-error-outline",
         "input-validation-error",

@@ -1,4 +1,9 @@
-<button class="flex maw-primary-nav-link" onclick="nextTheme(); return false;" title="Toggle Theme">
+@using MawWww.Extensions
+@{
+    var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
+    var titleStyle = collapsed ? "display: none;" : "";
+}
+<button id="maw-theme-switcher" class="flex maw-primary-nav-link" title="Toggle Theme">
     <span class="block i-mdi-theme-light-dark"></span>
-    <span class="hidden md:block font-bold text-lg ml-3 maw-primary-nav-title">Theme</span>
+    <span style="@titleStyle" class="hidden md:block font-bold text-lg ml-3 maw-primary-nav-title">Theme</span>
 </button>

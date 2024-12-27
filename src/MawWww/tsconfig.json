@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "module": "system",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "moduleResolution": "Node",
+        "strict": true,
         "sourceMap": true,
-        "outFile": "wwwroot/js/site.js",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "noEmit": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true
     },
-    "files": [
-        "wwwroot/js/site.ts"
-    ]
+    "include": ["./wwwroot/js/site.ts"]
 }

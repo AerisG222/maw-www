@@ -1,31 +1,72 @@
-const keyTheme = "maw-theme";
-const themeDark = "dark";
-const themeLight = "light";
-const keyPrimaryNavCollapsed = "maw-primary-nav-collapsed";
+import Cookies from "js-cookie";
 
 document.addEventListener("DOMContentLoaded", function() {
-    setTheme(getTheme());
-    setPrimaryNavCollapseState(getPrimaryNavCollapseState());
+    watchThemeSwitcher();
+    watchPrimaryNavCollapse();
     watchMobileSidebar();
 });
 
-function prefersDarkMode() {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const themeDark = "dark";
+const themeLight = "light";
+const prefCookieName = "maw-preferences";
+
+// we will track the preferences in a cookie so the server can set the initial classes based on the user's preferences.
+// this will avoid flash of content if we just relied on client side code.  please be sure to update the server code
+// as needed when changes are made below.
+type MawPreferences = {
+    theme: string,
+    primaryNavCollapsed: boolean
+};
+
+const getTheme = () => getPreferences().theme;
+const getDefaultTheme = () => prefersDarkMode() ? themeDark : themeLight;
+const prefersDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+const getPrimaryNavCollapseState = () => getPreferences().primaryNavCollapsed;
+const nextPrimaryNavCollapseState = () => !getPrimaryNavCollapseState();
+const isString = (value: unknown) => typeof value === "string";
+const isBoolean = (value: unknown) => typeof value === "boolean";
+
+const togglePrimaryNavCollapseState = () => setPrimaryNavCollapseState(nextPrimaryNavCollapseState());
+
+const buildDefaultPreferences = (): MawPreferences => ({
+    theme: getDefaultTheme(),
+    primaryNavCollapsed: false
+});
+
+function watchThemeSwitcher() {
+    var themeSwitcher = document.getElementById("maw-theme-switcher");
+
+    if(themeSwitcher) {
+        themeSwitcher.onclick = () => {
+            nextTheme();
+            return false;
+        }
+    }
 }
 
-function getTheme() {
-    return validateTheme(localStorage.getItem(keyTheme));
+function watchPrimaryNavCollapse() {
+    var collapseButton = document.getElementById("maw-primary-nav-collapse-button") as HTMLButtonElement;
+
+    if(collapseButton) {
+        collapseButton.onclick = () => {
+            togglePrimaryNavCollapseState();
+            return false;
+        }
+    }
 }
 
 function setTheme(theme: string) {
-    theme = validateTheme(theme);
-
-    localStorage.setItem(keyTheme, theme);
+    if(!validateTheme(theme)) {
+        theme = getTheme();
+    }
 
     document.documentElement.setAttribute("data-theme", theme);
+
+    setPreferences({...getPreferences(), theme});
 }
 
-function nextTheme() {
+export function nextTheme() {
     var currTheme = getTheme();
 
     switch(currTheme) {
@@ -37,26 +78,19 @@ function nextTheme() {
     }
 }
 
-function validateTheme(theme: string) {
-    switch(theme) {
-        case themeDark:
-        case themeLight:
-            return theme;
-        default:
-            return prefersDarkMode() ? themeDark : themeLight;
+function validateTheme(theme: unknown) {
+    if(!isString(theme)) {
+        return false;
     }
-}
 
-function getPrimaryNavCollapseState() {
-    return localStorage.getItem(keyPrimaryNavCollapsed) == true.toString();
+    return theme === themeDark ||
+        theme === themeLight;
 }
 
 function setPrimaryNavCollapseState(isCollapsed: boolean) {
-    localStorage.setItem(keyPrimaryNavCollapsed, isCollapsed.toString());
+    const els = document.getElementsByClassName("maw-primary-nav-title");
 
-    var els = document.getElementsByClassName("maw-primary-nav-title");
-
-    for(var el of els) {
+    for(const el of els) {
         // only force display to none when requesting collapse
         // otherwise, allow (responsive) class styles to determine display type
         (el as HTMLElement).style.display = isCollapsed ? "none" : "";
@@ -64,19 +98,17 @@ function setPrimaryNavCollapseState(isCollapsed: boolean) {
 
     var btn = document.getElementById("maw-primary-nav-title");
 
-    if(isCollapsed) {
-        btn.classList.add("rotate-180");
-    } else {
-        btn.classList.remove("rotate-180");
+    if(btn) {
+        if(isCollapsed) {
+            btn.classList.add("i-mdi-chevron-double-right");
+            btn.classList.remove("i-mdi-chevron-double-left");
+        } else {
+            btn.classList.add("i-mdi-chevron-double-left");
+            btn.classList.remove("i-mdi-chevron-double-right");
+        }
     }
-}
 
-function nextPrimaryNavCollapseState() {
-    return !getPrimaryNavCollapseState();
-}
-
-function togglePrimaryNavCollapseState() {
-    setPrimaryNavCollapseState(nextPrimaryNavCollapseState());
+    setPreferences({...getPreferences(), primaryNavCollapsed: isCollapsed});
 }
 
 function watchMobileSidebar() {
@@ -99,4 +131,51 @@ function toggleMobileMenuVisibility(ev: Event) {
             sidebarMenu.classList.remove("show");
         }
     }
+}
+
+function getPreferences(): MawPreferences {
+    var cookie = Cookies.get(prefCookieName);
+
+    if(cookie) {
+        try {
+            var dirty = false;
+            const prefs = JSON.parse(cookie) as MawPreferences;
+
+            if(!validateTheme(prefs.theme)) {
+                prefs.theme = getDefaultTheme();
+                dirty = true;
+            }
+
+            if(!isBoolean(prefs.primaryNavCollapsed)) {
+                prefs.primaryNavCollapsed = false;
+                dirty = true;
+            }
+
+            if(dirty) {
+                setPreferences(prefs);
+            }
+
+            return prefs;
+        } catch(err) {
+            console.error(`Unable to load preferences from cookie: ${err}`);
+        }
+    }
+
+    const defaultPreferences = buildDefaultPreferences();
+
+    setPreferences(defaultPreferences);
+
+    return defaultPreferences;
+}
+
+function setPreferences(preferences: MawPreferences) {
+    Cookies.set(
+        prefCookieName,
+        JSON.stringify(preferences),
+        {
+            expires: 365,
+            secure: window.location.protocol === "https:",
+            sameSite: "strict"
+        }
+    );
 }
