@@ -14,7 +14,7 @@ const App: Component = () => {
     };
 
     // hmm - maw-bg-<semantic-color> not working, so use gray for now
-    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-solid";
+    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-solid maw-transition";
     const classOn = `${classOff} maw-bg-gray`;
 
     const getCellClass = (value: number, compareBit: number, isTens: boolean) => {
