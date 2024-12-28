@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS blog.post (
     blog_id UUID NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
-    published TIMESTAMP NOT NULL,
-    modified TIMESTAMP NOT NULL,
-    deleted TIMESTAMP,
+    published TIMESTAMPTZ NOT NULL,
+    modified TIMESTAMPTZ NOT NULL,
+    deleted TIMESTAMPTZ,
 
     CONSTRAINT pk_blog_post PRIMARY KEY (id),
 

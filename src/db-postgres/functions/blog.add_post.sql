@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION blog.add_post
     _blog_id UUID,
     _title TEXT,
     _content TEXT,
-    _published TIMESTAMP
+    _published TIMESTAMPTZ
 )
 RETURNS UUID
 LANGUAGE SQL

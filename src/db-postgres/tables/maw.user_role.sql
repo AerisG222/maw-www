@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS maw.user_role (
     user_id UUID NOT NULL,
     role_id UUID NOT NULL,
-    created TIMESTAMP NOT NULL,
-    deleted TIMESTAMP NULL,
+    created TIMESTAMPTZ NOT NULL,
+    deleted TIMESTAMPTZ NULL,
 
     CONSTRAINT pk_maw_user_role PRIMARY KEY (user_id, role_id),
 

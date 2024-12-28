@@ -2,8 +2,8 @@ CREATE TABLE IF NOT EXISTS maw.user (
     id UUID NOT NULL,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
-    created TIMESTAMP NOT NULL,
-    deleted TIMESTAMP NULL,
+    created TIMESTAMPTZ NOT NULL,
+    deleted TIMESTAMPTZ NULL,
 
     CONSTRAINT pk_maw_user PRIMARY KEY (id)
 );

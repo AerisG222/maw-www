@@ -57,6 +57,7 @@ run_psql_script "tables/blog.post.sql"
 
 header "seed"
 run_psql_script "seed/blog.blog.sql"
+run_psql_script "seed/maw.role.sql"
 
 header "functions"
 run_psql_script "functions/blog.add_post.sql"

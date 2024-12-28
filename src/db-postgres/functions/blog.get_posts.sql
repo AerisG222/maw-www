@@ -10,7 +10,7 @@ RETURNS TABLE
     blog_id UUID,
     title TEXT,
     content TEXT,
-    published TIMESTAMP
+    published TIMESTAMPTZ
 )
 LANGUAGE SQL
 AS $$

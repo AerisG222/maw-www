@@ -1,8 +1,7 @@
 CREATE TABLE IF NOT EXISTS maw.role (
     id UUID NOT NULL,
     name TEXT NOT NULL,
-    created TIMESTAMP NOT NULL,
-    deleted TIMESTAMP NULL,
+    created TIMESTAMPTZ NOT NULL,
 
     CONSTRAINT pk_maw_role PRIMARY KEY (id),
 

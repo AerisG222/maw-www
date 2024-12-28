@@ -6,7 +6,7 @@ RETURNS TABLE
     title TEXT,
     copyright TEXT,
     description TEXT,
-    last_post_date TIMESTAMP
+    last_post_date TIMESTAMPTZ
 )
 LANGUAGE SQL
 AS $$
