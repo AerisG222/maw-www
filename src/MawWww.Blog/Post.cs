@@ -1,4 +1,6 @@
-﻿namespace MawWww.Blog;
+﻿using NodaTime;
+
+namespace MawWww.Blog;
 
 public record Post
 (
@@ -6,5 +8,5 @@ public record Post
     Guid BlogId,
     string Title,
     string Description,
-    DateTime PublishDate
+    Instant PublishDate
 );

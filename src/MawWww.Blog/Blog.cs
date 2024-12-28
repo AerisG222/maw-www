@@ -1,4 +1,6 @@
-﻿namespace MawWww.Blog;
+﻿using NodaTime;
+
+namespace MawWww.Blog;
 
 public record Blog
 (
@@ -6,5 +8,5 @@ public record Blog
     string Title,
     string Copyright,
     string Description,
-    DateTime LastPostDate
+    Instant LastPostDate
 );

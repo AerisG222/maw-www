@@ -1,3 +1,5 @@
+using NodaTime;
+
 namespace MawWww.Blog;
 
 public class DummyBlogService
@@ -8,14 +10,14 @@ public class DummyBlogService
     public Task<IEnumerable<Blog>> GetBlogsAsync()
     {
         return Task.FromResult(new Blog[] {
-            new(MawBlogId, "Dummy Blog", "Copyright", "Description", new DateTime(2020, 01, 03))
+            new(MawBlogId, "Dummy Blog", "Copyright", "Description", new Instant())
         }.AsEnumerable());
     }
 
     public Task<IEnumerable<Post>> GetAllPostsAsync(Guid blogId)
     {
         return Task.FromResult(new Post[] {
-            new Post(MawBlogId, Guid.NewGuid(), "Title", "Description", DateTime.Now)
+            new(MawBlogId, Guid.NewGuid(), "Title", "Description", new Instant())
         }.AsEnumerable());
     }
 
