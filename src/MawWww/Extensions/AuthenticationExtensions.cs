@@ -24,9 +24,17 @@ public static class AuthenticationExtensions
                 })
             .Services
             .AddAuth0WebAppAuthentication(options => {
-                options.Domain = config["Auth0:Domain"];
-                options.ClientId = config["Auth0:ClientId"];
-                options.ClientSecret = config["Auth0:ClientSecret"];
+                var domain = config["Auth0:Domain"];
+                var clientId = config["Auth0:ClientId"];
+                var clientSecret = config["Auth0:ClientSecret"];
+
+                ArgumentNullException.ThrowIfNull(domain, nameof(domain));
+                ArgumentNullException.ThrowIfNull(clientId, nameof(clientId));
+                ArgumentNullException.ThrowIfNull(clientSecret, nameof(clientSecret));
+
+                options.Domain = domain;
+                options.ClientId = clientId;
+                options.ClientSecret = clientSecret;
                 options.Scope = "openid profile email";
                 options.CallbackPath = "/signin-oidc";
 
