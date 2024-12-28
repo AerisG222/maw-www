@@ -12,6 +12,7 @@ export type Props = {
 const TurtleSelectGrid: Component<Props> = (props) => {
     const buildClasses = (turtle: Turtle) => {
         var classes: {[k: string]: boolean} = {
+            "maw-transition": true,
             "maw-cursor-pointer": true,
             "maw-text-center": true,
 

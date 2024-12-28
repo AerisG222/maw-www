@@ -9,6 +9,7 @@ export type Props = {
 
 const CharacterScore: Component<Props> = (props) => {
     const buildClassList = (): {[k: string]: boolean} => ({
+        "maw-transition": true,
         "maw-opacity-50": !props.isActive,
         "maw-color-[#c00]": props.isActive
     });

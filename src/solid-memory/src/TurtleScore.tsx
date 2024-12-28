@@ -12,7 +12,8 @@ export type Props = {
 const TurtleScore: Component<Props> = (props) => {
     const buildClassList = (): {[k: string]: boolean} => {
         const c = {
-            "opacity-50": !props.isActive
+            "maw-transition": true,
+            "maw-opacity-50": !props.isActive
         }
 
         c[Style[`turtle-color-${props.player.turtle.color}`]] = props.isActive;

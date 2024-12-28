@@ -11,6 +11,7 @@ export type Props = {
 const CharacterSelectGrid: Component<Props> = (props) => {
     const buildClasses = (character: Character) => {
         var classes: {[k: string]: boolean} = {
+            "maw-transition": true,
             "maw-cursor-pointer": true,
             "maw-text-center": true,
 
