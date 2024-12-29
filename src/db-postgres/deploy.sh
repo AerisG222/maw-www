@@ -1,7 +1,8 @@
 #!/bin/bash
 DBNAME="maw_www"
+IMAGE="docker.io/library/postgres:17"
 PODNAME=$1
-ENVFILE=$2
+PWDFILEDIR=$2
 
 function header() {
     echo "** ${1} **"
@@ -22,10 +23,11 @@ function run_psql_script() {
     else
         podman run -it --rm \
             --pod "${PODNAME}" \
-            --env-file "${ENVFILE}" \
+            --env "POSTGRES_PASSWORD_FILE=/secrets/postgres.pwd" \
+            --volume "${PWDFILEDIR}":/secrets:ro \
             --volume "$(pwd)":/tmp/context:ro \
             --security-opt label=disable \
-            postgres:17 \
+            "${IMAGE}" \
                 psql \
                     -h 127.0.0.1 \
                     -U postgres \
@@ -34,6 +36,9 @@ function run_psql_script() {
                     -f "/tmp/context/${script}"
     fi
 }
+
+header "pull latest postgres image"
+podman pull "${IMAGE}"
 
 header "database ${DBNAME}"
 run_psql_script "database/maw_www.sql" "postgres" &> /dev/null
