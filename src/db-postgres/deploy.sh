@@ -23,7 +23,7 @@ function run_psql_script() {
     else
         podman run -it --rm \
             --pod "${PODNAME}" \
-            --env "POSTGRES_PASSWORD_FILE=/secrets/postgres.pwd" \
+            --env "POSTGRES_PASSWORD_FILE=/secrets/psql-postgres" \
             --volume "${PWDFILEDIR}":/secrets:ro \
             --volume "$(pwd)":/tmp/context:ro \
             --security-opt label=disable \

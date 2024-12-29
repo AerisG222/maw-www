@@ -15,7 +15,15 @@ subprocess.run(['systemctl', '--user', 'start', 'podman.socket'])
 client = PodmanClient()
 
 if not client.pods.exists(POD):
-    client.pods.create(POD)
+    client.pods.create(
+        POD,
+        portmappings = [
+            {
+                'container_port': 5432,
+                'host_port': 5432
+            }
+        ]
+    )
 
 pod = client.pods.get(POD)
 pod.start()
@@ -29,7 +37,7 @@ if not client.containers.exists(PG_CONTAINER):
         name = PG_CONTAINER,
         pod = POD,
         environment = {
-            "POSTGRES_PASSWORD_FILE": f"/secrets/postgres.pwd"
+            "POSTGRES_PASSWORD_FILE": f"/secrets/psql-postgres"
         },
         mounts = [
             {
