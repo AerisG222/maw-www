@@ -3,12 +3,14 @@ namespace MawWww.Models;
 public enum PrimaryNavArea
 {
     None,
-    Home,
+
     About,
-    Reference,
-    Tools,
+    Account,
+    Admin,
     Games,
-    WebGL,
+    Home,
+    Reference,
     Scratch,
-    Admin
+    Tools,
+    WebGL
 }

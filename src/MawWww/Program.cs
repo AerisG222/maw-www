@@ -37,7 +37,8 @@ builder.Services
     .AddRazorPages(options =>
         {
             options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
-            options.Conventions.AuthorizePage("/Account/Logout");
+            options.Conventions.AllowAnonymousToPage("/Account/Login");
+            options.Conventions.AuthorizeFolder("/Account");
             options.Conventions.AuthorizeFolder("/Admin", AuthorizationPolicies.Administrator);
         })
         .Services

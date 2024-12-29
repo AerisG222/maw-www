@@ -1,8 +1,21 @@
+@using MawWww.Extensions
 @{
     bool IsInArea(PrimaryNavArea area)
     {
         return Model.Area == area;
     }
+
+    string? GetUserPicture()
+    {
+        if(User == null)
+        {
+            return null;
+        }
+
+        return User.Picture();
+    }
+
+    var userPicture = GetUserPicture();
 }
 
 <nav class="flex md:flex-col md:h-100vh">
@@ -14,10 +27,14 @@
     @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/WebGL/Index"),     Title: "WebGL",     Icon: "i-mdi-cube-outline",        IsActive: IsInArea(PrimaryNavArea.WebGL)))
     @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Scratch/Index"),   Title: "Scratch",   Icon: "i-simple-icons-scratch",    IsActive: IsInArea(PrimaryNavArea.Scratch)))
 
+    @if(User != null && User.IsInRole(Roles.Administrator)) {
+        @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Admin/Index"), Title: "Admin", Icon: "i-mdi-gear", IsActive: IsInArea(PrimaryNavArea.Admin)))
+    }
+
     <span class="flex-grow-1"></span>
 
     <partial name="_ThemeSwitcher" />
-    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink("/Admin/Index", Title: "Admin", Icon: "i-mdi-gear", IsActive: IsInArea(PrimaryNavArea.Admin)))
+    @await Html.PartialAsync("_PrimaryNavLink", new PrimaryNavLink(Url.Page("/Account/Index"),   Title: "Account",   Icon: userPicture == null ? "i-mdi-account" : null, ImageUrl: userPicture, AdditionalImageClasses: "rounded-full",   IsActive: IsInArea(PrimaryNavArea.Account)))
 
     <div class="divider my-0 h-auto"></div>
     <partial name="_PrimaryNavCollapseButton" />

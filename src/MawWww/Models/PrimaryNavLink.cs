@@ -5,5 +5,6 @@ public record PrimaryNavLink (
     string Title,
     string? Icon = null,
     string? ImageUrl = null,
+    string? AdditionalImageClasses = null,
     bool IsActive = false
 );

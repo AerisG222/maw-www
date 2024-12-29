@@ -1,0 +1,17 @@
+@page
+@using MawWww.Extensions
+@model MawPageModel
+@{
+    Model.Title = $"Welcome, {User!.GivenName()}!";
+    Model.Area = PrimaryNavArea.Account;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Account);
+}
+
+<p>
+    Thanks for your interest in mikeandwan.us.  Currently, there is limited functionality available
+    to logged in users.  You may logout below if your signed in on accident.
+</p>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Page("/Account/Logout")">Logout</a>
+</p>

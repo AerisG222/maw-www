@@ -11,7 +11,7 @@
         }
 
         @if(@Model.ImageUrl != null) {
-            <img src="@Model.ImageUrl" class="w-8 h-8" />
+            <img src="@Model.ImageUrl" class="w-8 h-8 @Model.AdditionalImageClasses" />
         }
 
         <span style="@titleStyle" class="hidden md:block font-bold text-lg ml-3 maw-primary-nav-title">@Model.Title</span>
