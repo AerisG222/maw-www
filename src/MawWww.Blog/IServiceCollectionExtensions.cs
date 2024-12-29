@@ -11,8 +11,8 @@ public static class IServiceCollectionExtensions
         //SqlMapper.AddTypeMap(typeof(string), System.Data.DbType.AnsiString);
 
         services
-            //.AddScoped<IBlogRepository>(x => new BlogRepository(connString))
-            .AddScoped<IBlogService, DummyBlogService>();
+            .AddScoped<IBlogRepository, BlogRepository>()
+            .AddScoped<IBlogService, BlogService>();
 
         return services;
     }

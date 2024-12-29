@@ -1,22 +1,20 @@
-﻿/*
-using Microsoft.Extensions.Logging;
-using Maw.Cache.Abstractions;
-using Maw.Data.Abstractions;
+﻿using Microsoft.Extensions.Caching.Hybrid;
+using NodaTime;
 
 namespace MawWww.Blog;
 
 public class BlogService
-    : BaseService, IBlogService
+    : IBlogService
 {
     readonly IBlogRepository _repo;
-    readonly IBlogCache _cache;
+    readonly HybridCache _cache;
+
+    public Guid MawBlogId { get; } = new Guid("0193eaba-51c5-77b8-9f1e-181e2b818831");
 
     public BlogService(
         IBlogRepository repo,
-        IBlogCache cache,
-        ILogger<BlogService> log)
-        : base(log)
-    {
+        HybridCache cache
+    ) {
         ArgumentNullException.ThrowIfNull(repo);
         ArgumentNullException.ThrowIfNull(cache);
 
@@ -26,42 +24,43 @@ public class BlogService
 
     public async Task<IEnumerable<Blog>> GetBlogsAsync()
     {
-        var blogs = await GetCachedValueAsync(
-            () => _cache.GetBlogsAsync(),
-            () => _repo.GetBlogsAsync()
+        return await _cache.GetOrCreateAsync(
+            "blogs:all",
+            async cancel => await _repo.GetBlogsAsync()
         );
-
-        return blogs ?? new List<Blog>();
     }
 
-    public async Task<IEnumerable<Post>> GetAllPostsAsync(short blogId)
+    public async Task<IEnumerable<Post>> GetAllPostsAsync(Guid blogId)
     {
-        var posts = await GetCachedValueAsync(
-            () => _cache.GetPostsAsync(blogId, null),
-            () => _repo.GetAllPostsAsync(blogId)
+        return await _cache.GetOrCreateAsync(
+            $"blogs:{blogId}:posts:all",
+            async cancel => await _repo.GetAllPostsAsync(blogId),
+            tags: [$"blogs:{blogId}:posts"]
         );
-
-        return posts ?? new List<Post>();
     }
 
-    public async Task<IEnumerable<Post>> GetLatestPostsAsync(short blogId, short postCount)
+    public async Task<IEnumerable<Post>> GetLatestPostsAsync(Guid blogId, short postCount)
     {
-        var posts = await GetCachedValueAsync(
-            () => _cache.GetPostsAsync(blogId, postCount),
-            () => _repo.GetLatestPostsAsync(blogId, postCount)
+        return await _cache.GetOrCreateAsync(
+            $"blogs:{blogId}:posts:latest:{postCount}",
+            async cancel => await _repo.GetLatestPostsAsync(blogId, postCount),
+            tags: [$"blogs:{blogId}:posts"]
         );
-
-        return posts ?? new List<Post>();
     }
 
-    public Task AddPostAsync(Post post)
+    public async Task AddPostAsync(PostCreate post)
     {
         ArgumentNullException.ThrowIfNull(post);
 
-        return Task.WhenAll(
-            _repo.AddPostAsync(post),
-            _cache.AddPostAsync(post)
+        var newPost = new Post(
+            Guid.CreateVersion7(),
+            MawBlogId,
+            post.Title,
+            post.Description,
+            new Instant()
         );
+
+        await _repo.AddPostAsync(newPost);
+        await _cache.RemoveByTagAsync($"blogs:{newPost.BlogId}:posts");
     }
 }
-*/

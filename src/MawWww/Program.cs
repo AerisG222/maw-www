@@ -13,6 +13,7 @@ var builder = WebApplication.CreateSlimBuilder(args);
 builder.Configuration
     .AddEnvironmentVariables("MAW_WWW_");
 
+#pragma warning disable EXTEXP0018 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.Services
     .ConfigureDataProtection(builder.Configuration)
     .ConfigureForwardedHeaders()
@@ -21,6 +22,7 @@ builder.Services
     .AddSystemd()
     .AddFeatureManagement()
         .Services
+    .AddNpgsql(builder.Configuration)
     .AddBlogServices()
     .AddCaptchaFeature(
         builder.Configuration.GetSection("CloudflareTurnstile"),
@@ -29,6 +31,8 @@ builder.Services
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<FluidParser>()
     .AddAuth0Authentication(builder.Configuration)
+    .AddHybridCache()
+        .Services
     .AddRazorPages(options =>
         {
             options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
@@ -37,6 +41,7 @@ builder.Services
         })
         .Services
     .AddRouting();
+#pragma warning restore EXTEXP0018 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
 var app = builder.Build();
 

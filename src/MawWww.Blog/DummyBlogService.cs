@@ -26,7 +26,7 @@ public class DummyBlogService
         return GetAllPostsAsync(blogId);
     }
 
-    public Task AddPostAsync(Post post)
+    public Task AddPostAsync(PostCreate post)
     {
         return Task.CompletedTask;
     }
