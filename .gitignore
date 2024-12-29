@@ -28,6 +28,3 @@ src/MawWww/wwwroot/css/*
 src/MawWww/wwwroot/js/*
 !src/MawWww/wwwroot/js/site.ts
 src/MawWww/wwwroot/favicon.svg
-
-# dev runtime data
-.data/*

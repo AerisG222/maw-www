@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import os
 import subprocess
 from podman import PodmanClient
 
 POD = 'dev-pod'
 PG_CONTAINER = 'pg-dev'
-DATADIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.data')
+DATADIR = '/home/mmorano/maw-dev/data'
 PGDATA = f"{DATADIR}/pgdata"
 PGPWD = f"{DATADIR}/pgpwd"
 
@@ -24,7 +25,7 @@ if not os.path.exists(PGDATA):
 
 if not client.containers.exists(PG_CONTAINER):
     client.containers.create(
-        image = 'postgres:17',
+        image = 'docker.io/library/postgres:17',
         name = PG_CONTAINER,
         pod = POD,
         environment = {
