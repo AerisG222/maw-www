@@ -31,13 +31,14 @@ builder.Services
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<FluidParser>()
     .AddAuth0Authentication(builder.Configuration)
+    .AddMaWAuthorizationPolicies()
     .AddHybridCache()
         .Services
     .AddRazorPages(options =>
         {
             options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
             options.Conventions.AuthorizePage("/Account/Logout");
-            options.Conventions.AuthorizeFolder("/Admin");
+            options.Conventions.AuthorizeFolder("/Admin", AuthorizationPolicies.Administrator);
         })
         .Services
     .AddRouting();
