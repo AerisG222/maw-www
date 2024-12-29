@@ -50,19 +50,14 @@ header "users"
 run_psql_script "users/svc_maw_www.sql"
 
 header "schemas"
-run_psql_script "schemas/maw.sql"
 run_psql_script "schemas/blog.sql"
 
 header "tables"
-run_psql_script "tables/maw.role.sql"
-run_psql_script "tables/maw.user.sql"
-run_psql_script "tables/maw.user_role.sql"
 run_psql_script "tables/blog.blog.sql"
 run_psql_script "tables/blog.post.sql"
 
 header "seed"
 run_psql_script "seed/blog.blog.sql"
-run_psql_script "seed/maw.role.sql"
 
 header "functions"
 run_psql_script "functions/blog.add_post.sql"
