@@ -5,8 +5,8 @@
     Model.Title = "Access Denied";
     Model.Area = PrimaryNavArea.Account;
     Model.SetHtmlPageTitle(PrimaryNavArea.Account, "Access Denied");
+
+    var alert = new Alert(AlertStatus.Error, "Sorry, you do not have access to the requested resource.");
 }
 
-<p>
-    Sorry, you do not have access to the requested resource.
-</p>
+@await Html.PartialAsync("_Alert", alert)

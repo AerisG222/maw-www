@@ -54,11 +54,11 @@ if(app.Environment.IsDevelopment())
 }
 else
 {
-    app
-        .UseExceptionHandler("/error");
+    app.UseExceptionHandler("/error");
 }
 
 app
+    .UseStatusCodePagesWithReExecute("/error/{0}")
     .UseDefaultSecurityHeaders()
     .UseForwardedHeaders()
     .UseHttpsRedirection()

@@ -1,12 +1,18 @@
-﻿@page
-@model MawPageModel
+﻿@page "{statusCode?}"
+@model ErrorPageModel
 @{
     Layout = "_Layout";
-    Model.Title = "Error";
+
+    (var title, var message) = Model.ErrorStatusCode switch {
+        404 => ("Error - Not Found", "Sorry, the requested resource was not found."),
+        _   => ("Error", "Sorry, there was an error processing this request.  Please try again.")
+    };
+
+    Model.Title = title;
     Model.Area = PrimaryNavArea.None;
     Model.SetHtmlPageTitle("Error");
+
+    var alert = new Alert(AlertStatus.Error, message);
 }
 
-<p>
-    Sorry, there was an error processing your request.  Please try again.
-</p>
+@await Html.PartialAsync("_Alert", alert)
