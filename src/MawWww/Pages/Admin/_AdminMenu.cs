@@ -6,8 +6,8 @@ public static class AdminMenu
 {
     public static readonly Menu Menu = new (
         [
-            new MenuItem("./Index",   "Admin"),
-            new MenuItem("./Blog",    "Blog")
+            new MenuItem("./Blog",               "Create Blog Post"),
+            new MenuItem("./RequestInspector",   "Request Inspector")
         ]
     );
 

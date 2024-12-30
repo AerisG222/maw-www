@@ -1,0 +1,113 @@
+@page
+@using System.Security.Principal
+@model MawPageModel
+@{
+    Model.Title = "Request Inspector";
+    Model.Area = PrimaryNavArea.Admin;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Admin, "Request Inspector");
+}
+
+@section sidebar {
+    <partial name="_AdminSidebar" />
+}
+
+<h2>Basic</h2>
+<table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+    <tr>
+        <th class="text-left">Content Length</th>
+        <td class="text-left">@Request.ContentLength</td>
+    </tr>
+    <tr>
+        <th class="text-left">Content Type</th>
+        <td class="text-left">@Request.ContentType</td>
+    </tr>
+    <tr>
+        <th class="text-left">Protocol</th>
+        <td class="text-left">@Request.Protocol</td>
+    </tr>
+    <tr>
+        <th class="text-left">Scheme</th>
+        <td class="text-left">@Request.Scheme</td>
+    </tr>
+    <tr>
+        <th class="text-left">Is Https</th>
+        <td class="text-left">@Request.IsHttps</td>
+    </tr>
+    <tr>
+        <th class="text-left">Method</th>
+        <td class="text-left">@Request.Method</td>
+    </tr>
+    <tr>
+        <th class="text-left">Path Base</th>
+        <td class="text-left">@Request.PathBase</td>
+    </tr>
+    <tr>
+        <th class="text-left">Path</th>
+        <td class="text-left">@Request.Path</td>
+    </tr>
+    <tr>
+        <th class="text-left">Query String</th>
+        <td class="text-left">@Request.QueryString</td>
+    </tr>
+    <tr>
+        <th class="text-left">Local IP</th>
+        <td class="text-left">@HttpContext.Connection.LocalIpAddress</td>
+    </tr>
+    <tr>
+        <th class="text-left">Local Port</th>
+        <td class="text-left">@HttpContext.Connection.LocalPort</td>
+    </tr>
+    <tr>
+        <th class="text-left">Remote IP</th>
+        <td class="text-left">@HttpContext.Connection.RemoteIpAddress</td>
+    </tr>
+    <tr>
+        <th class="text-left">Remote Port</th>
+        <td class="text-left">@HttpContext.Connection.RemotePort</td>
+    </tr>
+    <tr>
+        <th class="text-left">Trace Identifier</th>
+        <td class="text-left">@HttpContext.TraceIdentifier</td>
+    </tr>
+</table>
+
+<h2>Headers</h2>
+<table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+    @foreach(var header in Model.Request.Headers) {
+        <tr>
+            <th class="text-left">@header.Key</th>
+            <td class="text-left">@header.Value</td>
+        </tr>
+    }
+</table>
+
+<h2>Cookies</h2>
+<table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+    <tr>
+        <th class="text-left">Name</th>
+        <th class="text-left">Value</th>
+    </tr>
+    @foreach (var cookie in Model.Request.Cookies) {
+        <tr>
+            <th class="text-left">@cookie.Key</th>
+            <td class="text-left">@cookie.Value</td>
+        </tr>
+    }
+</table>
+
+@if(User.Identity != null && User.Identity.IsAuthenticated) {
+    <h2>User Claims</h2>
+    <table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+        <tr>
+            <th class="text-left">Name</th>
+            <th class="text-left">Value</th>
+        </tr>
+        @foreach(var claim in User.Claims)
+        {
+            <tr>
+                <th class="text-left">@claim.Type</th>
+                <th class="text-left">@claim.Value</th>
+            </tr>
+        }
+    </table>
+}
