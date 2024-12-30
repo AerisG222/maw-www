@@ -21,6 +21,7 @@ public static class AuthenticationExtensions
                 {
                     opts.LoginPath = "/account/login";
                     opts.LogoutPath = "/account/logout";
+                    opts.AccessDeniedPath = "/account/access-denied";
                 })
             .Services
             .AddAuth0WebAppAuthentication(options => {

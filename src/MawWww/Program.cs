@@ -38,6 +38,7 @@ builder.Services
         {
             options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
             options.Conventions.AllowAnonymousToPage("/Account/Login");
+            options.Conventions.AllowAnonymousToPage("/Account/AccessDenied");
             options.Conventions.AuthorizeFolder("/Account");
             options.Conventions.AuthorizeFolder("/Admin", AuthorizationPolicies.Administrator);
         })
@@ -54,8 +55,7 @@ if(app.Environment.IsDevelopment())
 else
 {
     app
-        .UseExceptionHandler("/Error")
-        .UseHsts();
+        .UseExceptionHandler("/error");
 }
 
 app

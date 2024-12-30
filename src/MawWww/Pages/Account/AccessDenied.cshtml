@@ -1,0 +1,12 @@
+@page
+@using MawWww.Extensions
+@model MawPageModel
+@{
+    Model.Title = "Access Denied";
+    Model.Area = PrimaryNavArea.Account;
+    Model.SetHtmlPageTitle(PrimaryNavArea.Account, "Access Denied");
+}
+
+<p>
+    Sorry, you do not have access to the requested resource.
+</p>
