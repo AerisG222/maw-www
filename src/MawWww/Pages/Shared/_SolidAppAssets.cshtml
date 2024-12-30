@@ -1,6 +1,7 @@
 @model string
 @inject IWebHostEnvironment env
 
+<cache vary-by="@Model">
 @{
     var indexHtml = System.IO.Path.Combine(env.WebRootPath, Model);
 
@@ -20,3 +21,4 @@
         }
     }
 }
+</cache>
