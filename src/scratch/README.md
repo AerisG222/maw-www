@@ -5,8 +5,8 @@ original scratch files - to prepare for web, use TurboWarp packager: https://pac
 To package these scratch files for the web:
 
 1. clone packager project here: https://github.com/TurboWarp/packager
-2. deno install
-3. deno start
+2. bun install
+3. bun start
 4. go to http://localhost:8947/
 
 Notes:

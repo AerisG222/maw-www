@@ -46,22 +46,22 @@
         Inputs="@(AssetInput)"
         Outputs="@(AssetOutput)"
         BeforeTargets="Build">
-        <Exec Command="deno install" />
+        <Exec Command="bun install" />
 
         <Exec Command="cp node_modules/jquery/dist/jquery.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation/dist/jquery.validate.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js wwwroot/js" />
 
-        <Exec Command="npm run css:build" />
-        <Exec Command="deno task css:reset" />
-        <Exec Command="deno task ts:build" />
-        <Exec Command="deno task svg:build" />
+        <Exec Command="bun run css:build" />
+        <Exec Command="bun run css:reset" />
+        <Exec Command="bun run ts:build" />
+        <Exec Command="bun run svg:build" />
     </Target>
 
     <Target Name="BuildClientApp">
         <RemoveDir Directories="wwwroot/js/$(MAW_CLIENT_APP)" />
-        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="deno install" />
-        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="deno task build" />
+        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="bun install" />
+        <Exec WorkingDirectory="../$(MAW_CLIENT_APP)" Command="bun run build" />
         <Exec Command="cp -r ../$(MAW_CLIENT_APP)/dist wwwroot/js/$(MAW_CLIENT_APP)" />
     </Target>
 

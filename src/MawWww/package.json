@@ -7,10 +7,10 @@
         "css:dev": "unocss --watch",
         "css:build": "unocss",
         "css:reset": "cp node_modules/@unocss/reset/tailwind.css wwwroot/css/reset.css",
-        "svg:build": "deno run -A npm:svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",
+        "svg:build": "bun x svgo ./assets/svg/favicon.svg -o ./wwwroot/favicon.svg",
         "ts:dev": "vite build --watch",
         "ts:build": "vite build",
-        "build": "deno task css:build & deno task svg:build & deno task ts:build",
+        "build": "bun run css:build && bun run svg:build && bun run ts:build",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
