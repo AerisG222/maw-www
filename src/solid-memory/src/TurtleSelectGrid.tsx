@@ -38,7 +38,7 @@ const TurtleSelectGrid: Component<Props> = (props) => {
         <div class="maw-grid maw-grid-rows-[1fr_1fr] maw-grid-cols-[1fr_1fr] maw-gap-4">
         <For each={props.turtles}>{ turtle =>
             <div classList={buildClasses(turtle)} onClick={() => props.selectTurtle(turtle.name)}>
-                <img class="maw-rounded-lg maw-h-auto maw-w-full maw-max-w-[150px]" src={turtle.imageUrl} />
+                <img class="maw-rounded-lg maw-h-auto maw-w-full maw-max-w-[150px] xl:maw-max-w-[200px]" src={turtle.imageUrl} />
                 <br/>
                 <strong>{turtle.name}</strong>
             </div>

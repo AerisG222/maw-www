@@ -34,7 +34,7 @@ const CharacterSelectGrid: Component<Props> = (props) => {
         <div class="maw-grid maw-grid-rows-[1fr_1fr] maw-grid-cols-[1fr_1fr] maw-gap-4">
         <For each={props.characters}>{ character =>
             <div classList={buildClasses(character)} onClick={() => props.selectCharacter(character.name)}>
-                <img class="maw-rounded-lg maw-h-auto maw-max-w-[200px]" src={character.imageUrl} />
+                <img class="maw-rounded-lg maw-h-auto maw-max-w-[140px] xl:maw-max-w-[200px]" src={character.imageUrl} />
             </div>
         }</For>
         </div>
