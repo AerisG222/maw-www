@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.FeatureManagement;
 using Fluid;
+using NodaTime;
 using MawWww;
 using MawWww.Blog;
 using MawWww.Captcha;
@@ -29,6 +30,7 @@ builder.Services
         builder.Configuration.GetSection("GoogleRecaptcha")
     )
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
+    .AddSingleton<IClock>(services => SystemClock.Instance)
     .AddSingleton<FluidParser>()
     .AddAuth0Authentication(builder.Configuration)
     .AddMaWAuthorizationPolicies()

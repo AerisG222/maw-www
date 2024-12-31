@@ -44,12 +44,12 @@ public class BlogRepository
     {
         using var conn = await _dataSource.OpenConnectionAsync();
 
-        var result = await conn.QuerySingleOrDefaultAsync<short>(
+        var result = await conn.QuerySingleOrDefaultAsync<Guid>(
             @"SELECT * FROM blog.add_post(
                 @id,
                 @blogId,
                 @title,
-                @description,
+                @content,
                 @publishDate
             );",
             new
@@ -57,14 +57,9 @@ public class BlogRepository
                 id = post.Id,
                 blogId = post.BlogId,
                 title = post.Title,
-                description = post.Description,
+                content = post.Content,
                 publishDate = post.PublishDate
             });
-
-        if (result <= 0)
-        {
-            throw new Exception("Did not save blog post!");
-        }
     }
 
     async Task<IEnumerable<Post>> InternalGetPostsAsync(Guid? blogId = null, Guid? postId = null, short? postCount = null)

@@ -3,5 +3,5 @@
 public record PostCreate
 (
     string Title,
-    string Description
+    string Content
 );
