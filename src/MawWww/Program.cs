@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.FeatureManagement;
 using Fluid;
 using NodaTime;
@@ -34,7 +35,14 @@ builder.Services
     .AddSingleton<FluidParser>()
     .AddAuth0Authentication(builder.Configuration)
     .AddMaWAuthorizationPolicies()
-    .AddHybridCache()
+    .AddHybridCache(opts =>
+        {
+            // current version does not remove cache items by tag, so keep the expiration short for now
+            opts.DefaultEntryOptions = new HybridCacheEntryOptions() {
+                Expiration  = TimeSpan.FromMinutes(1),
+                LocalCacheExpiration  = TimeSpan.FromMinutes(1)
+            };
+        })
         .Services
     .AddRazorPages(options =>
         {

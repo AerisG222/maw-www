@@ -39,7 +39,7 @@ public class BlogService
         return await _cache.GetOrCreateAsync(
             $"blogs:{blogId}:posts:all",
             async cancel => await _repo.GetAllPostsAsync(blogId),
-            tags: [$"blogs:{blogId}:posts"]
+            tags: [BuildBlogPostsCacheTag(blogId)]
         );
     }
 
@@ -48,7 +48,7 @@ public class BlogService
         return await _cache.GetOrCreateAsync(
             $"blogs:{blogId}:posts:latest:{postCount}",
             async cancel => await _repo.GetLatestPostsAsync(blogId, postCount),
-            tags: [$"blogs:{blogId}:posts"]
+            tags: [BuildBlogPostsCacheTag(blogId)]
         );
     }
 
@@ -65,6 +65,8 @@ public class BlogService
         );
 
         await _repo.AddPostAsync(newPost);
-        await _cache.RemoveByTagAsync($"blogs:{newPost.BlogId}:posts");
+        await _cache.RemoveByTagAsync(BuildBlogPostsCacheTag(newPost.BlogId));
     }
+
+    static string BuildBlogPostsCacheTag(Guid blogId) => $"blogs:{blogId}:posts";
 }
