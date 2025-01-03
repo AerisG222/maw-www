@@ -18,7 +18,7 @@ export default defineConfig({
             patterns: [
                 './Pages/**/*.cshtml'
             ],
-            outFile: './wwwroot/css/styles.css'
+            outFile: './wwwroot/css/styles.min.css'
         }
     },
     presets: [

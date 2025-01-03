@@ -7,7 +7,7 @@ export default defineConfig({
         lib: {
             entry: 'assets/ts/site.ts',
             name: 'MaW',
-            fileName: (format, name) => `${name}.js`,
+            fileName: (format, name) => `${name}.min.js`,
             formats: ['es']
         },
         sourcemap: true
