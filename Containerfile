@@ -16,7 +16,6 @@ RUN source ~/.bashrc && nvm install --lts
 
 # install bun
 RUN curl -fsSL https://bun.sh/install | bash
-RUN source ~/.bashrc
 
 # restore
 COPY maw-www.sln   .
