@@ -15,7 +15,7 @@
 
     <ItemGroup>
         <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.4.1" />
-        <PackageReference Include="Fluid.Core" Version="2.17.0" />
+        <PackageReference Include="Fluid.Core" Version="2.18.0" />
         <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.0.0-preview.9.24556.5" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.0" />
         <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="4.0.0" />

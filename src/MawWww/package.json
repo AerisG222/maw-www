@@ -20,14 +20,14 @@
         "js-cookie": "^3.0.5"
     },
     "devDependencies": {
-        "@ameinhardt/unocss-preset-daisy": "^1.1.3",
+        "@ameinhardt/unocss-preset-daisy": "^1.1.5",
         "@iconify-json/fa": "^1.2.1",
         "@iconify-json/fa6-brands": "^1.2.5",
         "@iconify-json/mdi": "^1.2.2",
-        "@iconify-json/simple-icons": "^1.2.17",
+        "@iconify-json/simple-icons": "^1.2.19",
         "@types/js-cookie": "^3.0.6",
-        "@unocss/cli": "^0.65.3",
-        "@unocss/reset": "^0.65.3",
+        "@unocss/cli": "^0.65.4",
+        "@unocss/reset": "^0.65.4",
         "cssnano": "^7.0.6",
         "daisyui": "^4.12.23",
         "jquery": "^3.7.1",
@@ -36,9 +36,9 @@
         "postcss": "^8.4.49",
         "postcss-cli": "^11.0.0",
         "svgo": "^3.3.2",
-        "typescript": "^5.7.2",
-        "unocss": "^0.65.3",
-        "vite": "^6.0.6"
+        "typescript": "^5.7.3",
+        "unocss": "^0.65.4",
+        "vite": "^6.0.7"
     },
     "devDependencyComments": {
         "daisyui": "styled.css currently contains a rule for table-zebra-zebra that we use, check if this gets fixed and adjust our table styles to match"
