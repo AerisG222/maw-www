@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.FeatureManagement;
 using Fluid;
 using NodaTime;
+using ZiggyCreatures.Caching.Fusion;
 using MawWww;
 using MawWww.Blog;
 using MawWww.Captcha;
@@ -15,7 +15,6 @@ var builder = WebApplication.CreateSlimBuilder(args);
 builder.Configuration
     .AddEnvironmentVariables("MAW_WWW_");
 
-#pragma warning disable EXTEXP0018 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.Services
     .ConfigureDataProtection(builder.Configuration)
     .ConfigureForwardedHeaders()
@@ -35,14 +34,8 @@ builder.Services
     .AddSingleton<FluidParser>()
     .AddAuth0Authentication(builder.Configuration)
     .AddMaWAuthorizationPolicies()
-    .AddHybridCache(opts =>
-        {
-            // current version does not remove cache items by tag, so keep the expiration short for now
-            opts.DefaultEntryOptions = new HybridCacheEntryOptions() {
-                Expiration  = TimeSpan.FromMinutes(1),
-                LocalCacheExpiration  = TimeSpan.FromMinutes(1)
-            };
-        })
+    .AddFusionCache()
+        .AsHybridCache()
         .Services
     .AddRazorPages(options =>
         {
@@ -54,7 +47,6 @@ builder.Services
         })
         .Services
     .AddRouting();
-#pragma warning restore EXTEXP0018 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
 var app = builder.Build();
 
