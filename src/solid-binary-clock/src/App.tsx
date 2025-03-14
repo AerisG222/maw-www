@@ -13,9 +13,9 @@ const App: Component = () => {
         setS(theDate.getSeconds());
     };
 
-    // hmm - maw-bg-<semantic-color> not working, so use gray for now
-    const classOff = "maw-m-1 maw-w-[24px] maw-h-[24px] maw-border-2 maw-rounded-full maw-border-solid maw-transition";
-    const classOn = `${classOff} maw-bg-gray`;
+    // hmm - maw:bg-<semantic-color> not working, so use gray for now
+    const classOff = "maw:m-1 maw:w-[24px] maw:h-[24px] maw:border-2 maw:rounded-full maw:border-solid maw:transition";
+    const classOn = `${classOff} maw:bg-base-content`;
 
     const getCellClass = (value: number, compareBit: number, isTens: boolean) => {
         const position = isTens ? 1 : 0;
@@ -33,51 +33,51 @@ const App: Component = () => {
     onCleanup(() => clearInterval(interval));
 
     return (
-        <div class="not-prose maw-font-sans maw-font-[48px] maw-font-bold maw-flex maw-justify-center">
-            <table class="maw-my-4 maw-mx-auto maw-border-separate maw-border-spacing-[4px]">
+        <div class="not-prose maw:font-sans maw:font-bold maw:flex maw:justify-center">
+            <table class="maw:my-4 maw:mx-auto maw:border-separate maw:border-spacing-[4px]">
                 <tbody>
                     <tr>
                         <td class={ getCellClass(h(), 8, true) }></td>
                         <td class={ getCellClass(h(), 8, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(m(), 8, true) }></td>
                         <td class={ getCellClass(m(), 8, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(s(), 8, true) }></td>
                         <td class={ getCellClass(s(), 8, false) }></td>
                     </tr>
                     <tr>
                         <td class={ getCellClass(h(), 4, true) }></td>
                         <td class={ getCellClass(h(), 4, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(m(), 4, true) }></td>
                         <td class={ getCellClass(m(), 4, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(s(), 4, true) }></td>
                         <td class={ getCellClass(s(), 4, false) }></td>
                     </tr>
                     <tr>
                         <td class={ getCellClass(h(), 2, true) }></td>
                         <td class={ getCellClass(h(), 2, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(m(), 2, true) }></td>
                         <td class={ getCellClass(m(), 2, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(s(), 2, true) }></td>
                         <td class={ getCellClass(s(), 2, false) }></td>
                     </tr>
                     <tr>
                         <td class={ getCellClass(h(), 1, true) }></td>
                         <td class={ getCellClass(h(), 1, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(m(), 1, true) }></td>
                         <td class={ getCellClass(m(), 1, false) }></td>
-                        <td class="maw-w-4"></td>
+                        <td class="maw:w-4"></td>
                         <td class={ getCellClass(s(), 1, true) }></td>
                         <td class={ getCellClass(s(), 1, false) }></td>
                     </tr>
                     <tr>
-                        <td colspan="8" class="maw-text-center maw-b-0">
+                        <td colspan="8" class="maw:text-center maw:b-0">
                             {pad(currentTime().getHours())} : {pad(currentTime().getMinutes())} : {pad(currentTime().getSeconds())}
                         </td>
                     </tr>
