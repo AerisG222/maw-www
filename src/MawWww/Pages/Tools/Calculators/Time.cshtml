@@ -23,32 +23,28 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full max-w-xs mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Length of Time</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.LengthOfTime"></span>
-        </div>
-        <input type="number" inputmode="numeric" class="input input-bordered w-full max-w-xs input-number" asp-for="Form.LengthOfTime" autofocus />
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Length of Time</legend>
+        <input type="number" inputmode="numeric" class="input input-number" asp-for="Form.LengthOfTime" autofocus />
+        <span class="text-error" asp-validation-for="Form.LengthOfTime"></span>
+    </fieldset>
 
-    <label class="form-control w-full max-w-xs mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Unit of Time</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.Unit"></span>
-        </div>
-        <select class="input input-bordered w-full max-w-xs" asp-for="Form.Unit">
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Unit of Time</legend>
+        <select class="select" asp-for="Form.Unit">
             @foreach(var unit in Model.AllUnits) {
                 <option value="@unit.ToLower()">@unit</option>
             }
         </select>
-    </label>
+        <span class="label-text-alt text-error" asp-validation-for="Form.Unit"></span>
+    </fieldset>
 
     <button type="submit" class="btn btn-primary mt-4">Submit</button>
 </form>
 
 @if(Model.Results.Count > 0) {
-    <table class="mt-8 table table-zebra-zebra border-collapse border w-full">
-        <tr class="border-b-1">
+    <table class="not-prose mt-8 table table-zebra **:!border-base-300">
+        <tr>
             <th class="text-left">Unit</th>
             <th class="text-right">Amount</th>
         </tr>

@@ -1,17 +1,17 @@
 @plugin "daisyui/theme" {
-    name: "dark";
-    default: true;
-    prefersdark: true;
-    color-scheme: dark;
+    name: "light";
+    default: false;
+    prefersdark: false;
+    color-scheme: light;
 
-    --color-base-100: oklch(20.07% 0.0199 284.46);
-    --color-base-200: oklch(24.85% 0.0207 284.79);
-    --color-base-300: oklch(30.08% 0.0199 281.04);
-    --color-base-content: oklch(64.02% 0.0193 282.33);
-    --color-primary: oklch(80.04% 0.1642 84.18);
-    --color-secondary: oklch(59.9% 0.1009 289.84);
-    --color-accent: oklch(59.9% 0.1009 289.84);
-    --color-neutral: oklch(30.08% 0.0199 281.04);
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(97.31% 0 0);
+    --color-base-300: oklch(93.4% 0 0);
+    --color-base-content: oklch(32.11% 0 0);
+    --color-primary: oklch(24.3% 0.1146 262.26);
+    --color-secondary: oklch(44.95% 0.1474 255.27);
+    --color-accent: oklch(37.53% 0.0501 263.06);
+    --color-neutral: oklch(69.6% 0.023 268.34);
 
     /*
     --color-secondary-content: oklch(98% 0.01 200);

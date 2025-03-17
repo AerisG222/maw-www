@@ -23,33 +23,29 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full max-w-xs mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Size of File</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.SizeOfFile"></span>
-        </div>
-        <input type="number" inputmode="numeric" class="input input-bordered w-full max-w-xs input-number" asp-for="Form.SizeOfFile" autofocus />
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Size of File</legend>
+        <input type="number" inputmode="numeric" class="input input-number" asp-for="Form.SizeOfFile" autofocus />
+        <span class="text-error" asp-validation-for="Form.SizeOfFile"></span>
+    </fieldset>
 
-    <label class="form-control w-full max-w-xs mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">File Size Unit</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.Unit"></span>
-        </div>
-        <select class="input input-bordered w-full max-w-xs" asp-for="Form.Unit">
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">File Size Unit</legend>
+        <select class="select" asp-for="Form.Unit">
             @foreach(var unit in Model.AllUnits) {
                 <option value="@unit.ToLower()">@unit</option>
             }
         </select>
-    </label>
+        <span class="label-text-alt text-error" asp-validation-for="Form.Unit"></span>
+    </fieldset>
 
     <button type="submit" class="btn btn-primary mt-4">Submit</button>
 </form>
 
 @if(Model.Results.Count > 0) {
-    <table class="mt-8 table table-zebra-zebra border-collapse border w-full">
+    <table class="not-prose mt-8 table table-zebra **:!border-base-300">
         <tbody>
-            <tr class="border-b-1">
+            <tr>
                 <th class="text-left">Name</th>
                 <th class="text-left">Abbreviation</th>
                 <th class="text-right">Amount</th>

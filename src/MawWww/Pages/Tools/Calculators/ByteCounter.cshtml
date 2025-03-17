@@ -25,21 +25,19 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Text</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.Text"></span>
-        </div>
-        <textarea class="input input-bordered w-full input-number h-[300px]" asp-for="Form.Text" autofocus></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Text</legend>
+        <textarea class="textarea h-36 w-full" asp-for="Form.Text" autofocus></textarea>
+        <span class="text-error" asp-validation-for="Form.Text"></span>
+    </fieldset>
 
     <button type="submit" class="btn btn-primary mt-4">Submit</button>
     <button type="reset" class="btn mt-4 ml-4">Reset</button>
 </form>
 
 @if(Model.Results.Count > 0) {
-    <table class="mt-8 table table-zebra-zebra border-collapse border w-full">
-        <tr class="border-b-1">
+    <table class="not-prose mt-8 table table-zebra **:!border-base-300">
+        <tr>
             <th class="text-left">Unit</th>
             <th class="text-right">Size</th>
         </tr>

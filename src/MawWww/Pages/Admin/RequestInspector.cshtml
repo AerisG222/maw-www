@@ -12,7 +12,7 @@
 }
 
 <h2>Basic</h2>
-<table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+<table class="table table-xs table-zebra mb-4 border-1">
     <tr>
         <th class="text-left">Content Length</th>
         <td class="text-left">@Request.ContentLength</td>
@@ -72,7 +72,7 @@
 </table>
 
 <h2>Headers</h2>
-<table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+<table class="table table-xs table-zebra mb-4 border-1">
     @foreach(var header in Model.Request.Headers) {
         <tr>
             <th class="text-left">@header.Key</th>
@@ -82,7 +82,7 @@
 </table>
 
 <h2>Cookies</h2>
-<table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+<table class="table table-xs table-zebra mb-4 border-1">
     <tr>
         <th class="text-left">Name</th>
         <th class="text-left">Value</th>
@@ -97,7 +97,7 @@
 
 @if(User.Identity != null && User.Identity.IsAuthenticated) {
     <h2>User Claims</h2>
-    <table class="table table-xs table-zebra table-zebra-zebra mb-4 border-1">
+    <table class="table table-xs table-zebra mb-4 border-1">
         <tr>
             <th class="text-left">Name</th>
             <th class="text-left">Value</th>

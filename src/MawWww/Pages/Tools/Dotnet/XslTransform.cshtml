@@ -23,30 +23,26 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">XML Source</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.XmlSource"></span>
-        </div>
-        <textarea class="input input-bordered w-full h-48" asp-for="Form.XmlSource" autofocus></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">XML Source</legend>
+        <textarea class="textarea h-36 w-full" asp-for="Form.XmlSource" autofocus></textarea>
+        <span class="text-error" asp-validation-for="Form.XmlSource"></span>
+    </fieldset>
 
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">XSLT Source</span>
-            <span class="label-text-alt color-error text-right" asp-validation-for="Form.XsltSource"></span>
-        </div>
-        <textarea class="input input-bordered w-full h-48" asp-for="Form.XsltSource"></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">XSLT Source</legend>
+        <textarea class="textarea h-36 w-full" asp-for="Form.XsltSource"></textarea>
+        <span class="text-error" asp-validation-for="Form.XsltSource"></span>
+    </fieldset>
 
-    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+    <button type="submit" class="btn btn-primary my-4">Submit</button>
 </form>
 
 @if(Model.SubmitAttempted) {
     <div class="mt-8">
-        <h2 class="color-secondary">Transform Results</h2>
+        <h2 class="text-secondary">Transform Results</h2>
 
-        <textarea class="input input-bordered w-full h-48" disabled>
+        <textarea class="textarea w-full h-48" disabled>
             @if(Model.AreErrors) {
                 <text>@Model.ErrorMessage</text>
             } else {

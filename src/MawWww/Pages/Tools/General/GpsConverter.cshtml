@@ -33,28 +33,28 @@
         <div class="card-body">
             <div class="grid grid-cols-6 gap-4">
                 <span>&nbsp;</span>
-                <span class="label-text color-secondary font-bold">Degrees</span>
-                <span class="label-text color-secondary font-bold">Minutes</span>
-                <span class="label-text color-secondary font-bold">Seconds</span>
-                <span class="label-text color-secondary font-bold">Reference</span>
-                <span class="label-text color-secondary font-bold">Formatted</span>
+                <span class="label-text text-secondary font-bold">Degrees</span>
+                <span class="label-text text-secondary font-bold">Minutes</span>
+                <span class="label-text text-secondary font-bold">Seconds</span>
+                <span class="label-text text-secondary font-bold">Reference</span>
+                <span class="label-text text-secondary font-bold">Formatted</span>
 
                 <span class="label-text font-bold">Latitude</span>
-                <input type="number" class="input input-sm input-bordered input-number" asp-for="Form.DmsLatDegrees" autofocus />
-                <input type="number" class="input input-sm input-bordered input-number" asp-for="Form.DmsLatMinutes" />
-                <input type="number" class="input input-sm input-bordered input-number" asp-for="Form.DmsLatSeconds" />
-                <select class="input input-sm input-bordered" asp-for="Form.DmsLatReference" asp-items="Html.GetEnumSelectList<GpsLatitudeReference>()"></select>
+                <input type="number" class="input input-sm input-number" asp-for="Form.DmsLatDegrees" autofocus />
+                <input type="number" class="input input-sm input-number" asp-for="Form.DmsLatMinutes" />
+                <input type="number" class="input input-sm input-number" asp-for="Form.DmsLatSeconds" />
+                <select class="select select-sm" asp-for="Form.DmsLatReference" asp-items="Html.GetEnumSelectList<GpsLatitudeReference>()"></select>
                 <label class="label-text font-bold">@Html.Raw(Model.Form.DmsLatString)</label>
 
                 <span class="label-text font-bold">Longitude</span>
-                <input type="number" class="input input-sm input-bordered input-number" asp-for="Form.DmsLngDegrees" />
-                <input type="number" class="input input-sm input-bordered input-number" asp-for="Form.DmsLngMinutes" />
-                <input type="number" class="input input-sm input-bordered input-number" asp-for="Form.DmsLngSeconds" />
-                <select class="input input-sm input-bordered" asp-for="Form.DmsLngReference" asp-items="Html.GetEnumSelectList<GpsLongitudeReference>()"></select>
+                <input type="number" class="input input-sm input-number" asp-for="Form.DmsLngDegrees" />
+                <input type="number" class="input input-sm input-number" asp-for="Form.DmsLngMinutes" />
+                <input type="number" class="input input-sm input-number" asp-for="Form.DmsLngSeconds" />
+                <select class="select select-sm" asp-for="Form.DmsLngReference" asp-items="Html.GetEnumSelectList<GpsLongitudeReference>()"></select>
                 <label class="label-text font-bold">@Html.Raw(Model.Form.DmsLngString)</label>
             </div>
 
-            <button type="submit" class="self-start btn btn-primary my-4">Convert From Degrees, Minutes and Seconds</button>
+            <button type="submit" class="self-start btn btn-primary my-2">Convert From Degrees, Minutes and Seconds</button>
         </div>
     </div>
 </form>
@@ -70,25 +70,25 @@
         <div class="card-body">
             <div class="grid grid-cols-5 gap-4">
                 <span>&nbsp;</span>
-                <span class="label-text color-secondary font-bold">Degrees</span>
-                <span class="label-text color-secondary font-bold">Minutes</span>
-                <span class="label-text color-secondary font-bold">Reference</span>
-                <span class="label-text color-secondary font-bold">Formatted</span>
+                <span class="label-text text-secondary font-bold">Degrees</span>
+                <span class="label-text text-secondary font-bold">Minutes</span>
+                <span class="label-text text-secondary font-bold">Reference</span>
+                <span class="label-text text-secondary font-bold">Formatted</span>
 
                 <span class="label-text font-bold">Latitude</span>
-                <input type="number" class="input input-sm input-bordered w-full input-number" asp-for="Form.DmLatDegrees" />
-                <input type="number" class="input input-sm input-bordered w-full input-number" asp-for="Form.DmLatMinutes" />
-                <select class="input input-sm input-bordered w-full max-w-xs" asp-for="Form.DmLatReference" asp-items="Html.GetEnumSelectList<GpsLatitudeReference>()"></select>
+                <input type="number" class="input input-sm w-full input-number" asp-for="Form.DmLatDegrees" />
+                <input type="number" class="input input-sm w-full input-number" asp-for="Form.DmLatMinutes" />
+                <select class="select select-sm" asp-for="Form.DmLatReference" asp-items="Html.GetEnumSelectList<GpsLatitudeReference>()"></select>
                 <label class="label-text font-bold">@Html.Raw(Model.Form.DmLatString)</label>
 
                 <span class="label-text font-bold">Longitude</span>
-                <input type="number" class="input input-sm input-bordered w-full input-number" asp-for="Form.DmLngDegrees" />
-                <input type="number" class="input input-sm input-bordered w-full input-number" asp-for="Form.DmLngMinutes" />
-                <select class="input input-sm input-bordered w-full max-w-xs" asp-for="Form.DmLngReference" asp-items="Html.GetEnumSelectList<GpsLongitudeReference>()"></select>
+                <input type="number" class="input input-sm w-full input-number" asp-for="Form.DmLngDegrees" />
+                <input type="number" class="input input-sm w-full input-number" asp-for="Form.DmLngMinutes" />
+                <select class="select select-sm" asp-for="Form.DmLngReference" asp-items="Html.GetEnumSelectList<GpsLongitudeReference>()"></select>
                 <label class="label-text font-bold">@Html.Raw(Model.Form.DmLngString)</label>
             </div>
 
-            <button type="submit" class="self-start btn btn-primary shrink my-4">Convert From Degrees and Minutes</button>
+            <button type="submit" class="self-start btn btn-primary shrink my-2">Convert From Degrees and Minutes</button>
         </div>
     </div>
 </form>
@@ -104,22 +104,22 @@
         <div class="card-body">
             <div class="grid grid-cols-4 gap-4">
                 <span>&nbsp;</span>
-                <span class="label-text color-secondary font-bold">Degrees</span>
-                <span class="label-text color-secondary font-bold">Reference</span>
-                <span class="label-text color-secondary font-bold">Formatted</span>
+                <span class="label-text text-secondary font-bold">Degrees</span>
+                <span class="label-text text-secondary font-bold">Reference</span>
+                <span class="label-text text-secondary font-bold">Formatted</span>
 
                 <span class="label-text font-bold">Latitude</span>
-                <input type="number" class="input input-sm input-bordered w-full input-number" asp-for="Form.DLatDegrees" />
-                <select class="input input-sm input-bordered w-full max-w-xs" asp-for="Form.DLatReference" asp-items="Html.GetEnumSelectList<GpsLatitudeReference>()"></select>
+                <input type="number" class="input input-sm w-full input-number" asp-for="Form.DLatDegrees" />
+                <select class="select select-sm" asp-for="Form.DLatReference" asp-items="Html.GetEnumSelectList<GpsLatitudeReference>()"></select>
                 <label class="label-text font-bold">@Html.Raw(@Model.Form.DLatString)</label>
 
                 <span class="label-text font-bold">Longitude</span>
-                <input type="number" class="input input-sm input-bordered w-full input-number" asp-for="Form.DLngDegrees" />
-                <select class="input input-sm input-bordered w-full max-w-xs" asp-for="Form.DLngReference" asp-items="Html.GetEnumSelectList<GpsLongitudeReference>()"></select>
+                <input type="number" class="input input-sm w-full input-number" asp-for="Form.DLngDegrees" />
+                <select class="select select-sm" asp-for="Form.DLngReference" asp-items="Html.GetEnumSelectList<GpsLongitudeReference>()"></select>
                 <label class="label-text font-bold">@Html.Raw(Model.Form.DLngString)</label>
             </div>
 
-            <button type="submit" class="self-start btn btn-primary my-4">Convert From Degrees</button>
+            <button type="submit" class="self-start btn btn-primary my-2">Convert From Degrees</button>
         </div>
     </div>
 </form>

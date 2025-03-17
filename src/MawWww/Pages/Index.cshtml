@@ -7,26 +7,26 @@
     Model.SetHtmlPageTitle(PrimaryNavArea.Home);
 
     NavCard[] navCards = [
-        new NavCard("/about/news", "i-mdi-flag-variant", "News", "See what's new"),
-        new NavCard("https://photos.mikeandwan.us", "i-mdi-camera", "Photos", "Checkout the latest photos and videos"),
-        new NavCard("/tools", "i-mdi-tools", "Tools", "Assorted tools that may be useful")
+        new NavCard("/about/news", "icon-[mdi--flag-variant]", "News", "See what's new"),
+        new NavCard("https://photos.mikeandwan.us", "icon-[mdi--camera]", "Photos", "Checkout the latest photos and videos"),
+        new NavCard("/tools", "icon-[mdi--tools]", "Tools", "Assorted tools that may be useful")
     ];
 }
 
-<div class="border-b-1 border-base-content:30% bg-no-repeat
+<div class="border-b-1 border-base-content/30 bg-no-repeat
     bg-[url('/img/banner.jpg')] h-[120px]
     md:bg-fixed md:bg-top
     md:bg-[url('/img/banner_md.jpg')] md:h-[240px]
     2xl:bg-[url('/img/banner_lg.jpg')] 2xl:h-[480px]
 ">
-    <div class="bg-black bg-op-50">
-        <h1 class="text-[48px] text-center font-400 font-brand color-[#f8f8f8] my-0 p-2">mikeandwan.us</h1>
+    <div class="bg-black/50">
+        <h1 class="text-[48px] text-center font-normal font-tangerine text-[#f8f8f8] my-0 p-2">mikeandwan.us</h1>
     </div>
 </div>
 
 <div class="flex justify-center mx-8 mt-24">
     <div class="flex flex-col gap-8 flex-wrap max-w-[1320px]
-        lg:flex-row lg:flex-justify-between lg:flex-grow
+        lg:flex-row lg:flex-justify-between lg:grow
     ">
     @foreach(var card in navCards) {
         @await Html.PartialAsync("_NavCard", card)

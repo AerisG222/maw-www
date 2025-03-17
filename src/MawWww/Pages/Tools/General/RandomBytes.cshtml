@@ -26,13 +26,13 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Number of Bytes</span>
-        </div>
-        <input class="input input-bordered input-number max-w-xs" asp-for="Form.Size" autofocus />
-        <span class="label-text-alt color-error" asp-validation-for="Form.Size"></span>
-    </label>
+    <fieldset class="fieldset">
+        <label class="input">
+            <span class="label font-bold text-secondary">Number of Bytes</span>
+            <input type="number" class="input-number" asp-for="Form.Size" autofocus />
+        </label>
+        <span class="text-error" asp-validation-for="Form.Size"></span>
+    </fieldset>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -40,17 +40,13 @@
 @if(!string.IsNullOrEmpty(Model.RandomBytes)) {
     <h2>Results</h2>
 
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Random Bytes (hex)</span>
-        </div>
-        <textarea class="input input-bordered w-full h-36" asp-for="RandomBytes" spellcheck="false"></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Random Bytes (hex)</legend>
+        <textarea class="textarea h-36 w-full" asp-for="RandomBytes" spellcheck="false"></textarea>
+    </fieldset>
 
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Random Bytes (base64)</span>
-        </div>
-        <textarea class="input input-bordered w-full h-36" asp-for="RandomBytesBase64" spellcheck="false"></textarea>
-    </label>
+    <fieldset class="fieldset mt-4">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Random Bytes (base64)</legend>
+        <textarea class="textarea h-36 w-full" asp-for="RandomBytesBase64" spellcheck="false"></textarea>
+    </fieldset>
 }

@@ -33,13 +33,13 @@
     <div class="mt-3 basis-1/2">
         <form method="post" autocomplete="off" role="form">
             <input type="hidden" asp-for="Form.ConversionMode" value="@ColorConverterForm.METHOD_FROM_HEX" />
-            <label class="form-control w-full mb-4">
-                <div class="label">
-                    <span class="label-text color-secondary font-bold">Color Code (hex)</span>
-                    <span class="label-text-alt color-error" asp-validation-for="Form.HexCode"></span>
-                </div>
-                <input class="input input-bordered w-full" asp-for="Form.HexCode" autofocus />
-            </label>
+            <fieldset class="fieldset">
+                <label class="input">
+                    <span class="label font-bold text-secondary">Color Code (hex)</span>
+                    <input type="text" asp-for="Form.HexCode" autofocus />
+                </label>
+                <span class="text-error" asp-validation-for="Form.HexCode"></span>
+            </fieldset>
 
             <button type="submit" class="btn btn-primary mt-4">Convert</button>
         </form>
@@ -48,29 +48,29 @@
     <div class="mt-3 basis-1/2">
         <form method="post" autocomplete="off" role="form">
             <input type="hidden" asp-for="Form.ConversionMode" value="@ColorConverterForm.METHOD_FROM_RGB" />
-            <label class="form-control w-full mb-4">
-                <div class="label">
-                    <span class="label-text color-secondary font-bold">Red (0-255)</span>
-                    <span class="label-text-alt color-error" asp-validation-for="Form.Red"></span>
-                </div>
-                <input class="input input-bordered w-full input-number" min="0" max="255" asp-for="Form.Red" />
-            </label>
+            <fieldset class="fieldset">
+                <label class="input">
+                    <span class="label font-bold text-secondary">Red (0-255)</span>
+                    <input type="number" class="input-number" min="0" max="255" asp-for="Form.Red" />
+                </label>
+                <span class="text-error" asp-validation-for="Form.Red"></span>
+            </fieldset>
 
-            <label class="form-control w-full mb-4">
-                <div class="label">
-                    <span class="label-text color-secondary font-bold">Green (0-255)</span>
-                    <span class="label-text-alt color-error" asp-validation-for="Form.Green"></span>
-                </div>
-                <input class="input input-bordered w-full input-number" min="0" max="255" asp-for="Form.Green" />
-            </label>
+            <fieldset class="fieldset">
+                <label class="input">
+                    <span class="label font-bold text-secondary">Green (0-255)</span>
+                    <input type="number" class="input-number" min="0" max="255" asp-for="Form.Green" />
+                </label>
+                <span class="text-error" asp-validation-for="Form.Green"></span>
+            </fieldset>
 
-            <label class="form-control w-full mb-4">
-                <div class="label">
-                    <span class="label-text color-secondary font-bold">Blue (0-255)</span>
-                    <span class="label-text-alt color-error" asp-validation-for="Form.Blue"></span>
-                </div>
-                <input class="input input-bordered w-full input-number" min="0" max="255" asp-for="Form.Blue" />
-            </label>
+            <fieldset class="fieldset">
+                <label class="input">
+                    <span class="label font-bold text-secondary">Blue (0-255)</span>
+                    <input type="number" class="input-number" min="0" max="255" asp-for="Form.Blue" />
+                </label>
+                <span class="text-error" asp-validation-for="Form.Blue"></span>
+            </fieldset>
 
             <button type="submit" class="btn btn-primary mt-4">Convert</button>
         </form>

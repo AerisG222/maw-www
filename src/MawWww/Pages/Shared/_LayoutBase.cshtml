@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@Model.HtmlPageTitle</title>
     <partial name="_Favicons" />
-    <link rel="stylesheet" href="~/css/reset.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/styles.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/index.min.css" asp-append-version="true" />
     <script src="~/js/site.min.js" type="module" asp-append-version="true"></script>
     @await RenderSectionAsync("scripts_head", required: false)
 </head>
 <body class="grid
-    grid-rows-[max-content_100vh] grid-cols-[100vw]
-    md:grid-rows-[100vh] md:grid-cols-[max-content_auto]"
+    grid-rows-[max-content_100svh] grid-cols-[100svw]
+    md:grid-rows-[100svh] md:grid-cols-[max-content_auto]"
 >
-    <header class="bg-base-300 border-b-1 md:border-r-1 border-base-content:30%">
+    <header class="bg-base-300 border-b-1 md:border-r-1 border-base-content/30">
         <partial name="_PrimaryNav" />
     </header>
 

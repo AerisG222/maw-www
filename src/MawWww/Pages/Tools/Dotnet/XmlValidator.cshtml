@@ -24,21 +24,17 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">XML Source</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.XmlSource"></span>
-        </div>
-        <textarea class="input input-bordered w-full h-48" asp-for="Form.XmlSource" autofocus></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">XML Source</legend>
+        <textarea class="textarea h-36 w-full" asp-for="Form.XmlSource" autofocus></textarea>
+        <span class="text-error" asp-validation-for="Form.XmlSource"></span>
+    </fieldset>
 
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Schema / DTD Source</span>
-            <span class="label-text-alt color-error text-right" asp-validation-for="Form.SchemaOrDtdSource"></span>
-        </div>
-        <textarea class="input input-bordered w-full h-48" asp-for="Form.SchemaOrDtdSource"></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">Schema / DTD Source</legend>
+        <textarea class="textarea h-36 w-full" asp-for="Form.SchemaOrDtdSource"></textarea>
+        <span class="text-error" asp-validation-for="Form.SchemaOrDtdSource"></span>
+    </fieldset>
 
     <button type="submit" class="btn btn-primary mb-4">Submit</button>
 </form>
@@ -52,7 +48,7 @@
         }
         else {
             <p>Your XML document is not well formed.  The following outlines the errors encountered:</p>
-            <textarea class="input input-bordered w-full h-48" disabled>@Model.ErrorMessage</textarea>
+            <textarea class="textarea w-full h-48" disabled>@Model.ErrorMessage</textarea>
         }
     </div>
 }

@@ -23,15 +23,13 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">XML Schema Source</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.XmlSchemaSource"></span>
-        </div>
-        <textarea class="input input-bordered w-full h-48" asp-for="Form.XmlSchemaSource" autofocus></textarea>
-    </label>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend text-secondary font-bold text-sm">XML Schema Source</legend>
+        <textarea class="textarea h-36 w-full" asp-for="Form.XmlSchemaSource" autofocus></textarea>
+        <span class="text-error" asp-validation-for="Form.XmlSchemaSource"></span>
+    </fieldset>
 
-    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+    <button type="submit" class="btn btn-primary my-4">Submit</button>
 </form>
 
 @if(Model.SubmitAttempted) {
@@ -42,7 +40,7 @@
     }
     else {
         <p>Your XML Schema is invalid.  The following outlines the errors encountered:</p>
-        <textarea class="input input-bordered w-full h-48" disabled>
+        <textarea class="textarea w-full h-48" disabled>
 @Model.ErrorMessage
         </textarea>
     }

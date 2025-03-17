@@ -1,9 +1,9 @@
 @page
 @model RollTheDicePageModel
 @{
-    Model.Title = "Random Bytes";
+    Model.Title = "Roll the Dice";
     Model.Area = PrimaryNavArea.Tools;
-    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "General", "Random Bytes");
+    Model.SetHtmlPageTitle(PrimaryNavArea.Tools, "General", "Roll the Dice");
 }
 
 @section sidebar {
@@ -29,23 +29,23 @@
 </p>
 
 <form method="post" autocomplete="off" role="form">
-    <label class="form-control w-full max-w-xs mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Number of Sides</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.Sides"></span>
-        </div>
-        <input type="number" inputmode="numeric" class="input input-bordered w-full max-w-xs input-number" asp-for="Form.Sides" autofocus />
-    </label>
+    <fieldset class="fieldset">
+        <label class="input">
+            <span class="label font-bold text-secondary">Number of Sides</span>
+            <input type="number" inputmode="numeric" class="input-number" asp-for="Form.Sides" />
+        </label>
+        <span class="text-error" asp-validation-for="Form.Sides"></span>
+    </fieldset>
 
-    <label class="form-control w-full max-w-xs mb-4">
-        <div class="label">
-            <span class="label-text color-secondary font-bold">Number of Throws</span>
-            <span class="label-text-alt color-error" asp-validation-for="Form.Throws"></span>
-        </div>
-        <input type="number" inputmode="numeric" class="input input-bordered w-full max-w-xs input-number" asp-for="Form.Throws" />
-    </label>
+    <fieldset class="fieldset">
+        <label class="input">
+            <span class="label font-bold text-secondary">Number of Throws</span>
+            <input type="number" inputmode="numeric" class="input-number" asp-for="Form.Throws" />
+        </label>
+        <span class="text-error" asp-validation-for="Form.Throws"></span>
+    </fieldset>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary my-4">Submit</button>
 </form>
 
 @if(Model.ThrowCounts != null) {

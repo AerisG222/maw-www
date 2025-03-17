@@ -25,18 +25,18 @@
     <form method="post" autocomplete="off" role="form">
         <label class="form-control w-full max-w-xs mb-4">
             <div class="label">
-                <span class="label-text color-secondary font-bold">Title</span>
-                <span class="label-text-alt color-error" asp-validation-for="Form.Title"></span>
+                <span class="label-text text-secondary font-bold">Title</span>
+                <span class="label-text-alt text-error" asp-validation-for="Form.Title"></span>
             </div>
-            <input type="text" class="input input-bordered w-full max-w-xs" asp-for="Form.Title" />
+            <input type="text" class="input" asp-for="Form.Title" />
         </label>
 
         <label class="form-control w-full mb-4">
             <div class="label">
-                <span class="label-text color-secondary font-bold">Content</span>
-                <span class="label-text-alt color-error" asp-validation-for="Form.Content"></span>
+                <span class="label-text text-secondary font-bold">Content</span>
+                <span class="label-text-alt text-error" asp-validation-for="Form.Content"></span>
             </div>
-            <textarea class="textarea textarea-bordered h-36 w-full" asp-for="Form.Content"></textarea>
+            <textarea class="textarea h-36 w-full" asp-for="Form.Content"></textarea>
         </label>
 
         <div class="my-8">

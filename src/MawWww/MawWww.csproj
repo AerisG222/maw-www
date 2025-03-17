@@ -39,7 +39,7 @@
     <!-- not perfect, but should avoid delays when running dotnet watch (and we typically have another window for css:dev) -->
     <ItemGroup>
         <AssetInput Include="assets/svg/favicon.svg;wwwroot/js/*.ts" />
-        <AssetOutput Include="wwwroot/favicon.svg;wwwroot/css/styles.css;wwwroot/js/site.js" />
+        <AssetOutput Include="wwwroot/favicon.svg;wwwroot/css/index.min.css;wwwroot/js/site.js" />
     </ItemGroup>
 
     <Target Name="Assets" Inputs="@(AssetInput)" Outputs="@(AssetOutput)" BeforeTargets="Build">
@@ -50,7 +50,6 @@
         <Exec Command="cp node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js wwwroot/js" />
 
         <Exec Command="bun run css:build" />
-        <Exec Command="bun run css:reset" />
         <Exec Command="bun run ts:build" />
         <Exec Command="bun run svg:build" />
     </Target>

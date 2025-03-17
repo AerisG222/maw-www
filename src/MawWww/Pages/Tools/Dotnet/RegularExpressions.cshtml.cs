@@ -103,15 +103,17 @@ public class RegularExpressionsForm
         {
             var selectedOps = new List<string>();
 
-            if(OptionCultureInvariant)        { selectedOps.Add(nameof(OptionCultureInvariant));        }
-            if(OptionEcmaScript)              { selectedOps.Add(nameof(OptionEcmaScript));              }
-            if(OptionExplicitCapture)         { selectedOps.Add(nameof(OptionExplicitCapture));         }
-            if(OptionIgnoreCase)              { selectedOps.Add(nameof(OptionIgnoreCase));              }
-            if(OptionIgnorePatternWhitespace) { selectedOps.Add(nameof(OptionIgnorePatternWhitespace)); }
-            if(OptionMultiline)               { selectedOps.Add(nameof(OptionMultiline));               }
-            if(OptionNone)                    { selectedOps.Add(nameof(OptionNone));                    }
-            if(OptionRightToLeft)             { selectedOps.Add(nameof(OptionRightToLeft));             }
-            if(OptionSingleLine)              { selectedOps.Add(nameof(OptionSingleLine));              }
+            // if(OptionCultureInvariant)        { selectedOps.Add(nameof(OptionCultureInvariant));        }
+            // if(OptionEcmaScript)              { selectedOps.Add(nameof(OptionEcmaScript));              }
+            // if(OptionExplicitCapture)         { selectedOps.Add(nameof(OptionExplicitCapture));         }
+            // if(OptionIgnoreCase)              { selectedOps.Add(nameof(OptionIgnoreCase));              }
+            // if(OptionIgnorePatternWhitespace) { selectedOps.Add(nameof(OptionIgnorePatternWhitespace)); }
+            // if(OptionMultiline)               { selectedOps.Add(nameof(OptionMultiline));               }
+            // if(OptionNone)                    { selectedOps.Add(nameof(OptionNone));                    }
+            // if(OptionRightToLeft)             { selectedOps.Add(nameof(OptionRightToLeft));             }
+            // if(OptionSingleLine)              { selectedOps.Add(nameof(OptionSingleLine));              }
+
+            selectedOps.Add(nameof(OptionNone));
 
             results.Add(new ValidationResult($"Incompatible options specified", selectedOps));
         }
