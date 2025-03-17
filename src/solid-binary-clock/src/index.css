@@ -2,4 +2,5 @@
 
 @plugin "daisyui";
 
-@import "./themes/dark.css";
+@import "../../MawWww/assets/css/themes/dark.css";
+@import "../../MawWww/assets/css/themes/light.css";
