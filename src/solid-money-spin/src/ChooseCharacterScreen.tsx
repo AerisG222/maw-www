@@ -11,18 +11,18 @@ const ChooseCharacterScreen: Component = () => {
 
     return (
         <>
-            <div class="maw-flex maw-w-full maw-justify-center">
+            <div class="maw:flex maw:w-full maw:justify-center">
                 <div>
-                    <h2 class="maw-text-xl maw-font-bold maw-mb-8">Player 1 - Choose Your Character</h2>
+                    <h2 class="maw:text-xl maw:font-bold maw:mb-8">Player 1 - Choose Your Character</h2>
 
                     <CharacterSelectGrid
                         characters={getPlayer1Characters()}
                         selectedCharacter={state.player1?.character}
                         selectCharacter={setPlayer1Character} />
                 </div>
-                <div class="maw-divider maw-divider-horizontal" />
+                <div class="maw:divider maw:divider-horizontal" />
                 <div>
-                    <h2 class="maw-text-xl maw-font-bold maw-mb-8">Player 2 - Choose Your Character</h2>
+                    <h2 class="maw:text-xl maw:font-bold maw:mb-8">Player 2 - Choose Your Character</h2>
 
                     <CharacterSelectGrid
                         characters={getPlayer2Characters()}
@@ -31,8 +31,8 @@ const ChooseCharacterScreen: Component = () => {
                 </div>
             </div>
 
-            <div class="maw-flex maw-justify-center maw-my-8">
-                <button class="maw-btn maw-btn-primary maw-px-12" onClick={startGame} disabled={startButtonDisabled()}>Start</button>
+            <div class="maw:flex maw:justify-center maw:my-8">
+                <button class="maw:btn maw:btn-primary maw:px-12" onClick={startGame} disabled={startButtonDisabled()}>Start</button>
             </div>
         </>
     );

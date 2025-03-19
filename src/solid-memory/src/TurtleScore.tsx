@@ -1,7 +1,6 @@
 import { Component } from 'solid-js';
 
 import { Player } from './GameStateContext';
-import { Style } from './Style';
 
 export type Props = {
     player: Player,
@@ -10,22 +9,31 @@ export type Props = {
 };
 
 const TurtleScore: Component<Props> = (props) => {
-    const buildClassList = (): {[k: string]: boolean} => {
-        const c = {
-            "maw-transition": true,
-            "maw-opacity-50": !props.isActive
+    const buildClassList = () => {
+        const classes = [
+            "maw:grow",
+            "maw:flex",
+            "maw:justify-around",
+            "maw:items-center",
+            "maw:border-b-2",
+            "maw:border-b-solid",
+            "maw:transition",
+        ];
+
+        if(props.isActive) {
+            classes.push(props.player.turtle.styles.textColorClass);
+            classes.push(props.player.turtle.styles.borderColorClass);
+        } else {
+            classes.push("maw:opacity-50");
         }
 
-        c[Style[`turtle-color-${props.player.turtle.color}`]] = props.isActive;
-        c[Style[`turtle-border-${props.player.turtle.color}`]] = props.isActive;
-
-        return c;
+        return classes.join(" ");
     };
 
     return (
-        <div class="maw-grow maw-flex maw-justify-around maw-items-center maw-border-b-2 maw-border-b-solid" classList={buildClassList()}>
-            <div class="maw-text-16 maw-font-cursive">{props.player.score}</div>
-            <div class={`${props.isFirst ? "maw-order-first" : "maw-order-last"}`}><img class="maw-w-20 maw-h-20 maw-rounded-3xl" src={props.player.turtle.imageUrl} /></div>
+        <div class={buildClassList()}>
+            <div class="maw:text-6xl maw:font-cursive">{props.player.score}</div>
+            <div class={`${props.isFirst ? "maw:order-first" : "maw:order-last"}`}><img class="maw:size-20 maw:rounded-3xl" src={props.player.turtle.imageUrl} /></div>
         </div>
     );
 }

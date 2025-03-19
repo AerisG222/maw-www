@@ -42,7 +42,7 @@ const App: Component = () => {
     onCleanup(() => clearInterval(interval));
 
     return (
-        <div class="m-12 font-cursive text-4xl text-center">
+        <div class="maw:m-12 maw:font-cursive maw:text-6xl maw:text-center">
             {countdown()}
         </div>
     );

@@ -74,22 +74,24 @@ const App: Component = () => {
     };
 
     return (
-        <div class="maw-font-sans">
+        <div class="maw:font-sans">
             <Suspense fallback={<div>Loading...</div>}>
                 <p>
                     Specify an address to start at.  You must specify either city and state, postal code, or both.
                 </p>
                 <p>
-                    Example: <a href="#" onClick={(evt) => showSampleAddress(evt, 'The White House')}>The White House</a>
+                    Example: <a href="#" class="maw:text-secondary" onClick={(evt) => showSampleAddress(evt, 'The White House')}>The White House</a>
                 </p>
 
-                <div class="maw-flex maw-items-center maw-mb-8">
-                    <label class="maw-label maw-w-sm">
-                        <span class="maw-label-text maw-font-bold maw-mr-4">Address</span>
-                        <input type="text" class="maw-input maw-input-bordered maw-w-full maw-max-w-xs maw-color-gray" autofocus value={address()} onInput={e => setAddress(e.target.value)} />
-                    </label>
+                <div class="maw:flex maw:items-center maw:my-4">
+                    <fieldset class="maw:fieldset">
+                        <label class="maw:input maw:w-xl">
+                            <span class="maw:label maw:font-bold maw:text-secondary">Address</span>
+                            <input type="text" autofocus value={address()} onInput={e => setAddress(e.target.value)} />
+                        </label>
+                    </fieldset>
 
-                    <button type="submit" class="maw-ml-8 maw-btn maw-btn-primary" onClick={showAddress}>Submit</button>
+                    <button type="submit" class="maw:ml-8 maw:btn maw:btn-primary" onClick={showAddress}>Submit</button>
                 </div>
 
                 <Show when={showMaps()}>

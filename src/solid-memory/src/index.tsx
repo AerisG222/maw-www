@@ -3,8 +3,7 @@ import { render } from 'solid-js/web';
 
 import { GameStateProvider } from './GameStateContext';
 
-import 'uno.css';
-
+import './index.css';
 import App from './App';
 
 const root = document.getElementById('root');

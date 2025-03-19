@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+@import "tailwindcss" prefix(maw);
+
+@plugin "daisyui";
+
+@import "../../MawWww/assets/css/themes/dark.css";
+@import "../../MawWww/assets/css/themes/light.css";
+
+@theme {
+    --font-cursive: "Permanent Marker", sans-serif;
+
+    --color-leonardo: oklch(51.78% 0.223 264.052);
+    --color-raphael: oklch(53.08% 0.2178 29.23);
+    --color-donatello: oklch(51.78% 0.238004 328.3634);
+    --color-michaelangelo: oklch(64.84% 0.1477 63.12);
+}

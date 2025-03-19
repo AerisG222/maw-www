@@ -11,7 +11,7 @@ const App: Component = () => {
 
     // switch = poor mans router
     return (
-        <div class="maw-flex maw-flex-col maw-place-content-center maw-m-4">
+        <div class="maw:flex maw:flex-col maw:place-content-center maw:m-4">
             <Switch>
                 <Match when={state.status === Status.PlayerSelect}>
                     <ChooseTurtleScreen />

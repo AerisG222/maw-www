@@ -125,10 +125,10 @@ const GameBoardScreen: Component = () => {
         <div>
             <ScoreBanner />
 
-            <div class="maw-grid
-                maw-grid-cols-[repeat(5,1fr)]
-                maw-grid-rows-[repeat(4,1fr)]
-                maw-gap-4 maw-place-items-center maw-mx-auto maw-w-min
+            <div class="maw:grid
+                maw:grid-cols-[repeat(5,1fr)]
+                maw:grid-rows-[repeat(4,1fr)]
+                maw:gap-4 maw:place-items-center maw:mx-auto maw:w-min
             ">
             <For each={board}>{ card =>
                 <Card

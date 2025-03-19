@@ -93,7 +93,7 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
         }
     });
 
-    return <div class="maw-mb-4 maw-w-full maw-h-[480px]" ref={mapEl}></div>;
+    return <div class="maw:mb-4 maw:w-full maw:h-[480px]" ref={mapEl}></div>;
 };
 
 export default MapWidget;

@@ -82,24 +82,24 @@ const App: Component = () => {
     };
 
     return (
-        <div class="maw-flex maw-flex-col maw-items-center maw-justify-center maw-font-sans">
+        <div class="maw:flex maw:flex-col maw:items-center maw:justify-center maw:font-sans">
             <audio autoplay ref={audio!}></audio>
 
-            <div class="maw-w-[256px] maw-border-solid maw-border-2 maw-rounded-2xl maw-mb-8 maw-text-center">
-                <span class="maw-font-brand maw-text-[128px]" innerHTML={getDisplayChar(char())}></span>
+            <div class="maw:w-[256px] maw:border-solid maw:border-2 maw:rounded-2xl maw:mb-8 maw:text-center">
+                <span class="maw:font-inter maw:text-[128px]" innerHTML={getDisplayChar(char())}></span>
             </div>
 
-            <div class="maw-flex maw-gap-16 maw-justify-center">
-                <div class="maw-flex maw-flex-col">
-                    <strong class="maw-mb-4">Speaker:</strong>
+            <div class="maw:flex maw:gap-16 maw:justify-center">
+                <div class="maw:flex maw:flex-col">
+                    <strong class="maw:mb-4">Speaker:</strong>
                     <For each={speakers}>{ (speaker) =>
-                        <div class="maw-form-control maw-mb-2">
-                            <label class="maw-label maw-py-0 maw-cursor-pointer">
-                                <span class="maw-label-text">{speaker}</span>
+                        <div class="maw:form-control maw:mb-2">
+                            <label class="maw:label maw:py-0 maw:cursor-pointer">
+                                <span class="maw:label-text">{speaker}</span>
                                 <input
                                     type="radio"
                                     name="speaker"
-                                    class="maw-ml-2 maw-radio checked:maw-bg-primary"
+                                    class="maw:ml-2 maw:radio checked:maw:bg-primary"
                                     checked={currentSpeaker() === speaker}
                                     onChange={() => setCurrentSpeaker(speaker)} />
                             </label>
@@ -107,16 +107,16 @@ const App: Component = () => {
                     }</For>
                 </div>
 
-                <div class="maw-flex maw-flex-col">
-                    <strong class="maw-mb-4">Lesson:</strong>
+                <div class="maw:flex maw:flex-col">
+                    <strong class="maw:mb-4">Lesson:</strong>
                     <For each={lessons}>{ (lesson) =>
-                        <div class="maw-form-control maw-mb-2">
-                            <label class="maw-label maw-py-0 maw-cursor-pointer">
-                                <span class="maw-label-text">{lesson}</span>
+                        <div class="maw:form-control maw:mb-2">
+                            <label class="maw:label maw:py-0 maw:cursor-pointer">
+                                <span class="maw:label-text">{lesson}</span>
                                 <input
                                     type="radio"
                                     name="lesson"
-                                    class="maw-ml-2 maw-radio checked:maw-bg-primary"
+                                    class="maw:ml-2 maw:radio checked:maw:bg-primary"
                                     checked={currentLesson() === lesson}
                                     onChange={() => setCurrentLesson(lesson)} />
                             </label>
@@ -125,10 +125,10 @@ const App: Component = () => {
                 </div>
             </div>
 
-            <div class="maw-m-6">
+            <div class="maw:m-6">
                 <button
                     type="submit"
-                    class="maw-btn maw-btn-primary"
+                    class="maw:btn maw:btn-primary"
                     onClick={toggleRunning}
                 >
                     { runButtonText() }

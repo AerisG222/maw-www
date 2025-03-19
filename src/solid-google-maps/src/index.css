@@ -1,0 +1,6 @@
+@import "tailwindcss" prefix(maw);
+
+@plugin "daisyui";
+
+@import "../../MawWww/assets/css/themes/dark.css";
+@import "../../MawWww/assets/css/themes/light.css";

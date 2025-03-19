@@ -3,8 +3,13 @@ import { createStore } from "solid-js/store";
 
 export type Turtle = {
     readonly name: string;
-    readonly color: string;
     readonly imageUrl: string;
+    readonly styles: {
+        readonly borderColorClass: string;
+        readonly borderHoverColorClass: string;
+        readonly textColorClass: string;
+        readonly textHoverColorClass: string;
+    }
 };
 
 export type Player = {
@@ -53,10 +58,46 @@ export const GameStateProvider: ParentComponent = (props) => {
     const [state, setState] = createStore(defaultGameState);
 
     const allTurtles: Turtle[] = [
-        { name: "Leonardo",      color: "blue",   imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/leonardo.jpg` },
-        { name: "Michaelangelo", color: "orange", imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/michaelangelo.jpg` },
-        { name: "Donatello",     color: "purple", imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/donatello.jpg` },
-        { name: "Raphael",       color: "red",    imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/raphael.jpg` }
+        {
+            name: "Leonardo",
+            imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/leonardo.jpg`,
+            styles: {
+                borderColorClass: "maw:border-leonardo",
+                borderHoverColorClass: "maw:hover:border-leonardo",
+                textColorClass: "maw:text-leonardo",
+                textHoverColorClass: "maw:hover:text-leonardo"
+            }
+        },
+        {
+            name: "Michaelangelo",
+            imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/michaelangelo.jpg`,
+            styles: {
+                borderColorClass: "maw:border-michaelangelo",
+                borderHoverColorClass: "maw:hover:border-michaelangelo",
+                textColorClass: "maw:text-michaelangelo",
+                textHoverColorClass: "maw:hover:text-michaelangelo"
+            }
+        },
+        {
+            name: "Donatello",
+            imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/donatello.jpg`,
+            styles: {
+                borderColorClass: "maw:border-donatello",
+                borderHoverColorClass: "maw:hover:border-donatello",
+                textColorClass: "maw:text-donatello",
+                textHoverColorClass: "maw:hover:text-donatello"
+            }
+        },
+        {
+            name: "Raphael",
+            imageUrl: `${import.meta.env.VITE_ASSET_ROOT}players/raphael.jpg`,
+            styles: {
+                borderColorClass: "maw:border-raphael",
+                borderHoverColorClass: "maw:hover:border-raphael",
+                textColorClass: "maw:text-raphael",
+                textHoverColorClass: "maw:hover:text-raphael"
+            }
+        }
     ];
 
     const getAllTurtles = () => allTurtles;
