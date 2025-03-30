@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace MawWww.Pages.Account;
 
@@ -9,10 +9,18 @@ public class LoginModel
 {
     public async Task OnGet(string returnUrl = "/")
     {
-        var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-        .WithRedirectUri(returnUrl)
-        .Build();
+        var authenticationProperties = new AuthenticationProperties {
+            RedirectUri = returnUrl,
+            Items =
+            {
+                { "returnUrl", returnUrl },
+                { "scheme", OpenIdConnectDefaults.AuthenticationScheme }
+            }
+        };
 
-        await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+        await HttpContext.ChallengeAsync(
+            OpenIdConnectDefaults.AuthenticationScheme,
+            authenticationProperties
+        );
     }
 }

@@ -1,12 +1,13 @@
-using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Flurl;
 
 namespace MawWww.Extensions;
 
-// https://auth0.com/blog/securing-razor-pages-applications-with-auth0/
 public static class AuthenticationExtensions
 {
-    public static IServiceCollection AddAuth0Authentication(
+    public static IServiceCollection AddKeycloakAuthentication(
         this IServiceCollection services,
         IConfiguration config
     ) {
@@ -17,31 +18,52 @@ public static class AuthenticationExtensions
                     opts.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     opts.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
-                .AddCookie(opts =>
-                {
-                    opts.LoginPath = "/account/login";
-                    opts.LogoutPath = "/account/logout";
-                    opts.AccessDeniedPath = "/account/access-denied";
-                })
-            .Services
-            .AddAuth0WebAppAuthentication(options => {
-                var domain = config["Auth0:Domain"];
-                var clientId = config["Auth0:ClientId"];
-                var clientSecret = config["Auth0:ClientSecret"];
+                .AddCookie(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    opts =>
+                    {
+                        opts.LoginPath = "/account/login";
+                        opts.LogoutPath = "/account/logout";
+                        opts.AccessDeniedPath = "/account/access-denied";
+                    }
+                )
+                .AddOpenIdConnect(
+                    OpenIdConnectDefaults.AuthenticationScheme,
+                    opts =>
+                    {
+                        var url = config["Keycloak:Url"];
+                        var realm = config["Keycloak:Realm"];
+                        var clientId = config["Keycloak:ClientId"];
+                        var clientSecret = config["Keycloak:ClientSecret"];
+                        var requireHttps = config.GetValue("Keycloak:RequireHttps", true);
 
-                ArgumentNullException.ThrowIfNull(domain, nameof(domain));
-                ArgumentNullException.ThrowIfNull(clientId, nameof(clientId));
-                ArgumentNullException.ThrowIfNull(clientSecret, nameof(clientSecret));
+                        ArgumentException.ThrowIfNullOrEmpty(url, nameof(url));
+                        ArgumentException.ThrowIfNullOrEmpty(realm, nameof(realm));
+                        ArgumentException.ThrowIfNullOrEmpty(clientId, nameof(clientId));
+                        ArgumentException.ThrowIfNullOrEmpty(clientSecret, nameof(clientSecret));
 
-                options.Domain = domain;
-                options.ClientId = clientId;
-                options.ClientSecret = clientSecret;
-                options.Scope = "openid profile email";
-                options.CallbackPath = "/signin-oidc";
+                        opts.Authority = Url.Combine(url, "realms", realm);
+                        opts.ClientId = clientId;
+                        opts.ClientSecret = clientSecret;
+                        opts.RequireHttpsMetadata = requireHttps;
+                        opts.CallbackPath = "/signin-oidc";
+                        opts.SignedOutCallbackPath = "/signout-callback-oidc";
+                        opts.MetadataAddress = Url.Combine(opts.Authority, ".well-known/openid-configuration");
 
-                // https://github.com/auth0/auth0-aspnetcore-authentication/issues/54
-                options.SkipCookieMiddleware = true;
-            });
+                        opts.ResponseType = OpenIdConnectResponseType.Code;
+                        opts.UsePkce = true;
+                        opts.SaveTokens = true;
+                        opts.GetClaimsFromUserInfoEndpoint = true;
+                        opts.MapInboundClaims = false;
+
+                        opts.Scope.Add(OpenIdConnectScope.OpenIdProfile);
+                        opts.Scope.Add(OpenIdConnectScope.Email);
+                        opts.Scope.Add("roles");
+
+                        opts.TokenValidationParameters.NameClaimType = "preferred_username";
+                        opts.TokenValidationParameters.RoleClaimType = "roles";
+                    }
+                );
 
         return services;
     }

@@ -32,7 +32,7 @@ builder.Services
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<IClock>(services => SystemClock.Instance)
     .AddSingleton<FluidParser>()
-    .AddAuth0Authentication(builder.Configuration)
+    .AddKeycloakAuthentication(builder.Configuration)
     .AddMaWAuthorizationPolicies()
     .AddFusionCache()
         .AsHybridCache()
