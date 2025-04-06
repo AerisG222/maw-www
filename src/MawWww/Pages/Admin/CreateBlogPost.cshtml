@@ -23,21 +23,17 @@
 
 @if(!Model.SubmitSuccess) {
     <form method="post" autocomplete="off" role="form">
-        <label class="form-control w-full max-w-xs mb-4">
-            <div class="label">
-                <span class="label-text text-secondary font-bold">Title</span>
-                <span class="label-text-alt text-error" asp-validation-for="Form.Title"></span>
-            </div>
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend text-secondary font-bold text-sm">Title</legend>
             <input type="text" class="input" asp-for="Form.Title" />
-        </label>
+            <span class="text-error" asp-validation-for="Form.Title"></span>
+        </fieldset>
 
-        <label class="form-control w-full mb-4">
-            <div class="label">
-                <span class="label-text text-secondary font-bold">Content</span>
-                <span class="label-text-alt text-error" asp-validation-for="Form.Content"></span>
-            </div>
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend text-secondary font-bold text-sm">Content</legend>
             <textarea class="textarea h-36 w-full" asp-for="Form.Content"></textarea>
-        </label>
+            <span class="text-error" asp-validation-for="Form.Content"></span>
+        </fieldset>
 
         <div class="my-8">
             <button type="submit" class="btn btn-primary mr-4" name="Form.Behavior" value="@CreateBlogPostPageModel.BEHAVIOR_SAVE">Save</button>

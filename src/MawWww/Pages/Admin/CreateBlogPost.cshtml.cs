@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using MawWww.Blog;
 using MawWww.Models;
+using System.Globalization;
 
 namespace MawWww.Pages.Admin;
 
@@ -51,7 +52,7 @@ public class CreateBlogPostPageModel
 public class CreateBlogPostForm
 {
     [Required(ErrorMessage = "Please enter the title.")]
-    public string Title { get; set; } = string.Empty;
+    public string Title { get; set; } = DateTime.Now.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
 
     [Required(ErrorMessage = "Please enter the content.")]
     public string Content { get; set; } = string.Empty;
