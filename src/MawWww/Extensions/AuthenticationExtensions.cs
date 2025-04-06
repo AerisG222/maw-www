@@ -39,7 +39,7 @@ public static class AuthenticationExtensions
                         ArgumentException.ThrowIfNullOrEmpty(clientId);
                         ArgumentException.ThrowIfNullOrEmpty(clientSecret);
 
-                        opts.Authority = $"https://login.mikeandwan.us";
+                        opts.Authority = $"https://{domain}";
                         opts.ClientId = clientId;
                         opts.ClientSecret = clientSecret;
                         opts.CallbackPath = "/signin-oidc";
