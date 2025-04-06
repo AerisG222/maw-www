@@ -31,24 +31,19 @@ public static class AuthenticationExtensions
                     OpenIdConnectDefaults.AuthenticationScheme,
                     opts =>
                     {
-                        var url = config["Keycloak:Url"];
-                        var realm = config["Keycloak:Realm"];
-                        var clientId = config["Keycloak:ClientId"];
-                        var clientSecret = config["Keycloak:ClientSecret"];
-                        var requireHttps = config.GetValue("Keycloak:RequireHttps", true);
+                        var domain = config["Auth0:Domain"];
+                        var clientId = config["Auth0:ClientId"];
+                        var clientSecret = config["Auth0:ClientSecret"];
 
-                        ArgumentException.ThrowIfNullOrEmpty(url, nameof(url));
-                        ArgumentException.ThrowIfNullOrEmpty(realm, nameof(realm));
-                        ArgumentException.ThrowIfNullOrEmpty(clientId, nameof(clientId));
-                        ArgumentException.ThrowIfNullOrEmpty(clientSecret, nameof(clientSecret));
+                        ArgumentException.ThrowIfNullOrEmpty(domain);
+                        ArgumentException.ThrowIfNullOrEmpty(clientId);
+                        ArgumentException.ThrowIfNullOrEmpty(clientSecret);
 
-                        opts.Authority = Url.Combine(url, "realms", realm);
+                        opts.Authority = $"https://login.mikeandwan.us";
                         opts.ClientId = clientId;
                         opts.ClientSecret = clientSecret;
-                        opts.RequireHttpsMetadata = requireHttps;
                         opts.CallbackPath = "/signin-oidc";
                         opts.SignedOutCallbackPath = "/signout-callback-oidc";
-                        opts.MetadataAddress = Url.Combine(opts.Authority, ".well-known/openid-configuration");
 
                         opts.ResponseType = OpenIdConnectResponseType.Code;
                         opts.UsePkce = true;
@@ -60,8 +55,7 @@ public static class AuthenticationExtensions
                         opts.Scope.Add(OpenIdConnectScope.Email);
                         opts.Scope.Add("roles");
 
-                        opts.TokenValidationParameters.NameClaimType = "preferred_username";
-                        opts.TokenValidationParameters.RoleClaimType = "roles";
+                        opts.TokenValidationParameters.NameClaimType = "name";
                     }
                 );
 
