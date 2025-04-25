@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Google.Apis.Gmail.v1" Version="1.68.0.3427" />
+        <PackageReference Include="Google.Apis.Gmail.v1" Version="1.69.0.3742" />
         <PackageReference Include="MailKit" Version="4.11.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.3" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.4" />
     </ItemGroup>
 
 </Project>
