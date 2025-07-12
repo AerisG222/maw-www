@@ -3,7 +3,7 @@
     var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
     var titleStyle = collapsed ? "display: none;" : "";
 }
-<button id="maw-theme-switcher" class="flex primary-nav-link" title="Toggle Theme">
+<button id="maw-theme-switcher" class="flex primary-nav-link cursor-pointer" title="Toggle Theme">
     <span class="block icon-[mdi--theme-light-dark]"></span>
     <span style="@titleStyle" class="hidden md:block font-bold text-lg ml-3 maw-primary-nav-title">Theme</span>
 </button>

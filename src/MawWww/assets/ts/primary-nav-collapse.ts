@@ -28,11 +28,11 @@ function setPrimaryNavCollapseState(isCollapsed: boolean) {
 
     if(btn) {
         if(isCollapsed) {
-            btn.classList.add("i-mdi-chevron-double-right");
-            btn.classList.remove("i-mdi-chevron-double-left");
+            btn.classList.add("icon-[mdi--chevron-double-right]");
+            btn.classList.remove("icon-[mdi--chevron-double-left]");
         } else {
-            btn.classList.add("i-mdi-chevron-double-left");
-            btn.classList.remove("i-mdi-chevron-double-right");
+            btn.classList.add("icon-[mdi--chevron-double-left]");
+            btn.classList.remove("icon-[mdi--chevron-double-right]");
         }
     }
 
