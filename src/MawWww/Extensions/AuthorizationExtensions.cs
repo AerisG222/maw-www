@@ -5,7 +5,7 @@ namespace MawWww.Extensions;
 
 public static class AuthorizationExtensions
 {
-    public static IServiceCollection AddMaWAuthorizationPolicies(
+    public static IServiceCollection AddCustomAuthorizationPolicies(
         this IServiceCollection services
     ) {
         var adminPolicy = new AuthorizationPolicyBuilder()

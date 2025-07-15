@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Flurl;
 
 namespace MawWww.Extensions;
 
 public static class AuthenticationExtensions
 {
-    public static IServiceCollection AddKeycloakAuthentication(
+    public static IServiceCollection AddCustomAuthentication(
         this IServiceCollection services,
         IConfiguration config
     ) {

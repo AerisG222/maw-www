@@ -12,6 +12,9 @@ using MawWww.Models;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
+builder.WebHost
+    .UseKestrelHttpsConfiguration();
+
 builder.Configuration
     .AddEnvironmentVariables("MAW_WWW_");
 
@@ -24,6 +27,11 @@ builder.Services
     .AddFeatureManagement()
         .Services
     .AddNpgsql(builder.Configuration)
+    .AddFusionCache()
+        .AsHybridCache()
+        .Services
+    .AddCustomAuthentication(builder.Configuration)
+    .AddCustomAuthorizationPolicies()
     .AddBlogServices()
     .AddCaptchaFeature(
         builder.Configuration.GetSection("CloudflareTurnstile"),
@@ -32,11 +40,6 @@ builder.Services
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<IClock>(services => SystemClock.Instance)
     .AddSingleton<FluidParser>()
-    .AddKeycloakAuthentication(builder.Configuration)
-    .AddMaWAuthorizationPolicies()
-    .AddFusionCache()
-        .AsHybridCache()
-        .Services
     .AddRazorPages(options =>
         {
             options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
