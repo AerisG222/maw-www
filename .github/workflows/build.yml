@@ -22,9 +22,25 @@ jobs:
           -t maw-www \
           --iidfile "$IID_FILE"
 
-    - name: print iid file contents
-      run: cat "$IID_FILE"
+    - name: populate image id variable
+      run: echo "IID=$(cat $IID_FILE)" >> "$GITHUB_ENV"
 
-      # env:
-      #   DH_USER: ${{ secrets.DH_USER }}
-      #   DH_PASS: ${{ secrets.DH_PASS }}
+    - name: push image with specific tag
+      env:
+        DH_USER: ${{ secrets.DH_USER }}
+        DH_PASS: ${{ secrets.DH_PASS }}
+      run: |
+        buildah push \
+          --creds "$DH_USER:$DH_PASS" \
+          "${IID}" \
+          docker://aerisg222/maw-www:"$(date +%Y%m%d%H%M%S)"
+
+    - name: push image with latest tag
+      env:
+        DH_USER: ${{ secrets.DH_USER }}
+        DH_PASS: ${{ secrets.DH_PASS }}
+      run: |
+        buildah push \
+          --creds "$DH_USER:$DH_PASS" \
+          "${IID}" \
+          docker://aerisg222/maw-www:"$(date +%Y%m%d%H%M%S)"
