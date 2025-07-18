@@ -44,6 +44,6 @@ WORKDIR /maw-www
 
 COPY --from=build /build .
 
-EXPOSE 5000
+EXPOSE 8080
 
 ENTRYPOINT [ "/maw-www/MawWww" ]
