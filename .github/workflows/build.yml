@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+env:
+  IID_FILE: image.iid
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: build container image
+      run: |
+        buildah bud \
+          -f Containerfile \
+          -t maw-www \
+          --iidfile "$IID_FILE"
+
+    - name: print iid file contents
+      run: cat "$IID_FILE"
+
+      # env:
+      #   DH_USER: ${{ secrets.DH_USER }}
+      #   DH_PASS: ${{ secrets.DH_PASS }}
