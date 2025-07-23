@@ -27,16 +27,34 @@
 - name: Configure Application
   hosts: webservers
   remote_user: "{{ svcacct_name }}"
+  vars:
+    pod: pod-www
+    img_maw_www: "docker.io/aerisg222/maw-www:latest"
+    img_postgres: "docker.io/library/postgres:17.5-bookworm"
+    dir_pgdata: "/home/{{ svcacct_name }}/maw-www/pg-data"
+    dir_pgsecrets: "/home/{{ svcacct_name }}/maw-www/pg-secrets"
 
   tasks:
+    - name: Create Directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ dir_pgdata }}"
+        - "{{ dir_pgsecrets }}"
+
+    - name: Generate PG Password File
+      ansible.builtin.template:
+        src: pgpwd.j2
+        dest: "{{ dir_pgsecrets }}/psql-postgres"
+        mode: u+rw
+
     - name: Pull Container Images
-      become: true
-      become_user: "{{ svcacct_name }}"
       containers.podman.podman_image:
         name: "{{ item }}"
       loop:
-        - "docker.io/aerisg222/maw-www:latest"
-        - "docker.io/library/postgres:17.5-bookworm"
+        - "{{ img_maw_www }}"
+        - "{{ img_postgres }}"
 
     - name: Create Pod Quadlet
       containers.podman.podman_pod:
@@ -44,3 +62,23 @@
         state: quadlet
         ports:
           - "8080:8080"
+
+    - name: Create Postgres Quadlet
+      containers.podman.podman_container:
+        name: maw-www-postgres
+        image: "{{ img_postgres }}"
+        state: quadlet
+        read_only: true
+        pod: "{{ pod }}"
+        env:
+          POSTGRES_PASSWORD_FILE: "/secrets/psql-postgres"
+        volumes:
+          - "{{ dir_pgdata }}:/var/lib/postgresql/data:Z"
+          - "{{ dir_pgsecrets }}:/secrets:ro,Z"
+        quadlet_options:
+          - "AutoUpdate=registry"
+          - "Pull=newer"
+          - "ReadOnly=true"
+          - |
+            [Install]
+            WantedBy=default.target
