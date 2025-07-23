@@ -1,0 +1,7 @@
+---
+svcacct_name: svc_maw_www
+svcacct_pwd: set-this-somewhere-else
+
+pod: pod-www
+img_maw_www: "docker.io/aerisg222/maw-www:latest"
+img_postgres: "docker.io/library/postgres:17.5-bookworm"

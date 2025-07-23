@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "maw-www.sln"
+    "dotnet.defaultSolution": "maw-www.sln",
+    "ansible.python.interpreterPath": "/bin/python"
 }
