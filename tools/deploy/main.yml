@@ -83,6 +83,8 @@
         state: quadlet
         ports:
           - "8080:8080"
+        quadlet_options:
+          - "ServiceName={{ pod }}"
 
     - name: Create Postgres Quadlet
       containers.podman.podman_container:
@@ -90,7 +92,7 @@
         image: "{{ img_postgres }}"
         state: quadlet
         read_only: true
-        pod: "{{ pod }}"
+        pod: "{{ pod }}.pod"
         env:
           POSTGRES_PASSWORD_FILE: "/secrets/psql-postgres"
         volumes:
@@ -102,8 +104,11 @@
           - "ReadOnly=true"
           - |
 
+            [Unit]
+            Description=Container for www.mikeandwan.us database
+
             [Install]
-            WantedBy=default.target
+            WantedBy=multi-user.target default.target
 
     - name: Create maw-www Quadlet
       containers.podman.podman_container:
@@ -111,7 +116,7 @@
         image: "{{ img_maw_www }}"
         state: quadlet
         read_only: true
-        pod: "{{ pod }}"
+        pod: "{{ pod }}.pod"
         env_files:
           - "{{ dir_wwwenv }}/maw-www.env"
         volumes:
@@ -123,11 +128,18 @@
           - "ReadOnly=true"
           - |
 
-            [After]
-            maw-www-postgres.container
-
-            [Requires]
-            maw-www-postgres.container
+            [Unit]
+            Description=Container for www.mikeandwan.us webserver
+            After=maw-www-postgres.container
+            Requires=maw-www-postgres.container
 
             [Install]
-            WantedBy=default.target
+            WantedBy=multi-user.target default.target
+
+    - name: Start and Enable Pod / Containers
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+        name: "{{ pod }}.service"
+        scope: user
+        enabled: true
+        state: started
