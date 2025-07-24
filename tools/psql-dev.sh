@@ -6,7 +6,7 @@ podman run -it --rm \
     --pod dev-www-pod \
     --name dev-pg-query \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
-    --volume "/home/mmorano/maw/dev/www/data/pgpwd:/secrets" \
+    --volume "/home/mmorano/maw-www/dev/pg-pwd:/secrets" \
     docker.io/library/postgres:17 \
         psql \
         -h localhost \

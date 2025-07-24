@@ -5,9 +5,9 @@ from podman import PodmanClient
 
 POD = 'dev-www-pod'
 PG_CONTAINER = 'pg-dev'
-DATADIR = '/home/mmorano/maw/dev/www/data'
-PGDATA = f"{DATADIR}/pgdata"
-PGPWD = f"{DATADIR}/pgpwd"
+DATADIR = '/home/mmorano/maw-www/dev'
+PGDATA = f"{DATADIR}/pg-data"
+PGPWD = f"{DATADIR}/pg-pwd"
 
 # make sure we start the podman service which is needed by the python api
 subprocess.run(['systemctl', '--user', 'start', 'podman.socket'])
