@@ -43,4 +43,4 @@ jobs:
         buildah push \
           --creds "$DH_USER:$DH_PASS" \
           "${IID}" \
-          docker://aerisg222/maw-www:"$(date +%Y%m%d%H%M%S)"
+          docker://aerisg222/maw-www:latest
