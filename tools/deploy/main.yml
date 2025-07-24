@@ -38,7 +38,6 @@
     dir_wwwdp: "{{ dir_root }}/www-data-protection"
     dir_wwwenv: "{{ dir_root }}/www-env"
     dir_wwwsecrets: "{{ dir_root }}/www-secrets"
-    dir_google_creds: "{{ dir_root }}/google-creds"
 
   tasks:
     - name: Create Directories
@@ -51,7 +50,6 @@
         - "{{ dir_wwwsecrets }}"
         - "{{ dir_wwwdp }}"
         - "{{ dir_wwwenv }}"
-        - "{{ dir_google_creds }}"
 
     - name: Copy Files
       ansible.builtin.copy:
@@ -63,8 +61,8 @@
           dest: "{{ dir_pgsecrets }}"
         - src: "{{ dir_localroot }}/env/maw-www.env"
           dest: "{{ dir_wwwenv }}"
-        - src: "{{ dir_localroot }}/google-creds/www-emailer.json"
-          dest: "{{ dir_google_creds }}"
+        - src: "{{ dir_localroot }}/www-secrets/google-email-creds.json"
+          dest: "{{ dir_wwwsecrets }}"
         - src: "{{ dir_localroot }}/www-secrets/maw-www.pfx"
           dest: "{{ dir_wwwsecrets }}"
         - src: "{{ dir_localroot }}/www-secrets/npgsql-passfile-svc_maw_www"
@@ -117,6 +115,7 @@
         state: quadlet
         read_only: true
         pod: "{{ pod }}.pod"
+        userns: "keep-id:uid=1654"
         env_files:
           - "{{ dir_wwwenv }}/maw-www.env"
         mounts:
