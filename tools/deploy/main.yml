@@ -119,6 +119,8 @@
         pod: "{{ pod }}.pod"
         env_files:
           - "{{ dir_wwwenv }}/maw-www.env"
+        mounts:
+          - type=tmpfs,destination=/tmp
         volumes:
           - "{{ dir_wwwdp }}:/www-data-protection:Z"
           - "{{ dir_wwwsecrets }}:/www-secrets:ro,Z"
@@ -142,4 +144,4 @@
         name: "{{ pod }}.service"
         scope: user
         enabled: true
-        state: started
+        state: restarted
