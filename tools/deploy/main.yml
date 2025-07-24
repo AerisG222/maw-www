@@ -28,11 +28,17 @@
   hosts: webservers
   remote_user: "{{ svcacct_name }}"
   vars:
-    pod: pod-www
+    pod: pod-maw-www
     img_maw_www: "docker.io/aerisg222/maw-www:latest"
     img_postgres: "docker.io/library/postgres:17.5-bookworm"
-    dir_pgdata: "/home/{{ svcacct_name }}/maw-www/pg-data"
-    dir_pgsecrets: "/home/{{ svcacct_name }}/maw-www/pg-secrets"
+    dir_localroot: "{{ lookup('env', 'HOME') }}/maw-www/{{ mawenv }}"
+    dir_root: "/home/{{ svcacct_name }}/maw-www"
+    dir_pgdata: "{{ dir_root }}/pg-data"
+    dir_pgsecrets: "{{ dir_root }}/pg-secrets"
+    dir_wwwdp: "{{ dir_root }}/www-data-protection"
+    dir_wwwenv: "{{ dir_root }}/www-env"
+    dir_wwwsecrets: "{{ dir_root }}/www-secrets"
+    dir_google_creds: "{{ dir_root }}/google-creds"
 
   tasks:
     - name: Create Directories
@@ -42,12 +48,27 @@
       loop:
         - "{{ dir_pgdata }}"
         - "{{ dir_pgsecrets }}"
+        - "{{ dir_wwwsecrets }}"
+        - "{{ dir_wwwdp }}"
+        - "{{ dir_wwwenv }}"
+        - "{{ dir_google_creds }}"
 
-    - name: Generate PG Password File
-      ansible.builtin.template:
-        src: pgpwd.j2
-        dest: "{{ dir_pgsecrets }}/psql-postgres"
+    - name: Copy Files
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
         mode: u+rw
+      loop:
+        - src: "{{ dir_localroot }}/pg-secrets/psql-postgres"
+          dest: "{{ dir_pgsecrets }}"
+        - src: "{{ dir_localroot }}/env/maw-www.env"
+          dest: "{{ dir_wwwenv }}"
+        - src: "{{ dir_localroot }}/google-creds/www-emailer.json"
+          dest: "{{ dir_google_creds }}"
+        - src: "{{ dir_localroot }}/www-secrets/maw-www.pfx"
+          dest: "{{ dir_wwwsecrets }}"
+        - src: "{{ dir_localroot }}/www-secrets/npgsql-passfile-svc_maw_www"
+          dest: "{{ dir_wwwsecrets }}"
 
     - name: Pull Container Images
       containers.podman.podman_image:
@@ -80,5 +101,33 @@
           - "Pull=newer"
           - "ReadOnly=true"
           - |
+
+            [Install]
+            WantedBy=default.target
+
+    - name: Create maw-www Quadlet
+      containers.podman.podman_container:
+        name: maw-www
+        image: "{{ img_maw_www }}"
+        state: quadlet
+        read_only: true
+        pod: "{{ pod }}"
+        env_files:
+          - "{{ dir_wwwenv }}/maw-www.env"
+        volumes:
+          - "{{ dir_wwwdp }}:/www-data-protection:Z"
+          - "{{ dir_wwwsecrets }}:/www-secrets:ro,Z"
+        quadlet_options:
+          - "AutoUpdate=registry"
+          - "Pull=newer"
+          - "ReadOnly=true"
+          - |
+
+            [After]
+            maw-www-postgres.container
+
+            [Requires]
+            maw-www-postgres.container
+
             [Install]
             WantedBy=default.target

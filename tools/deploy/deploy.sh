@@ -58,4 +58,5 @@ ansible-playbook \
     --inventory "inventories/${MAW_ENV}.yml" \
     --extra-vars @vars.yml \
     --extra-vars "@~/maw-www/${MAW_ENV}/ansible/vars.yml" \
+    --extra-vars "mawenv=${MAW_ENV}" \
     main.yml
