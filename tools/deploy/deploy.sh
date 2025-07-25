@@ -56,7 +56,6 @@ MAW_ENV=$(get_maw_env)
 ansible-playbook \
     --become-password-file "~/maw-www/${MAW_ENV}/ansible/become-password-file" \
     --inventory "inventories/${MAW_ENV}.yml" \
-    --extra-vars @vars.yml \
     --extra-vars "@~/maw-www/${MAW_ENV}/ansible/vars.yml" \
     --extra-vars "mawenv=${MAW_ENV}" \
     main.yml
