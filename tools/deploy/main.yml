@@ -31,20 +31,28 @@
     pod: pod-maw-www
     img_maw_www: "docker.io/aerisg222/maw-www:latest"
     img_postgres: "docker.io/library/postgres:17.5-bookworm"
+    container_pg: maw-www-postgres
+    container_www: maw-www
     dir_localroot: "{{ lookup('env', 'HOME') }}/maw-www/{{ mawenv }}"
-    dir_root: "/home/{{ svcacct_name }}/maw-www"
-    dir_pgdata: "{{ dir_root }}/pg-data"
-    dir_pgsecrets: "{{ dir_root }}/pg-secrets"
-    dir_wwwdp: "{{ dir_root }}/www-data-protection"
-    dir_wwwenv: "{{ dir_root }}/www-env"
-    dir_wwwsecrets: "{{ dir_root }}/www-secrets"
+    dir_root: "/home/{{ svcacct_name }}"
+    dir_systemd: "{{ dir_root }}/.config/systemd/user"
+    dir_approot: "{{ dir_root }}/maw-www"
+    dir_pgdata: "{{ dir_approot }}/pg-data"
+    dir_pgsecrets: "{{ dir_approot }}/pg-secrets"
+    dir_pgbackup: "{{ dir_approot }}/pg-backup"
+    dir_wwwdp: "{{ dir_approot }}/www-data-protection"
+    dir_wwwenv: "{{ dir_approot }}/www-env"
+    dir_wwwsecrets: "{{ dir_approot }}/www-secrets"
 
   tasks:
     - name: Create Directories
       ansible.builtin.file:
         path: "{{ item }}"
+        recurse: true
         state: directory
       loop:
+        - "{{ dir_systemd }}"
+        - "{{ dir_pgbackup }}"
         - "{{ dir_pgdata }}"
         - "{{ dir_pgsecrets }}"
         - "{{ dir_wwwsecrets }}"
@@ -86,16 +94,19 @@
 
     - name: Create Postgres Quadlet
       containers.podman.podman_container:
-        name: maw-www-postgres
+        name: "{{ container_pg }}"
         image: "{{ img_postgres }}"
         state: quadlet
         read_only: true
         pod: "{{ pod }}.pod"
+        user: 1654
+        userns: "keep-id:uid=1654"
         env:
           POSTGRES_PASSWORD_FILE: "/secrets/psql-postgres"
         volumes:
           - "{{ dir_pgdata }}:/var/lib/postgresql/data:Z"
           - "{{ dir_pgsecrets }}:/secrets:ro,Z"
+          - "{{ dir_pgbackup }}:/backup:rw,Z"
         quadlet_options:
           - "AutoUpdate=registry"
           - "Pull=newer"
@@ -110,11 +121,12 @@
 
     - name: Create maw-www Quadlet
       containers.podman.podman_container:
-        name: maw-www
+        name: "{{ container_www }}"
         image: "{{ img_maw_www }}"
         state: quadlet
         read_only: true
         pod: "{{ pod }}.pod"
+        user: 1654
         userns: "keep-id:uid=1654"
         env_files:
           - "{{ dir_wwwenv }}/maw-www.env"
@@ -131,8 +143,8 @@
 
             [Unit]
             Description=Container for www.mikeandwan.us webserver
-            After=maw-www-postgres.container
-            Requires=maw-www-postgres.container
+            After="{{ container_pg }}.container"
+            Requires="{{ container_pg }}.container"
 
             [Install]
             WantedBy=multi-user.target default.target
@@ -144,3 +156,19 @@
         scope: user
         enabled: true
         state: restarted
+
+    - name: Copy DB Maintenance systemd services/timers
+      ansible.builtin.template:
+        dest: "{{ dir_systemd }}/{{ item.dest }}"
+        src: "{{ item.src }}"
+      loop:
+        - { 'src': 'pg-maintenance.service.j2', 'dest': 'pg-maintenance.service' }
+        - { 'src': 'pg-maintenance.timer.j2',   'dest': 'pg-maintenance.timer' }
+
+    - name: Enable Postgres Maintenance Systemd Timer
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+        name: "pg-maintenance.timer"
+        scope: user
+        enabled: true
+        state: started
