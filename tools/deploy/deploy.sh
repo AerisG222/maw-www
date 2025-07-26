@@ -48,6 +48,13 @@ get_maw_env() {
     echo "${env}"
 }
 
+if [ ! -d '.venv' ]; then
+    echo 'Please run the prepare script first first!'
+    exit
+else
+    source .venv/bin/activate
+fi
+
 MAW_ENV=$(get_maw_env)
 
 # the next line may be needed if sshkeys are not configured on target
@@ -58,4 +65,4 @@ ansible-playbook \
     --inventory "inventories/${MAW_ENV}.yml" \
     --extra-vars "@~/maw-www/${MAW_ENV}/ansible/vars.yml" \
     --extra-vars "mawenv=${MAW_ENV}" \
-    main.yml
+    maw-www-playbook.yml
