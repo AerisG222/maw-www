@@ -4,7 +4,7 @@ import subprocess
 from podman import PodmanClient
 
 POD = 'dev-www-pod'
-PG_CONTAINER = 'pg-dev'
+PG_CONTAINER = 'dev-www-pg'
 DATADIR = '/home/mmorano/maw-www/dev'
 PGDATA = f"{DATADIR}/pg-data"
 PGPWD = f"{DATADIR}/pg-pwd"
