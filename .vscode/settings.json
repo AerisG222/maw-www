@@ -1,4 +1,25 @@
 {
     "dotnet.defaultSolution": "maw-www.sln",
-    "ansible.python.interpreterPath": "/bin/python"
+    "ansible.python.interpreterPath": "/bin/python",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#6d1b1b",
+        "activityBar.background": "#6d1b1b",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#208020",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#6d1b1b",
+        "statusBar.background": "#441111",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#6d1b1b",
+        "statusBarItem.remoteBackground": "#441111",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "tab.activeBorder": "#6d1b1b",
+        "titleBar.activeBackground": "#441111",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#44111199",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#441111"
 }
