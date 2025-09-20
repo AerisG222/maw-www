@@ -11,8 +11,8 @@
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.66" />
         <PackageReference Include="Dapper.AOT" Version="1.0.48" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.8.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.9.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
         <PackageReference Include="NodaTime" Version="3.2.2" />
         <PackageReference Include="Npgsql" Version="9.0.3" />
     </ItemGroup>
