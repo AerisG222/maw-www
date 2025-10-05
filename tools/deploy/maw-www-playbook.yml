@@ -30,8 +30,8 @@
   vars:
     pod: pod-maw-www
     img_maw_www: "docker.io/aerisg222/maw-www:latest"
-    img_postgres: "docker.io/library/postgres:17.5-bookworm"
-    img_rclone: "docker.io/rclone/rclone:v1.70-stable"
+    img_postgres: "docker.io/library/postgres:18-trixie"
+    img_rclone: "docker.io/rclone/rclone:v1.71-stable"
     container_pg: maw-www-postgres
     container_www: maw-www
     container_rclone: rclone-archive
@@ -179,9 +179,12 @@
         dest: "{{ dir_systemd }}/{{ item.dest }}"
         src: "{{ item.src }}"
       loop:
-        - { 'src': 'pg-maintenance.service.j2', 'dest': 'pg-maintenance.service' }
-        - { 'src': 'pg-maintenance.timer.j2',   'dest': 'pg-maintenance.timer' }
-        - { 'src': 'rclone-archive.timer.j2',   'dest': 'rclone-archive.timer' }
+        - {
+            "src": "pg-maintenance.service.j2",
+            "dest": "pg-maintenance.service",
+          }
+        - { "src": "pg-maintenance.timer.j2", "dest": "pg-maintenance.timer" }
+        - { "src": "rclone-archive.timer.j2", "dest": "rclone-archive.timer" }
 
     - name: Enable Postgres Maintenance Systemd Timer
       ansible.builtin.systemd_service:
