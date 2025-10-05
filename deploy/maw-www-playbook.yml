@@ -98,6 +98,7 @@
       containers.podman.podman_pod:
         name: "{{ pod }}"
         state: quadlet
+        userns: "keep-id:uid=1654"
         ports:
           - "8080:8080"
         quadlet_options:
@@ -111,7 +112,6 @@
         read_only: true
         pod: "{{ pod }}.pod"
         user: 1654
-        userns: "keep-id:uid=1654"
         env:
           POSTGRES_PASSWORD_FILE: "/secrets/psql-postgres"
         volumes:
@@ -141,7 +141,6 @@
         read_only: true
         pod: "{{ pod }}.pod"
         user: 1654
-        userns: "keep-id:uid=1654"
         env_files:
           - "{{ dir_wwwenv }}/maw-www.env"
         mounts:
@@ -202,7 +201,6 @@
         read_only: true
         pod: "{{ pod }}.pod"
         user: 1654
-        userns: "keep-id:uid=1654"
         mounts:
           - type=tmpfs,destination=/tmp
         volumes:
