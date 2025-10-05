@@ -2,7 +2,7 @@
 PODNAME="dev-www-pod"
 PWDFILEDIR="/home/mmorano/maw/dev/www/data/pgpwd"
 DBNAME="maw_www"
-IMAGE="docker.io/library/postgres:17"
+IMAGE="docker.io/library/postgres:18-trixie"
 
 function run_psql_script() {
     local script=$1

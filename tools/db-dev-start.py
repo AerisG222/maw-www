@@ -33,7 +33,7 @@ if not os.path.exists(PGDATA):
 
 if not client.containers.exists(PG_CONTAINER):
     client.containers.create(
-        image = 'docker.io/library/postgres:17',
+        image = 'docker.io/library/postgres:18-trixie',
         name = PG_CONTAINER,
         pod = POD,
         environment = {

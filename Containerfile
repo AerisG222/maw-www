@@ -9,7 +9,7 @@ RUN tdnf install -y \
 
 # install nvm
 RUN bash -c "touch ~/.bashrc"
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
 # enable nvm and install lts version of node (currently v22)
 RUN source ~/.bashrc && nvm install --lts
