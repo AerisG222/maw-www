@@ -1,6 +1,6 @@
 #!/bin/bash
 PODNAME="dev-www-pod"
-PWDFILEDIR="/home/mmorano/maw/dev/www/data/pgpwd"
+PWDFILEDIR="/home/mmorano/maw-www/dev/pg-secrets"
 DBNAME="maw_www"
 IMAGE="docker.io/library/postgres:18-trixie"
 

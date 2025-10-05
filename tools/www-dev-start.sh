@@ -1,7 +1,7 @@
 #!/bin/bash
 # this script ensures we always load the latest env vars before trying to run the dev site
 # this also keeps these confined to this script, so they won't leak into regular environment
-ENV_FILE="/home/mmorano/maw-www/dev/env/maw-www.env"
+ENV_FILE="/home/mmorano/maw-www/dev/www-env/maw-www.env"
 
 function load_dotenv(){
     # https://stackoverflow.com/a/66118031/134904

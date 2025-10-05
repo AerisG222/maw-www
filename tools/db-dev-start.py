@@ -7,7 +7,7 @@ POD = 'dev-www-pod'
 PG_CONTAINER = 'dev-www-pg'
 DATADIR = '/home/mmorano/maw-www/dev'
 PGDATA = f"{DATADIR}/pg-data"
-PGPWD = f"{DATADIR}/pg-pwd"
+PGPWD = f"{DATADIR}/pg-secrets"
 
 # make sure we start the podman service which is needed by the python api
 subprocess.run(['systemctl', '--user', 'start', 'podman.socket'])

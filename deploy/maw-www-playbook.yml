@@ -73,7 +73,7 @@
       loop:
         - src: "{{ dir_localroot }}/pg-secrets/psql-postgres"
           dest: "{{ dir_pgsecrets }}"
-        - src: "{{ dir_localroot }}/env/maw-www.env"
+        - src: "{{ dir_localroot }}/www-env/maw-www.env"
           dest: "{{ dir_wwwenv }}"
         - src: "{{ dir_localroot }}/www-secrets/google-email-creds.json"
           dest: "{{ dir_wwwsecrets }}"
