@@ -3,8 +3,8 @@ import os
 import subprocess
 from podman import PodmanClient
 
-POD = 'dev-www-pod'
-PG_CONTAINER = 'dev-www-pg'
+POD = 'pod-maw-www'
+PG_CONTAINER = 'maw-www-postgres'
 DATADIR = '/home/mmorano/maw-www/dev'
 PGDATA = f"{DATADIR}/pg-data"
 PGPWD = f"{DATADIR}/pg-secrets"

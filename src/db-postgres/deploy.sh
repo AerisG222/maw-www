@@ -1,8 +1,8 @@
 #!/bin/bash
 DBNAME="maw_www"
 IMAGE="docker.io/library/postgres:18-trixie"
-PODNAME=$1
-PWDFILEDIR=$2
+PODNAME="pod-maw-www"
+PWDFILEDIR=$1
 
 function header() {
     echo "** ${1} **"

@@ -1,4 +1,4 @@
 #!/bin/bash
-podman pod stop dev-www-pod
-podman rm dev-www-pg
+podman pod stop pod-maw-www
+podman rm maw-www-postgres
 sudo rm -rf ~mmorano/maw-www/dev/pg-data

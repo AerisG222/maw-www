@@ -3,8 +3,8 @@ PSQLUSER=$1
 DB=$2
 
 podman run -it --rm \
-    --pod dev-www-pod \
-    --name dev-pg-query \
+    --pod pod-maw-www \
+    --name maw-www-query \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
     --volume "/home/mmorano/maw-www/dev/pg-secrets:/secrets" \
     docker.io/library/postgres:18-trixie \
