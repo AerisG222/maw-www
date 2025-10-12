@@ -14,7 +14,7 @@ one or more nodes. It makes a couple of key assumptions:
 ## Control Node Setup
 
 1. Make sure python/pip are installed
-2. `cd tools/deploy/` within project
+2. `cd deploy/` within project
 3. Setup a python environment for ansible in the deploy dir: `python -m venv .venv`
 4. Enter the environment: `source .venv/bin/activate`
 5. If you want to exit that environment, just run `deactivate`
