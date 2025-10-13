@@ -48,6 +48,7 @@
     dir_wwwsecrets: "{{ dir_approot }}/www-secrets"
     dir_rcloneconf: "{{ dir_approot }}/rclone-config"
     dir_rclonesecrets: "{{ dir_approot }}/rclone-secrets"
+    dir_scripts: "{{ dir_approot }}/scripts"
 
   tasks:
     - name: Create Directories
@@ -65,6 +66,7 @@
         - "{{ dir_wwwenv }}"
         - "{{ dir_rcloneconf }}"
         - "{{ dir_rclonesecrets }}"
+        - "{{ dir_scripts }}"
 
     - name: Copy Files
       ansible.builtin.copy:
@@ -228,3 +230,11 @@
         scope: user
         enabled: true
         state: started
+
+    - name: Prepare Admin Scripts
+      ansible.builtin.template:
+        dest: "{{ dir_scripts }}/{{ item.dest }}"
+        src: "{{ item.src }}"
+        mode: "u+rwx"
+      loop:
+        - { "src": "sql-www.j2", "dest": "sql-www.sh" }
