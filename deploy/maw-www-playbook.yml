@@ -237,4 +237,5 @@
         src: "{{ item.src }}"
         mode: "u+rwx"
       loop:
-        - { "src": "sql-www.j2", "dest": "sql-www.sh" }
+        - { "src": "sql-www.sh.j2", "dest": "sql-www.sh" }
+        - { "src": "logs.sh.j2", "dest": "logs.sh" }
