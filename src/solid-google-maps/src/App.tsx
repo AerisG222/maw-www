@@ -61,34 +61,36 @@ const App: Component = () => {
                     Example: <a href="#" class="maw:text-secondary" onClick={(evt) => showSampleAddress(evt, 'The White House')}>The White House</a>
                 </p>
 
-                <div class="maw:flex maw:items-center maw:my-4">
-                    <fieldset class="maw:fieldset">
-                        <label class="maw:input maw:w-xl">
-                            <span class="maw:label maw:font-bold maw:text-secondary">Address</span>
-                            <input type="text" autofocus value={address()} onInput={e => setAddress(e.target.value)} />
-                        </label>
-                    </fieldset>
+                <div class="not-prose">
+                    <div class="maw:flex maw:items-center maw:my-4">
+                        <fieldset class="maw:fieldset">
+                            <label class="maw:input maw:w-xl">
+                                <span class="maw:label maw:font-bold maw:text-secondary">Address</span>
+                                <input type="text" autofocus value={address()} onInput={e => setAddress(e.target.value)} />
+                            </label>
+                        </fieldset>
 
-                    <button type="submit" class="maw:ml-8 maw:btn maw:btn-primary" onClick={showAddress}>Submit</button>
+                        <button type="submit" class="maw:ml-8 maw:btn maw:btn-primary" onClick={showAddress}>Submit</button>
+                    </div>
+
+                    <Show when={showMaps()}>
+                        <MapWidget
+                            poi={poi()!}
+                            center={center()!}
+                            zoom={17}
+                            otherMapBounds={map2Bounds()}
+                            centerChanged={setCenter}
+                            boundsChanged={setMap1Bounds} />
+
+                        <MapWidget
+                            poi={poi()!}
+                            center={center()!}
+                            zoom={13}
+                            otherMapBounds={map1Bounds()}
+                            centerChanged={setCenter}
+                            boundsChanged={setMap2Bounds} />
+                    </Show>
                 </div>
-
-                <Show when={showMaps()}>
-                    <MapWidget
-                        poi={poi()!}
-                        center={center()!}
-                        zoom={17}
-                        otherMapBounds={map2Bounds()}
-                        centerChanged={setCenter}
-                        boundsChanged={setMap1Bounds} />
-
-                    <MapWidget
-                        poi={poi()!}
-                        center={center()!}
-                        zoom={13}
-                        otherMapBounds={map1Bounds()}
-                        centerChanged={setCenter}
-                        boundsChanged={setMap2Bounds} />
-                </Show>
             </Suspense>
         </div>
     );
