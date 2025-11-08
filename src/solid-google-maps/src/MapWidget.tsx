@@ -1,8 +1,6 @@
 import { Component, createEffect, onMount } from "solid-js";
 
 export type MapWidgetProps = {
-    mapApi: google.maps.MapsLibrary;
-    markerApi: google.maps.MarkerLibrary;
     poi: google.maps.LatLng;
     center: google.maps.LatLng;
     zoom: number;
@@ -25,7 +23,7 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
 
             if (weAreLarger) {
                 if (!boundsRectangle) {
-                    boundsRectangle = new props.mapApi.Rectangle({
+                    boundsRectangle = new google.maps.Rectangle({
                         fillColor: "#c00",
                         strokeColor: "#c00",
                         clickable: false,
@@ -44,7 +42,7 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
     };
 
     onMount(() => {
-        map = new props.mapApi.Map(mapEl, {
+        map = new google.maps.Map(mapEl, {
             mapId: "db13bbf18252cc83",
             zoom: props.zoom,
         });
@@ -74,7 +72,7 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
                 poiMarker = null;
             }
 
-            poiMarker = new props.markerApi.AdvancedMarkerElement({
+            poiMarker = new google.maps.marker.AdvancedMarkerElement({
                 map: map,
                 position: props.poi,
             });

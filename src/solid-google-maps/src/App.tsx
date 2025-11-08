@@ -1,5 +1,4 @@
-import { createResource, createSignal, Show, Suspense, type Component } from 'solid-js';
-import { Loader } from '@googlemaps/js-api-loader';
+import { createSignal, Show, Suspense, type Component } from 'solid-js';
 
 import MapWidget from './MapWidget';
 
@@ -30,29 +29,8 @@ const App: Component = () => {
     );
     const showMaps = () => center() && poi();
 
-    const loader = new Loader({
-        apiKey: "AIzaSyA50h7G5fm_83lh460EnOdabUC9zU8XF7A",
-        version: "weekly"
-    });
-
-    const initMaps = async () => {
-        var libs = await Promise.all([
-            loader.importLibrary("maps"),
-            loader.importLibrary("geocoding"),
-            loader.importLibrary("marker")
-        ]);
-
-        return {
-            maps: libs[0],
-            geocoding: libs[1],
-            marker: libs[2]
-        }
-    };
-
-    const [apis] = createResource(initMaps);
-
     const showAddress = () => {
-        const geocoder = new apis.latest!.geocoding.Geocoder();
+        const geocoder = new google.maps.Geocoder();
 
         geocoder.geocode({ address: address() }, (results, status) => {
             if (status !== google.maps.GeocoderStatus.OK) {
@@ -96,8 +74,6 @@ const App: Component = () => {
 
                 <Show when={showMaps()}>
                     <MapWidget
-                        mapApi={apis()!.maps}
-                        markerApi={apis()!.marker}
                         poi={poi()!}
                         center={center()!}
                         zoom={17}
@@ -106,8 +82,6 @@ const App: Component = () => {
                         boundsChanged={setMap1Bounds} />
 
                     <MapWidget
-                        mapApi={apis()!.maps}
-                        markerApi={apis()!.marker}
                         poi={poi()!}
                         center={center()!}
                         zoom={13}
