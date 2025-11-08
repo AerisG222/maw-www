@@ -20,7 +20,7 @@ builder.Configuration
 
 builder.Services
     .ConfigureDataProtection(builder.Configuration)
-    .ConfigureForwardedHeaders()
+    .ConfigureForwardedHeaders(builder.Configuration)
     .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
     .ConfigureSameSiteNoneCookies()
     .AddSystemd()
