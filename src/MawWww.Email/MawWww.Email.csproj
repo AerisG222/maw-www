@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -10,9 +10,9 @@
     <ItemGroup>
         <PackageReference Include="Google.Apis.Gmail.v1" Version="1.70.0.3833" />
         <PackageReference Include="MailKit" Version="4.14.1" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.10" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.10" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,8 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/MawWww.Blog/MawWww.Blog.csproj" />
+        <Project Path="src/MawWww.Captcha/MawWww.Captcha.csproj" />
+        <Project Path="src/MawWww.Email/MawWww.Email.csproj" />
+        <Project Path="src/MawWww/MawWww.csproj" />
+    </Folder>
+</Solution>

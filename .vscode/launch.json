@@ -13,7 +13,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/MawWww/bin/Debug/net9.0/MawWww.dll",
+            "program": "${workspaceFolder}/src/MawWww/bin/Debug/net10.0/MawWww.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/MawWww",
             "stopAtEntry": false,
