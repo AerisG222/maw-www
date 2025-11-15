@@ -129,7 +129,7 @@
         env:
           POSTGRES_PASSWORD_FILE: "/secrets/psql-postgres"
         volumes:
-          - "{{ dir_pgdata }}:/var/lib/postgresql:z"
+          - "{{ dir_pgdata }}:/var/lib/postgresql:Z"
           - "{{ dir_pgsecrets }}:/secrets:ro,Z"
           - "{{ dir_pgbackups }}:/backups:rw,z"
         quadlet_options:
