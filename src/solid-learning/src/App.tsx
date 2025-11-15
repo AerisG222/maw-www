@@ -48,7 +48,7 @@ const App: Component = () => {
         }
     }
 
-    const getCurrentAudioUrl = (): string => `/${currentSpeaker().toLowerCase()}/${char().toLowerCase()}.mp3`;
+    const getCurrentAudioUrl = (): string => `${import.meta.env.VITE_ASSET_ROOT}${currentSpeaker().toLowerCase()}/${char().toLowerCase()}.mp3`;
 
     const getButtonText = (): string => doRun() ? 'Stop' : 'Start';
 
