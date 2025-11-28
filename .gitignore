@@ -32,3 +32,5 @@ src/MawWww/wwwroot/favicon.svg
 # python env for deployment
 .ansible
 .venv
+
+*.dump

@@ -4,6 +4,7 @@ import subprocess
 from podman import PodmanClient
 
 POD = 'pod-maw-www'
+PG_IMG = 'docker.io/library/postgres:18-trixie'
 PG_CONTAINER = 'maw-www-postgres'
 DATADIR = '/home/mmorano/maw-www/dev'
 PGDATA = f"{DATADIR}/pg-data"
@@ -31,9 +32,11 @@ pod.start()
 if not os.path.exists(PGDATA):
     os.makedirs(PGDATA)
 
+client.images.pull(PG_IMG)
+
 if not client.containers.exists(PG_CONTAINER):
     client.containers.create(
-        image = 'docker.io/library/postgres:18-trixie',
+        image = PG_IMG,
         name = PG_CONTAINER,
         pod = POD,
         environment = {
