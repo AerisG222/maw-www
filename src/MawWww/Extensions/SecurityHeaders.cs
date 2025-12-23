@@ -10,6 +10,10 @@ public static class SecurityHeadersExtensions
                     .AddDefaultSecurityHeaders()
                     .AddContentSecurityPolicy(builder => {
                         builder.AddFrameAncestors().Self();
+                    })
+                    .AddCrossOriginResourcePolicy(opts =>
+                    {
+                        opts.CrossOrigin();
                     });
             });
 
