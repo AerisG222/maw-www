@@ -32,6 +32,7 @@ builder.Services
         .Services
     .AddCustomAuthentication(builder.Configuration)
     .AddCustomAuthorizationPolicies()
+    .AddCustomCorsPolicy(builder.Configuration)
     .AddBlogServices()
     .AddCaptchaFeature(
         builder.Configuration.GetSection("CloudflareTurnstile"),
@@ -67,6 +68,7 @@ app
     .UseDefaultSecurityHeaders()
     .UseForwardedHeaders()
     .UseHttpsRedirection()
+    .UseCors()
     .UseCustomStaticFiles()
     .UseCookiePolicy()
     .UseMawUserPreferences()
