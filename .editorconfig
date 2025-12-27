@@ -10,8 +10,5 @@ indent_size = 4
 dotnet_sort_system_directives_first = true
 csharp_style_namespace_declarations = file_scoped:warning
 
-[*.yaml]
-indent_size = 2
-
-[*.yml]
+[*.{yaml,yml,yml.j2}]
 indent_size = 2

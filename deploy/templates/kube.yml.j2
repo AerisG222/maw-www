@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.podman.annotations.userns: keep-id:uid=1654
+  labels:
+    app: {{ pod }}
+  name: {{ pod }}
+spec:
+  containers:
+    - image: {{ img_postgres }}
+      imagePullPolicy: IfNotPresent
+      name: {{ container_pg }}
+      args:
+        - postgres
+      env:
+        - name: POSTGRES_PASSWORD_FILE
+          value: /secrets/psql-postgres
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsGroup: 0
+        runAsUser: 1654
+      volumeMounts:
+        - mountPath: /var/lib/postgresql:Z
+          name: pg-data
+        - mountPath: /secrets:Z
+          name: pg-secrets
+          readOnly: true
+        - mountPath: /backups:z
+          name: pg-backups
+
+    - image: {{ img_maw_www }}
+      imagePullPolicy: IfNotPresent
+      name: {{ container_www }}
+      env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: {{ aspnet_env }}
+        - name: MAW_WWW_Auth0__ClientId
+          value: {{ auth0_clientid }}
+        - name: MAW_WWW_Auth0__ClientSecret
+          value: {{ auth0_clientsecret }}
+        - name: MAW_WWW_Auth0__Domain
+          value: {{ auth0_domain }}
+        - name: MAW_WWW_CloudflareTurnstile__SiteKey
+          value: {{ cloudflare_turnstile_sitekey }}
+        - name: MAW_WWW_CloudflareTurnstile__SecretKey
+          value: {{ cloudflare_turnstile_secretkey }}
+        - name: MAW_WWW_Kestrel__Certificates__Default__Password
+          value: {{ kestrel_cert_password }}
+        - name: MAW_WWW_GoogleRecaptcha__SiteKey
+          value: {{ google_recaptcha_sitekey }}
+        - name: MAW_WWW_GoogleRecaptcha__SecretKey
+          value: {{ google_recaptcha_secretkey }}
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: {{ google_creds }}
+      ports:
+        - containerPort: 8080
+          hostPort: 8080
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsGroup: 0
+        runAsUser: 1654
+      volumeMounts:
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /www-data-protection:Z
+          name: www-data-protection
+        - mountPath: /www-secrets:Z
+          name: www-secrets
+          readOnly: true
+
+  volumes:
+    - hostPath:
+        path: /home/svc_maw_www/maw-www/pg-secrets
+        type: Directory
+      name: pg-secrets
+    - hostPath:
+        path: /home/svc_maw_www/maw-www/pg-backups
+        type: Directory
+      name: pg-backups
+    - emptyDir:
+        medium: Memory
+      name: temp
+    - hostPath:
+        path: /home/svc_maw_www/maw-www/www-data-protection
+        type: Directory
+      name: www-data-protection
+    - hostPath:
+        path: /home/svc_maw_www/maw-www/www-secrets
+        type: Directory
+      name: www-secrets
+    - hostPath:
+        path: /home/svc_maw_www/maw-www/pg-data
+        type: Directory
+      name: pg-data
