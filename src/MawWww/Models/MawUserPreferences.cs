@@ -1,6 +1,6 @@
 namespace MawWww.Models;
 
-public record class MawUserPreferences(
+public record MawUserPreferences(
     string Theme,
     bool PrimaryNavCollapsed
 );

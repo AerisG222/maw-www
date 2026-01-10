@@ -2,7 +2,7 @@
 @using MawWww.Extensions
 @model MawPageModel
 @{
-    Model.Title = $"Welcome, {User!.GivenName()}!";
+    Model.Title = $"Welcome, {User.GivenName()}!";
     Model.Area = PrimaryNavArea.Account;
     Model.SetHtmlPageTitle(PrimaryNavArea.Account);
 }

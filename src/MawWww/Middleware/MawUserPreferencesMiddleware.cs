@@ -46,7 +46,6 @@ public class MawUserPreferencesMiddleware
         catch
         {
             // ignore invalid cookies
-            return;
         }
     }
 

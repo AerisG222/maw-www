@@ -44,7 +44,7 @@ public class BlogRepository
     {
         using var conn = await _dataSource.OpenConnectionAsync();
 
-        var result = await conn.QuerySingleOrDefaultAsync<Guid>(
+        await conn.QuerySingleOrDefaultAsync<Guid>(
             @"SELECT * FROM blog.add_post(
                 @id,
                 @blogId,

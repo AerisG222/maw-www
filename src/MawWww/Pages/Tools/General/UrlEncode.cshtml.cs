@@ -78,7 +78,7 @@ public class UrlEncodeForm
                 break;
             default:
                 throw new InvalidOperationException("Invalid mode specified!");
-        };
+        }
     }
 
     public void Encode()

@@ -18,7 +18,7 @@ public class GmailApiEmailService
     readonly GmailApiEmailConfig _config;
     readonly ILogger _log;
 
-    public string FromAddress => _config?.FromEmailAddress ?? throw new InvalidOperationException("FromEmailAddress should not be null!");
+    public string FromAddress => _config.FromEmailAddress ?? throw new InvalidOperationException("FromEmailAddress should not be null!");
 
     public GmailApiEmailService(
         ILogger<GmailApiEmailService> log,
@@ -51,7 +51,7 @@ public class GmailApiEmailService
 
         var req = svc.Users.Messages.Send(msg, "me");
 
-        var result = await req.ExecuteAsync();
+        await req.ExecuteAsync();
     }
 
     static Message BuildMessage(string recipient, string from, string subject, string body, bool isHtml)

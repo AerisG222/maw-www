@@ -50,7 +50,7 @@ public class RegularExpressionsForm
     public bool OptionSingleLine { get; set; }
 
     [BindNever]
-    public Regex? RegEx { get; private set; } = null;
+    public Regex? RegEx { get; private set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

@@ -11,7 +11,7 @@ public class XslTransformPageModel
     : MawFormPageModel<XslTransformForm>
 {
     readonly StringBuilder _errors = new();
-    int _currError = 0;
+    int _currError;
 
     public string? TransformResult { get; set; }
     public bool AreErrors => _currError > 0;
@@ -63,7 +63,7 @@ public class XslTransformPageModel
             };
 
             ms = new MemoryStream();
-            xmlWriter = XmlWriter.Create(ms);
+            xmlWriter = XmlWriter.Create(ms, xmlWriterSettings);
 
             xslTransform.Transform(xmlReader, xmlWriter);
 

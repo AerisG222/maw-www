@@ -1,6 +1,6 @@
 @using MawWww.Extensions
 @{
-    var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
+    var collapsed = Context.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
     var titleStyle = collapsed ? "display: none;" : "";
 }
 <button id="maw-theme-switcher" class="flex primary-nav-link cursor-pointer" title="Toggle Theme">

@@ -105,7 +105,7 @@ public class GpsCoordinate
 
     public static void GetDegreesMinutes(float degreeDecimals, out float degrees, out float minutes)
     {
-        degrees = (float)Math.Truncate((double)degreeDecimals);
+        degrees = (float)Math.Truncate(degreeDecimals);
         minutes = (Math.Abs(degreeDecimals) - Math.Abs(degrees)) * 60.0f;
     }
 
@@ -118,17 +118,17 @@ public class GpsCoordinate
     public static void GetDegreesMinutesSeconds(float degreeDecimals, float minuteDecimals, out float degrees, out float minutes, out float seconds)
     {
         degrees = degreeDecimals;
-        minutes = Math.Abs((float)Math.Truncate((double)minuteDecimals));
+        minutes = Math.Abs((float)Math.Truncate(minuteDecimals));
         seconds = (Math.Abs(minuteDecimals) - minutes) * 60.0f;
     }
 
     public static void GetDegreesMinutesSeconds(float degreeDecimals, out float degrees, out float minutes, out float seconds)
     {
-        degrees = (float)Math.Truncate((double)degreeDecimals);
+        degrees = (float)Math.Truncate(degreeDecimals);
 
         float totalMinutes = (Math.Abs(degreeDecimals) - Math.Abs(degrees)) * 60.0f;
 
-        minutes = (float)Math.Truncate((double)totalMinutes);
+        minutes = (float)Math.Truncate(totalMinutes);
         seconds = (totalMinutes - minutes) * 60.0f;
     }
 
@@ -232,8 +232,7 @@ public class GpsCoordinate
     {
         ArgumentNullException.ThrowIfNull(coord);
 
-        string[] splitTerms = new string[] { " ", "'", "\"", "deg", "N", "S", "E", "W" };
-
+        string[] splitTerms = [" ", "'", "\"", "deg", "N", "S", "E", "W"];
         string[] parts = coord.Split(splitTerms, StringSplitOptions.RemoveEmptyEntries);
 
         if (parts.Length != 3)

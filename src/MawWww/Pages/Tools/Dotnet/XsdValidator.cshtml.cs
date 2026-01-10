@@ -11,7 +11,7 @@ public class XsdValidatorPageModel
     : MawFormPageModel<XsdValidatorForm>
 {
     readonly StringBuilder _errors = new();
-    int _currError = 0;
+    int _currError;
 
     public string? TransformResult { get; set; }
     public bool AreErrors => _currError > 0;

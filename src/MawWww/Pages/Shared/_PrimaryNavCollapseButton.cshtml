@@ -1,6 +1,6 @@
 @using MawWww.Extensions
 @{
-    var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
+    var collapsed = Context.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
     var icon = collapsed ? "icon-[mdi--chevron-double-right]" : "icon-[mdi--chevron-double-left]";
 }
 <button

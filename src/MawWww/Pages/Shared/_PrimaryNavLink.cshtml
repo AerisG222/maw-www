@@ -1,7 +1,7 @@
 @using MawWww.Extensions
 @model PrimaryNavLink
 @{
-    var collapsed = Context?.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
+    var collapsed = Context.GetMawUserPreferences()?.PrimaryNavCollapsed ?? false;
     var titleStyle = collapsed ? "display: none;" : "";
 }
 <a class="primary-nav-link @(Model.IsActive ? "text-primary-content bg-primary" : "")" href="@Model.Url" title="@Model.Title">

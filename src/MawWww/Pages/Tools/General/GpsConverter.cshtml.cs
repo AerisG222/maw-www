@@ -164,7 +164,7 @@ public class GpsConverterForm
     {
         if (val == null)
         {
-            resultList.Add(new ValidationResult(string.Concat(fieldDescription, " must be specified."), new string[] { fieldName }));
+            resultList.Add(new ValidationResult(string.Concat(fieldDescription, " must be specified."), [fieldName]));
         }
         else
         {
@@ -172,7 +172,8 @@ public class GpsConverterForm
 
             if (fval < min || fval > max)
             {
-                resultList.Add(new ValidationResult(string.Concat(fieldDescription, " must be within the range of [", min.ToString("N1", CultureInfo.InvariantCulture), ", ", max.ToString("N1", CultureInfo.InvariantCulture), "]."), new string[] { fieldName }));
+                resultList.Add(new ValidationResult(string.Concat(fieldDescription, " must be within the range of [", min.ToString("N1", CultureInfo.InvariantCulture), ", ", max.ToString("N1", CultureInfo.InvariantCulture), "]."),
+                    [fieldName]));
             }
         }
     }

@@ -11,7 +11,7 @@ public class XmlValidatorPageModel
     : MawFormPageModel<XmlValidatorForm>
 {
     readonly StringBuilder _errors = new();
-    int _currError = 0;
+    int _currError;
 
     public bool AreErrors => _currError > 0;
     public string ErrorMessage => _errors.ToString();

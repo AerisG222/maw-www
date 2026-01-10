@@ -110,7 +110,7 @@
 </form>
 
 @if(Model.RegexMatches != null) {
-    string? results = null;
+    string? results;
 
     switch(Model.RegexMatches.Count)     {
         case 0:
@@ -130,26 +130,24 @@
         <ul>
         @foreach(Match match in Model.RegexMatches) {
             <li>Match: @match.Value
-            @if(match.Groups != null && match.Groups.Count > 0) {
-                int groupid = 0;
+            @if(match.Groups.Count > 0) {
+                var groupId = 0;
 
                 <ul>
                 @foreach(Group group in match.Groups) {
-                    string name = string.Concat("[", groupid, " : ", Model.Form.RegEx?.GroupNameFromNumber(groupid), "]");
+                    var name = string.Concat("[", groupId, " : ", Model.Form.RegEx?.GroupNameFromNumber(groupId), "]");
 
                     <li>Group: @name : @group.Value
-                    @if(group.Captures != null && group.Captures.Count > 1) {
-                        int captureid = 0;
+                    @if(group.Captures.Count > 1) {
                         <ul>
                         @foreach(Capture capture in group.Captures) {
                             <li>Capture: @capture.Value</li>
-                            captureid++;
                         }
                         </ul>
                     }
                     </li>
 
-                    groupid++;
+                    groupId++;
                 }
                 </ul>
             }
