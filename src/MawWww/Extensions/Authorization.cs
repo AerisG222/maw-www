@@ -7,15 +7,12 @@ public static class AuthorizationExtensions
 {
     public static IServiceCollection AddCustomAuthorizationPolicies(
         this IServiceCollection services
-    ) {
-        var adminPolicy = new AuthorizationPolicyBuilder()
-            .RequireRole("Administrator")
-            .Build();
-
-        services
-            .AddAuthorization(opts => {
-                opts.AddPolicy(AuthorizationPolicies.Administrator, adminPolicy);
-            });
+    )
+    {
+        services.AddAuthorizationBuilder()
+            .AddPolicy(AuthorizationPolicies.Administrator, policy =>
+                policy.RequireRole("Administrator")
+            );
 
         return services;
     }
