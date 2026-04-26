@@ -17,7 +17,7 @@ public class ContactPageModel
     readonly ContactConfig _config;
     readonly IEmailService _emailService;
     readonly FluidParser _fluidParser;
-    readonly object _contactUsTemplateLock = new();
+    readonly Lock _contactUsTemplateLock = new();
     ICaptchaService? _captchaService;
     IFluidTemplate? _contactUsTemplate;
 
@@ -32,7 +32,8 @@ public class ContactPageModel
         ICaptchaFeature captchaFeature,
         IEmailService emailService,
         FluidParser fluidParser
-    ) {
+    )
+    {
         ArgumentNullException.ThrowIfNull(log);
         ArgumentNullException.ThrowIfNull(contactOpts);
         ArgumentNullException.ThrowIfNull(captchaFeature);
@@ -59,11 +60,11 @@ public class ContactPageModel
         await GetCaptchaService();
         SubmitAttempted = true;
 
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             var response = collection[_captchaService!.ResponseFormFieldName].FirstOrDefault();
 
-            if(string.IsNullOrEmpty(response))
+            if (string.IsNullOrEmpty(response))
             {
                 ModelState.AddModelError(nameof(IsHuman), "Please solve the Captcha");
             }
@@ -89,7 +90,7 @@ public class ContactPageModel
     {
         _captchaService = await _captchaFeature.GetServiceAsync();
 
-        if(_captchaService == null)
+        if (_captchaService == null)
         {
             throw new ApplicationException("Captcha service should not be null!");
         }
@@ -101,7 +102,7 @@ public class ContactPageModel
         {
             var template = GetContactUsTemplate();
 
-            if(template == null)
+            if (template == null)
             {
                 return false;
             }
@@ -111,7 +112,8 @@ public class ContactPageModel
                 FileProvider = new PhysicalFileProvider(TemplateDir)
             };
 
-            var model = new {
+            var model = new
+            {
                 _config.Subject,
                 Form.Email,
                 Form.Name,
@@ -139,11 +141,11 @@ public class ContactPageModel
 
     IFluidTemplate GetContactUsTemplate()
     {
-        if(_contactUsTemplate == null)
+        if (_contactUsTemplate == null)
         {
-            lock(_contactUsTemplateLock)
+            lock (_contactUsTemplateLock)
             {
-                if(_contactUsTemplate == null)
+                if (_contactUsTemplate == null)
                 {
                     var templatePath = Path.Combine(TemplateDir, "ContactUs.liquid");
                     var templateSource = System.IO.File.ReadAllText(templatePath);
