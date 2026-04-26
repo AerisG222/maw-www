@@ -9,10 +9,10 @@
 
     <ItemGroup>
         <PackageReference Include="Google.Apis.Gmail.v1" Version="1.73.0.4029" />
-        <PackageReference Include="MailKit" Version="4.15.1" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.5" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.5" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.5" />
+        <PackageReference Include="MailKit" Version="4.16.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.7" />
     </ItemGroup>
 
 </Project>
