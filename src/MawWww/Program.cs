@@ -9,6 +9,7 @@ using MawWww.Captcha;
 using MawWww.Email;
 using MawWww.Extensions;
 using MawWww.Models;
+using MawWww.Pages.About;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services
     .ConfigureDataProtection(builder.Configuration)
     .ConfigureForwardedHeaders(builder.Configuration)
     .Configure<ContactConfig>(builder.Configuration.GetSection("ContactUs"))
+    .Configure<BlogConfig>(builder.Configuration.GetSection("Blog"))
     .ConfigureSameSiteNoneCookies()
     .AddSystemd()
     .AddFeatureManagement()
@@ -40,6 +42,7 @@ builder.Services
     .AddEmailServices(builder.Configuration.GetSection("Gmail"))
     .AddSingleton<IClock>(services => SystemClock.Instance)
     .AddSingleton<FluidParser>()
+    .AddSingleton<ContactEmailTemplateProvider>()
     .AddRazorPages(options =>
         {
             options.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
@@ -53,7 +56,7 @@ builder.Services
 
 var app = builder.Build();
 
-if(app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
@@ -73,7 +76,8 @@ app
     .UseRouting()
     .UseAuthentication()
     .UseAuthorization()
-    .UseEndpoints(endpoints => {
+    .UseEndpoints(endpoints =>
+    {
         endpoints.MapRazorPages();
     });
 

@@ -74,6 +74,7 @@ public class XmlValidatorPageModel
                 if(schema != null)
                 {
                     settings.Schemas.Add(schema);
+                    settings.ValidationType = ValidationType.Schema;
                 }
             }
             else

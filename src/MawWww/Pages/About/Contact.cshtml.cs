@@ -16,10 +16,8 @@ public class ContactPageModel
     readonly ICaptchaFeature _captchaFeature;
     readonly ContactConfig _config;
     readonly IEmailService _emailService;
-    readonly FluidParser _fluidParser;
-    readonly Lock _contactUsTemplateLock = new();
+    readonly ContactEmailTemplateProvider _templateProvider;
     ICaptchaService? _captchaService;
-    IFluidTemplate? _contactUsTemplate;
 
     static string TemplateDir => Path.Combine(AppContext.BaseDirectory, "EmailTemplates");
 
@@ -31,20 +29,20 @@ public class ContactPageModel
         IOptions<ContactConfig> contactOpts,
         ICaptchaFeature captchaFeature,
         IEmailService emailService,
-        FluidParser fluidParser
+        ContactEmailTemplateProvider templateProvider
     )
     {
         ArgumentNullException.ThrowIfNull(log);
         ArgumentNullException.ThrowIfNull(contactOpts);
         ArgumentNullException.ThrowIfNull(captchaFeature);
         ArgumentNullException.ThrowIfNull(emailService);
-        ArgumentNullException.ThrowIfNull(fluidParser);
+        ArgumentNullException.ThrowIfNull(templateProvider);
 
         _log = log;
         _config = contactOpts.Value;
         _captchaFeature = captchaFeature;
         _emailService = emailService;
-        _fluidParser = fluidParser;
+        _templateProvider = templateProvider;
     }
 
     public async Task<IActionResult> OnGet()
@@ -100,13 +98,6 @@ public class ContactPageModel
     {
         try
         {
-            var template = GetContactUsTemplate();
-
-            if (template == null)
-            {
-                return false;
-            }
-
             var options = new TemplateOptions()
             {
                 FileProvider = new PhysicalFileProvider(TemplateDir)
@@ -120,7 +111,7 @@ public class ContactPageModel
                 Form.Message
             };
 
-            var body = template.Render(new TemplateContext(model, options));
+            var body = _templateProvider.Template.Render(new TemplateContext(model, options));
 
             await _emailService.SendHtmlAsync(
                 _config.To,
@@ -137,25 +128,6 @@ public class ContactPageModel
 
             return false;
         }
-    }
-
-    IFluidTemplate GetContactUsTemplate()
-    {
-        if (_contactUsTemplate == null)
-        {
-            lock (_contactUsTemplateLock)
-            {
-                if (_contactUsTemplate == null)
-                {
-                    var templatePath = Path.Combine(TemplateDir, "ContactUs.liquid");
-                    var templateSource = System.IO.File.ReadAllText(templatePath);
-
-                    _contactUsTemplate = _fluidParser.Parse(templateSource);
-                }
-            }
-        }
-
-        return _contactUsTemplate;
     }
 }
 

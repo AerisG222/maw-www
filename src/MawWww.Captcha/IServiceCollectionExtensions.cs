@@ -9,13 +9,15 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration cloudflareTurnstileConfiguration,
         IConfiguration googleCaptchaConfiguration
-    ) {
+    )
+    {
         services
             .Configure<CloudflareTurnstileConfig>(cloudflareTurnstileConfiguration)
             .Configure<GoogleCaptchaConfig>(googleCaptchaConfiguration)
             .AddScoped<ICaptchaService, GoogleCaptchaService>()
             .AddScoped<ICaptchaService, CloudflareTurnstileCaptchaService>()
-            .AddScoped<ICaptchaFeature, CaptchaFeature>();
+            .AddScoped<ICaptchaFeature, CaptchaFeature>()
+            .AddHttpClient();
 
         return services;
     }

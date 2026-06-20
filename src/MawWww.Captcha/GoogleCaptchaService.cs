@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -11,16 +11,20 @@ public class GoogleCaptchaService
     static readonly Uri URL = new("https://www.google.com/recaptcha/api/siteverify");
     readonly GoogleCaptchaConfig _config;
     readonly ILogger _log;
+    readonly IHttpClientFactory _httpClientFactory;
 
     public GoogleCaptchaService(
         IOptions<GoogleCaptchaConfig> config,
-        ILogger<GoogleCaptchaService> log)
+        ILogger<GoogleCaptchaService> log,
+        IHttpClientFactory httpClientFactory)
     {
         ArgumentNullException.ThrowIfNull(config);
         ArgumentNullException.ThrowIfNull(log);
+        ArgumentNullException.ThrowIfNull(httpClientFactory);
 
         _config = config.Value;
         _log = log;
+        _httpClientFactory = httpClientFactory;
     }
 
     public virtual string ResponseFormFieldName => "g-recaptcha-response";
@@ -35,19 +39,26 @@ public class GoogleCaptchaService
 
         var parameters = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("secret", _config.SecretKey),
-                new KeyValuePair<string, string>("response", recaptchaResponse)
+                new("secret", _config.SecretKey),
+                new("response", recaptchaResponse)
             };
 
-        using var client = new HttpClient();
-        using var content = new FormUrlEncodedContent(parameters);
-        var response = await client.PostAsync(URL, content);
-        var val = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<GoogleCaptchaResponse>(val)?.success ?? false;
+        var result = false;
 
-        _log.LogDebug("google recaptcha returned: {CaptchaResult}", result);
+        try
+        {
+            using var client = _httpClientFactory.CreateClient();
+            using var content = new FormUrlEncodedContent(parameters);
+            using var response = await client.PostAsync(URL, content);
+            var val = await response.Content.ReadAsStringAsync();
+            result = JsonSerializer.Deserialize<GoogleCaptchaResponse>(val)?.Success ?? false;
 
-        response.Dispose();
+            _log.LogDebug("google recaptcha returned: {CaptchaResult}", result);
+        }
+        catch (Exception ex)
+        {
+            _log.LogError(ex, "Error validating Google reCAPTCHA response");
+        }
 
         return result;
     }

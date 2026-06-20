@@ -23,11 +23,11 @@ public static class Utils
     {
         ArgumentNullException.ThrowIfNull(byteArray);
 
-        StringBuilder builder = new(byteArray.Length);
+        StringBuilder builder = new(byteArray.Length * 2);
 
         foreach (byte b in byteArray)
         {
-            builder.Append(FormattableString.Invariant($"{b:X}"));
+            builder.Append(FormattableString.Invariant($"{b:X2}"));
         }
 
         return builder.ToString();

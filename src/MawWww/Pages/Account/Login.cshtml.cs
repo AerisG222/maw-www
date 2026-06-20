@@ -9,6 +9,11 @@ public class LoginModel
 {
     public async Task OnGet(string returnUrl = "/")
     {
+        if (!Url.IsLocalUrl(returnUrl))
+        {
+            returnUrl = "/";
+        }
+
         var authenticationProperties = new AuthenticationProperties {
             RedirectUri = returnUrl,
             Items =

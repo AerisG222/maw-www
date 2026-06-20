@@ -33,19 +33,14 @@ public class RandomBytesPageModel
     {
         var randomBytes = GenerateRandom(Form.Size);
 
-        RandomBytes = Utils.ToHexString(randomBytes)[..Form.Size];
+        RandomBytes = Utils.ToHexString(randomBytes);
         RandomBytesBase64 = Convert.ToBase64String(randomBytes);
     }
 
-    public static byte[] GenerateRandom(int size)
+    static byte[] GenerateRandom(int size)
     {
         var randomBytes = new byte[size];
-
-        using (var rand = RandomNumberGenerator.Create())
-        {
-            rand.GetBytes(randomBytes);
-        }
-
+        RandomNumberGenerator.Fill(randomBytes);
         return randomBytes;
     }
 }

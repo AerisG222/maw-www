@@ -19,12 +19,9 @@ public static class DataProtectionExtensions
 
         Console.WriteLine($"Using data protection directory: {dpPath}");
 
-        if (!string.IsNullOrWhiteSpace(dpPath))
-        {
-            services
-                .AddDataProtection()
-                .PersistKeysToFileSystem(new DirectoryInfo(dpPath));
-        }
+        services
+            .AddDataProtection()
+            .PersistKeysToFileSystem(new DirectoryInfo(dpPath));
 
         return services;
     }

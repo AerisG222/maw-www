@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.Options;
 using NodaTime;
 
 namespace MawWww.Blog;
@@ -10,20 +11,23 @@ public class BlogService
     readonly IClock _clock;
     readonly HybridCache _cache;
 
-    public Guid MawBlogId { get; } = new Guid("0193eaba-51c5-77b8-9f1e-181e2b818831");
+    public Guid MawBlogId { get; }
 
     public BlogService(
         IBlogRepository repo,
         IClock clock,
-        HybridCache cache
+        HybridCache cache,
+        IOptions<BlogConfig> config
     ) {
         ArgumentNullException.ThrowIfNull(repo);
         ArgumentNullException.ThrowIfNull(clock);
         ArgumentNullException.ThrowIfNull(cache);
+        ArgumentNullException.ThrowIfNull(config);
 
         _repo = repo;
         _clock = clock;
         _cache = cache;
+        MawBlogId = config.Value.MawBlogId;
     }
 
     public async Task<IEnumerable<Blog>> GetBlogsAsync()
