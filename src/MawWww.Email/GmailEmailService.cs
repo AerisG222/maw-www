@@ -31,27 +31,27 @@ public class GmailApiEmailService
         _log = log;
     }
 
-    public Task SendAsync(string recipient, string from, string subject, string body)
+    public Task SendAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
     {
-        return SendMessageAsync(recipient, from, subject, body, false);
+        return SendMessageAsync(recipient, from, subject, body, false, cancellationToken);
     }
 
-    public Task SendHtmlAsync(string recipient, string from, string subject, string body)
+    public Task SendHtmlAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
     {
-        return SendMessageAsync(recipient, from, subject, body, true);
+        return SendMessageAsync(recipient, from, subject, body, true, cancellationToken);
     }
 
-    async Task SendMessageAsync(string recipient, string from, string subject, string body, bool isHtml)
+    async Task SendMessageAsync(string recipient, string from, string subject, string body, bool isHtml, CancellationToken cancellationToken)
     {
         _log.LogInformation("sending email to: {Recipient}, from: {From}, subject: {Subject}", recipient, from, subject);
 
         var msg = BuildMessage(recipient, from, subject, body, isHtml);
 
-        using var svc = await GetService();
+        using var svc = await GetService(cancellationToken);
 
         var req = svc.Users.Messages.Send(msg, "me");
 
-        await req.ExecuteAsync();
+        await req.ExecuteAsync(cancellationToken);
     }
 
     static Message BuildMessage(string recipient, string from, string subject, string body, bool isHtml)
@@ -91,9 +91,9 @@ public class GmailApiEmailService
             .Replace("=", "", StringComparison.Ordinal);
     }
 
-    async Task<GmailService> GetService()
+    async Task<GmailService> GetService(CancellationToken cancellationToken)
     {
-        var cred = await GoogleCredential.GetApplicationDefaultAsync();
+        var cred = await GoogleCredential.GetApplicationDefaultAsync(cancellationToken);
 
         cred = cred
             .CreateScoped(Scopes)

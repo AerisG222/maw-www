@@ -30,7 +30,7 @@ public class CloudflareTurnstileCaptchaService
     public virtual string ResponseFormFieldName => "cf-turnstile-response";
     public virtual string SiteKey => _config.SiteKey;
 
-    public virtual async Task<bool> VerifyAsync(string recaptchaResponse)
+    public virtual async Task<bool> VerifyAsync(string recaptchaResponse, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(recaptchaResponse))
         {
@@ -49,13 +49,13 @@ public class CloudflareTurnstileCaptchaService
         {
             using var client = _httpClientFactory.CreateClient();
             using var content = new FormUrlEncodedContent(parameters);
-            using var response = await client.PostAsync(URL, content);
-            var val = await response.Content.ReadAsStringAsync();
+            using var response = await client.PostAsync(URL, content, cancellationToken);
+            var val = await response.Content.ReadAsStringAsync(cancellationToken);
             result = JsonSerializer.Deserialize<CloudflareTurnstileResponse>(val)?.Success ?? false;
 
             _log.LogDebug("Cloudflare Turnstile returned: {CaptchaResult}", result);
         }
-        catch (Exception ex)
+        catch(Exception ex)
         {
             _log.LogError(ex, "Error validating Cloudflare Turnstile response");
         }

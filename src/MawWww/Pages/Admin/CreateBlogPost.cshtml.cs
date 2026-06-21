@@ -26,7 +26,7 @@ public class CreateBlogPostPageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
     {
         SubmitAttempted = true;
 
@@ -39,7 +39,7 @@ public class CreateBlogPostPageModel
                     Form.Content
                 );
 
-                await _service.AddPostAsync(post);
+                await _service.AddPostAsync(post, cancellationToken);
 
                 SubmitSuccess = true;
             }

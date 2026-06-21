@@ -4,8 +4,8 @@ public interface IBlogService
 {
     Guid MawBlogId { get; }
 
-    Task<IEnumerable<Blog>> GetBlogsAsync();
-    Task<IEnumerable<Post>> GetAllPostsAsync(Guid blogId);
-    Task<IEnumerable<Post>> GetLatestPostsAsync(Guid blogId, short postCount);
-    Task AddPostAsync(PostCreate post);
+    Task<IEnumerable<Blog>> GetBlogsAsync(CancellationToken cancellationToken = default);
+    Task<IEnumerable<Post>> GetAllPostsAsync(Guid blogId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Post>> GetLatestPostsAsync(Guid blogId, short postCount, CancellationToken cancellationToken = default);
+    Task AddPostAsync(PostCreate post, CancellationToken cancellationToken = default);
 }

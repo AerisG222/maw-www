@@ -30,33 +30,36 @@ public class BlogService
         MawBlogId = config.Value.MawBlogId;
     }
 
-    public async Task<IEnumerable<Blog>> GetBlogsAsync()
+    public async Task<IEnumerable<Blog>> GetBlogsAsync(CancellationToken cancellationToken = default)
     {
         return await _cache.GetOrCreateAsync(
             "blogs:all",
-            async cancel => await _repo.GetBlogsAsync()
+            async cancel => await _repo.GetBlogsAsync(cancel),
+            cancellationToken: cancellationToken
         );
     }
 
-    public async Task<IEnumerable<Post>> GetAllPostsAsync(Guid blogId)
+    public async Task<IEnumerable<Post>> GetAllPostsAsync(Guid blogId, CancellationToken cancellationToken = default)
     {
         return await _cache.GetOrCreateAsync(
             $"blogs:{blogId}:posts:all",
-            async cancel => await _repo.GetAllPostsAsync(blogId),
-            tags: [BuildBlogPostsCacheTag(blogId)]
+            async cancel => await _repo.GetAllPostsAsync(blogId, cancel),
+            tags: [BuildBlogPostsCacheTag(blogId)],
+            cancellationToken: cancellationToken
         );
     }
 
-    public async Task<IEnumerable<Post>> GetLatestPostsAsync(Guid blogId, short postCount)
+    public async Task<IEnumerable<Post>> GetLatestPostsAsync(Guid blogId, short postCount, CancellationToken cancellationToken = default)
     {
         return await _cache.GetOrCreateAsync(
             $"blogs:{blogId}:posts:latest:{postCount}",
-            async cancel => await _repo.GetLatestPostsAsync(blogId, postCount),
-            tags: [BuildBlogPostsCacheTag(blogId)]
+            async cancel => await _repo.GetLatestPostsAsync(blogId, postCount, cancel),
+            tags: [BuildBlogPostsCacheTag(blogId)],
+            cancellationToken: cancellationToken
         );
     }
 
-    public async Task AddPostAsync(PostCreate post)
+    public async Task AddPostAsync(PostCreate post, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(post);
 
@@ -68,8 +71,8 @@ public class BlogService
             _clock.GetCurrentInstant()
         );
 
-        await _repo.AddPostAsync(newPost);
-        await _cache.RemoveByTagAsync(BuildBlogPostsCacheTag(newPost.BlogId));
+        await _repo.AddPostAsync(newPost, cancellationToken);
+        await _cache.RemoveByTagAsync(BuildBlogPostsCacheTag(newPost.BlogId), cancellationToken);
     }
 
     static string BuildBlogPostsCacheTag(Guid blogId) => $"blogs:{blogId}:posts";

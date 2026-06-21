@@ -7,14 +7,16 @@ public static class NpgsqlExtensions
     public static IServiceCollection AddNpgsql(
         this IServiceCollection services,
         IConfiguration config
-    ) {
+    )
+    {
         var connString = config["Npgsql:ConnectionString"];
 
         ArgumentException.ThrowIfNullOrWhiteSpace(connString);
 
         services
-            .AddSingleton(
-                new NpgsqlDataSourceBuilder(connString)
+            .AddNpgsqlDataSource(
+                connString,
+                builder => builder
                     .UseNodaTime()
                     .Build()
             );

@@ -23,7 +23,7 @@ public class CaptchaFeature
         _captchaServices = captchaServices;
     }
 
-    public async Task<ICaptchaService> GetServiceAsync()
+    public async Task<ICaptchaService> GetServiceAsync(CancellationToken cancellationToken = default)
     {
         if(_service != null)
         {

@@ -17,7 +17,8 @@ public class SmtpEmailService
     public SmtpEmailService(
         ILogger<SmtpEmailService> log,
         IOptions<SmtpEmailConfig> config
-    ) {
+    )
+    {
         ArgumentNullException.ThrowIfNull(config);
         ArgumentNullException.ThrowIfNull(log);
 
@@ -25,17 +26,17 @@ public class SmtpEmailService
         _log = log;
     }
 
-    public virtual Task SendHtmlAsync(string recipient, string from, string subject, string body)
+    public virtual Task SendHtmlAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
     {
         return SendAsync(recipient, from, subject, body, true);
     }
 
-    public virtual Task SendAsync(string recipient, string from, string subject, string body)
+    public virtual Task SendAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
     {
         return SendAsync(recipient, from, subject, body, false);
     }
 
-    protected virtual async Task SendAsync(string recipient, string from, string subject, string body, bool html)
+    protected virtual async Task SendAsync(string recipient, string from, string subject, string body, bool html, CancellationToken cancellationToken = default)
     {
         _log.LogInformation("sending email to: {Recipient}, from: {From}, subject: {Subject}", recipient, from, subject);
 
@@ -58,9 +59,9 @@ public class SmtpEmailService
         msg.Body = builder.ToMessageBody();
 
         // http://stackoverflow.com/questions/33496290/how-to-send-email-by-using-mailkit
-        await smtp.ConnectAsync(_config.Server, _config.Port, SecureSocketOptions.StartTls);
-        await smtp.AuthenticateAsync(_config.User, _config.Password);
-        await smtp.SendAsync(msg);
-        await smtp.DisconnectAsync(true);
+        await smtp.ConnectAsync(_config.Server, _config.Port, SecureSocketOptions.StartTls, cancellationToken);
+        await smtp.AuthenticateAsync(_config.User, _config.Password, cancellationToken);
+        await smtp.SendAsync(msg, cancellationToken);
+        await smtp.DisconnectAsync(true, cancellationToken);
     }
 }

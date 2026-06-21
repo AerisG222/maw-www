@@ -45,17 +45,17 @@ public class ContactPageModel
         _templateProvider = templateProvider;
     }
 
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGet(CancellationToken cancellationToken)
     {
-        await GetCaptchaService();
+        await GetCaptchaService(cancellationToken);
 
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(IFormCollection collection)
+    public async Task<IActionResult> OnPostAsync(IFormCollection collection, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        await GetCaptchaService();
+        await GetCaptchaService(cancellationToken);
         SubmitAttempted = true;
 
         if (ModelState.IsValid)
@@ -68,7 +68,7 @@ public class ContactPageModel
             }
             else
             {
-                IsHuman = await _captchaService.VerifyAsync(response);
+                IsHuman = await _captchaService.VerifyAsync(response, cancellationToken);
 
                 if (!IsHuman)
                 {
@@ -76,7 +76,7 @@ public class ContactPageModel
                 }
                 else
                 {
-                    SubmitSuccess = await SendEmailAsync();
+                    SubmitSuccess = await SendEmailAsync(cancellationToken);
                 }
             }
         }
@@ -84,9 +84,9 @@ public class ContactPageModel
         return Page();
     }
 
-    async Task GetCaptchaService()
+    async Task GetCaptchaService(CancellationToken cancellationToken)
     {
-        _captchaService = await _captchaFeature.GetServiceAsync();
+        _captchaService = await _captchaFeature.GetServiceAsync(cancellationToken);
 
         if (_captchaService == null)
         {
@@ -94,7 +94,7 @@ public class ContactPageModel
         }
     }
 
-    async Task<bool> SendEmailAsync()
+    async Task<bool> SendEmailAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -117,7 +117,8 @@ public class ContactPageModel
                 _config.To,
                 _config.To,  // from
                 _config.Subject,
-                body
+                body,
+                cancellationToken
             );
 
             return true;

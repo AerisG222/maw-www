@@ -1,6 +1,6 @@
-﻿namespace MawWww.Captcha;
+namespace MawWww.Captcha;
 
 public interface ICaptchaFeature
 {
-    Task<ICaptchaService> GetServiceAsync();
+    Task<ICaptchaService> GetServiceAsync(CancellationToken cancellationToken = default);
 }

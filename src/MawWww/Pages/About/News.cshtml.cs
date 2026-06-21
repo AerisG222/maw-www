@@ -18,8 +18,8 @@ public class NewsPageModel
         _blogService = blogService;
     }
 
-    public async Task OnGet()
+    public async Task OnGet(CancellationToken cancellationToken)
     {
-        Posts = await _blogService.GetLatestPostsAsync(_blogService.MawBlogId, 10);
+        Posts = await _blogService.GetLatestPostsAsync(_blogService.MawBlogId, 10, cancellationToken);
     }
 }

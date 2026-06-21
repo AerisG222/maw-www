@@ -8,7 +8,7 @@ namespace MawWww.Pages.Account;
 public class LogoutModel
     : PageModel
 {
-    public async Task OnGet(string returnUrl = "/")
+    public async Task OnGet(string returnUrl = "/", CancellationToken cancellationToken = default)
     {
         await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

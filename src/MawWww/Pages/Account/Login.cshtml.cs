@@ -7,7 +7,7 @@ namespace MawWww.Pages.Account;
 public class LoginModel
     : PageModel
 {
-    public async Task OnGet(string returnUrl = "/")
+    public async Task OnGet(string returnUrl = "/", CancellationToken cancellationToken = default)
     {
         if (!Url.IsLocalUrl(returnUrl))
         {
