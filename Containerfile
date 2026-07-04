@@ -28,6 +28,7 @@ ENV BUN_INSTALL=/root/.bun
 ENV PATH="$BUN_INSTALL/bin:$PATH"
 
 # restore
+COPY Directory.Packages.props .
 COPY maw-www.slnx  .
 COPY nuget.config  .
 COPY src/MawWww/MawWww.csproj                 src/MawWww/
