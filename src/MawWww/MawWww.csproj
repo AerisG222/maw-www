@@ -36,14 +36,22 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**;tsconfig.json;package.json</DefaultItemExcludes>
     </PropertyGroup>
 
-    <!-- choose a couple of assets to identify when things need to be built -->
-    <!-- not perfect, but should avoid delays when running dotnet watch (and we typically have another window for css:dev) -->
+    <!-- everything the target below reads.  the cshtml are in here because index.css imports -->
+    <!-- tailwind without an @source, so tailwind scans the project for the classes it needs and -->
+    <!-- a markup edit can change the emitted css -->
     <ItemGroup>
-        <AssetInput Include="assets/svg/favicon.svg;wwwroot/js/*.ts" />
-        <AssetOutput Include="wwwroot/favicon.svg;wwwroot/css/index.min.css;wwwroot/js/site.js" />
+        <AssetInput Include="assets/**/*.*;package.json;**/*.cshtml" Exclude="bin/**;obj/**;node_modules/**" />
     </ItemGroup>
 
-    <Target Name="Assets" Inputs="@(AssetInput)" Outputs="@(AssetOutput)" BeforeTargets="Build">
+    <!-- the generated files cannot be used as the target's Outputs: the tailwind cli does not -->
+    <!-- rewrite index.min.css when the emitted css is unchanged, so its timestamp stays behind -->
+    <!-- the inputs forever and the target never once reports as up to date.  a stamp touched at -->
+    <!-- the end of the run says what we actually mean - nothing has changed since we last built -->
+    <PropertyGroup>
+        <AssetStamp>obj/assets.stamp</AssetStamp>
+    </PropertyGroup>
+
+    <Target Name="Assets" Inputs="@(AssetInput)" Outputs="$(AssetStamp)" BeforeTargets="Build">
         <Exec Command="bun install" />
 
         <Exec Command="bun run css:build" />
@@ -53,6 +61,8 @@
         <Exec Command="cp node_modules/jquery/dist/jquery.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation/dist/jquery.validate.min.js wwwroot/js" />
         <Exec Command="cp node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js wwwroot/js" />
+
+        <Touch Files="$(AssetStamp)" AlwaysCreate="true" />
     </Target>
 
     <Target Name="BuildClientApp">

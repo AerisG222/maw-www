@@ -26,7 +26,6 @@ hosting/.~lock.architecture.odg#
 # static assets that will be automatically built
 src/MawWww/wwwroot/css/*
 src/MawWww/wwwroot/js/*
-!src/MawWww/wwwroot/js/site.ts
 src/MawWww/wwwroot/favicon.svg
 
 # python env for deployment
