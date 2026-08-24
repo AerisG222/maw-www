@@ -1,31 +1,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-noble-amd64 AS build
 WORKDIR /maw-www
 
-RUN apt update
-RUN apt install -y \
-    gawk \
-    curl \
-    unzip
-
-# install nvm
-RUN bash -c "touch ~/.bashrc"
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-# expose NVM_DIR for later RUN steps and ensure it's consistent
-ENV NVM_DIR=/root/.nvm
-
-# enable nvm and install lts version of node (install via nvm so build commands that
-# source nvm.sh can access node). We use bash -lc so nvm is available in this RUN.
-RUN bash -lc "source ${NVM_DIR}/nvm.sh && nvm install --lts && nvm alias default node"
-
-# install bun and add it to global PATH so subsequent RUNs (including non-login shells)
-# can invoke `bun` without sourcing shell rc files. Also create a stable symlink.
-RUN curl -fsSL https://bun.sh/install | bash && \
-    ln -sf /root/.bun/bin/bun /usr/local/bin/bun
-
-# Make bun available in all future layers via PATH
-ENV BUN_INSTALL=/root/.bun
-ENV PATH="$BUN_INSTALL/bin:$PATH"
+# bun, pinned, taken from the official image instead of piped from an installer
+# script.  what was here before was apt (gawk, curl, unzip) purely to bootstrap
+# two `curl | bash` installers, one for nvm and one for bun, each resolving
+# "whatever is current today" on every cache miss - so the toolchain the image
+# built with was not a property of this file.  the binary needs nothing the sdk
+# image does not already carry, so copying it in is the whole install.
+#
+# no node: every client build command is a `bun run`, and bun executes the
+# node_modules/.bin entry points on its own runtime rather than shelling out.
+# /usr/local/bin is already on PATH, so nothing further is needed to expose it.
+COPY --from=docker.io/oven/bun:1.4.0 /usr/local/bin/bun /usr/local/bin/bun
 
 # restore
 COPY Directory.Packages.props .
@@ -59,14 +45,13 @@ RUN set -e; for pkg in src/*/package.json; do (cd "$(dirname "${pkg}")" && bun i
 
 # build (csproj builds client resources)
 COPY src/. src/
-RUN bash -c "source ~/.bashrc && \
-    dotnet publish \
+RUN dotnet publish \
         --no-restore \
         --no-self-contained \
         -c Release \
         -r linux-x64 \
         -o /build \
-        src/MawWww/MawWww.csproj"
+        src/MawWww/MawWww.csproj
 
 
 # build runtime image
