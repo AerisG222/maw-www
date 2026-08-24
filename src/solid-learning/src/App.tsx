@@ -1,7 +1,7 @@
 import { createSignal, For, onCleanup, type Component } from 'solid-js';
 
 const App: Component = () => {
-    let audio: HTMLAudioElement;
+    let audio!: HTMLAudioElement;
     let intervalId: number | undefined;
     const [char, setChar] = createSignal("");
     const [currentSpeaker, setCurrentSpeaker] = createSignal("Mommy");
@@ -83,7 +83,7 @@ const App: Component = () => {
 
     return (
         <div class="maw:flex maw:flex-col maw:items-center maw:justify-center maw:font-sans">
-            <audio autoplay ref={audio!}></audio>
+            <audio autoplay ref={audio}></audio>
 
             <div class="maw:w-[256px] maw:border-solid maw:border-2 maw:rounded-2xl maw:mb-8 maw:text-center">
                 <span class="maw:font-inter maw:text-[128px]" innerHTML={getDisplayChar(char())}></span>

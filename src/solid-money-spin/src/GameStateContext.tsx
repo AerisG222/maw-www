@@ -7,8 +7,8 @@ export type Character = {
 };
 
 export type Player = {
-    readonly character: Character;
-    readonly score: number;
+    character: Character;
+    score: number;
 };
 
 export enum Status {
@@ -18,11 +18,13 @@ export enum Status {
     GameOver
 };
 
+export type PlayerKey = "player1" | "player2";
+
 export type GameState = {
-    readonly player1?: Player;
-    readonly player2?: Player;
-    readonly activePlayer?: number;
-    readonly status: Status;
+    player1?: Player;
+    player2?: Player;
+    activePlayer?: number;
+    status: Status;
 };
 
 export const defaultGameState: GameState = {
@@ -72,7 +74,7 @@ export const GameStateProvider: ParentComponent = (props) => {
     const getPlayer1Characters = () => player1Characters;
     const getPlayer2Characters = () => player2Characters;
 
-    const setPlayerCharacter = (name: string, playerPropName: string, playerCharacters: Character[]): void => {
+    const setPlayerCharacter = (name: string, playerPropName: PlayerKey, playerCharacters: Character[]): void => {
         const character = playerCharacters.find(x => x.name === name);
 
         if(!state[playerPropName]) {
@@ -104,9 +106,9 @@ export const GameStateProvider: ParentComponent = (props) => {
         setState("status", Status.GameOver);
     };
 
-    const isGameOver = () => state.player1?.score >= winningAmount || state.player2?.score >= winningAmount;
+    const isGameOver = () => (state.player1?.score ?? 0) >= winningAmount || (state.player2?.score ?? 0) >= winningAmount;
 
-    const addMoney = (playerPropName: string, amount: number) => {
+    const addMoney = (playerPropName: PlayerKey, amount: number) => {
         setState(playerPropName, "score", currentValue => currentValue + amount);
     };
 

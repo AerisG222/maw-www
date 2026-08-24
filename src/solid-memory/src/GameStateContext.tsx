@@ -13,8 +13,8 @@ export type Turtle = {
 };
 
 export type Player = {
-    readonly turtle: Turtle;
-    readonly score: number;
+    turtle: Turtle;
+    score: number;
 };
 
 export enum Status {
@@ -23,11 +23,13 @@ export enum Status {
     GameOver
 };
 
+export type PlayerKey = "player1" | "player2";
+
 export type GameState = {
-    readonly player1?: Player;
-    readonly player2?: Player;
-    readonly activePlayer?: number;
-    readonly status: Status;
+    player1?: Player;
+    player2?: Player;
+    activePlayer?: number;
+    status: Status;
 };
 
 export const defaultGameState: GameState = {
@@ -102,7 +104,7 @@ export const GameStateProvider: ParentComponent = (props) => {
 
     const getAllTurtles = () => allTurtles;
 
-    const setPlayerTurtle = (name: string, playerPropName: string): void => {
+    const setPlayerTurtle = (name: string, playerPropName: PlayerKey): void => {
         const turtle = allTurtles.find(x => x.name === name);
 
         if(!state[playerPropName]) {
@@ -134,7 +136,7 @@ export const GameStateProvider: ParentComponent = (props) => {
         setState("status", Status.GameOver);
     }
 
-    const scorePoint = (playerPropName: string) => {
+    const scorePoint = (playerPropName: PlayerKey) => {
         setState(playerPropName, "score", score => score + 1);
     };
 
