@@ -1,17 +1,17 @@
 import * as THREE from 'three';
-import Stats from 'stats.js/build/stats.min.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import Stats from 'stats.js';
+import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export class BlenderModelDemo {
-    private _scene: THREE.Scene;
-    private _camera: THREE.PerspectiveCamera;
-    private _renderer: THREE.WebGLRenderer;
-    private _ambientLight: THREE.AmbientLight;
-    private _stats: Stats;
-    private _loader: THREE.GLTFLoader;
-    private _smStar: THREE.Mesh;
-    private _mdStar: THREE.Mesh;
-    private _lgStar: THREE.Mesh;
+    private _scene!: THREE.Scene;
+    private _camera!: THREE.PerspectiveCamera;
+    private _renderer!: THREE.WebGLRenderer;
+    private _ambientLight!: THREE.AmbientLight;
+    private _stats!: Stats;
+    private _loader!: GLTFLoader;
+    private _smStar?: THREE.Mesh;
+    private _mdStar?: THREE.Mesh;
+    private _lgStar?: THREE.Mesh;
     private _frameCounter = 0;
     private _rotateMultiplier = 1.0;
 
@@ -59,19 +59,23 @@ export class BlenderModelDemo {
         this._frameCounter = 0;
 
         this._loader.load("./bs.gltf", gltf => {
-            gltf.colorSpace = THREE.SRGBColorSpace;
             this.setupModel(gltf);
         });
     }
 
-    private setupModel(gltf) {
+    private setupModel(gltf: GLTF) {
         this._smStar = this.prepareMesh(gltf, 'Small_Star',  '#000b8c');
         this._mdStar = this.prepareMesh(gltf, 'Medium_Star', '#0047ba');
         this._lgStar = this.prepareMesh(gltf, 'Large_Star',  '#acc5e9');
     }
 
-    private prepareMesh(gltf, name: string, color: string): THREE.Mesh {
-        const mesh = gltf.scene.children.find(x => x.name === name  && x.type === 'Mesh');
+    private prepareMesh(gltf: GLTF, name: string, color: string): THREE.Mesh {
+        const mesh = gltf.scene.children.find(x => x.name === name  && x.type === 'Mesh') as THREE.Mesh | undefined;
+
+        if (mesh === undefined) {
+            throw new Error(`could not find mesh '${name}' in the loaded model`);
+        }
+
         const mat = new THREE.MeshPhongMaterial({
             color: color,
             specular: 0xffffff,

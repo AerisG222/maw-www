@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import Stats from 'stats.js/build/stats.min.js';
+import Stats from 'stats.js';
 
 import fragmentShader from './shader.frag?raw';
 import vertexShader from './shader.vert?raw';
@@ -8,10 +8,10 @@ export class ShaderDemo {
     readonly HEIGHT = 480;
     readonly WIDTH = 640;
 
-    scene: THREE.Scene;
-    camera: THREE.PerspectiveCamera;
-    renderer: THREE.Renderer;
-    stats: Stats;
+    scene!: THREE.Scene;
+    camera!: THREE.PerspectiveCamera;
+    renderer!: THREE.WebGLRenderer;
+    stats!: Stats;
 
     run() {
         this.prepareScene();

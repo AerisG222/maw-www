@@ -1,13 +1,13 @@
 import * as THREE from 'three';
-import Stats from 'stats.js/build/stats.min.js';
+import Stats from 'stats.js';
 
 export class CubeDemo {
-    scene: THREE.Scene;
-    camera: THREE.PerspectiveCamera;
-    renderer: THREE.WebGLRenderer;
-    cube: THREE.Mesh;
-    ambientLight: THREE.AmbientLight;
-    stats: Stats;
+    scene!: THREE.Scene;
+    camera!: THREE.PerspectiveCamera;
+    renderer!: THREE.WebGLRenderer;
+    cube!: THREE.Mesh;
+    ambientLight!: THREE.AmbientLight;
+    stats!: Stats;
     loadCounter = 0;
 
     run() {

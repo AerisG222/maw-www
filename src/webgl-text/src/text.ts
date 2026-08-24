@@ -1,20 +1,20 @@
 import * as THREE from 'three';
-import Stats from 'stats.js/build/stats.min.js';
+import Stats from 'stats.js';
 
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
+import { FontLoader, type Font } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
 export class TextDemo {
-    scene: THREE.Scene;
-    camera: THREE.PerspectiveCamera;
-    renderer: THREE.Renderer;
-    textMesh: THREE.Mesh;
-    textPivot: THREE.Object3D;
-    ambientLight: THREE.AmbientLight;
-    spotLight: THREE.SpotLight;
-    stats: Stats;
-    font: THREE.Font;
-    rotationAngle: number;
+    scene!: THREE.Scene;
+    camera!: THREE.PerspectiveCamera;
+    renderer!: THREE.WebGLRenderer;
+    textMesh!: THREE.Mesh;
+    textPivot!: THREE.Object3D;
+    ambientLight!: THREE.AmbientLight;
+    spotLight!: THREE.SpotLight;
+    stats!: Stats;
+    font!: Font;
+    rotationAngle!: number;
     animate = false;
     loaderCount = 0;
 
@@ -132,7 +132,8 @@ export class TextDemo {
             });
 
             textGeometry.computeBoundingBox();
-            const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
+            const boundingBox = textGeometry.boundingBox!;
+            const textWidth = boundingBox.max.x - boundingBox.min.x;
 
             this.textMesh = new THREE.Mesh(textGeometry, textMaterial);
             this.textMesh.position.set(-0.5 * textWidth, 30, 10);
