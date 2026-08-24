@@ -8,12 +8,18 @@ on:
 env:
   IID_FILE: image.iid
 
+# the image is pushed with docker hub credentials from secrets, not GITHUB_TOKEN,
+# so this workflow only ever needs to read the repository.  declared explicitly
+# because the default token is read-write - the same reason scorecard.yml sets it.
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
     - name: build container image
       run: |

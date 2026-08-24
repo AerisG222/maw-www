@@ -14,6 +14,7 @@ WORKDIR /maw-www
 COPY --from=docker.io/oven/bun:1.4.0 /usr/local/bin/bun /usr/local/bin/bun
 
 # restore
+COPY Directory.Build.props .
 COPY Directory.Packages.props .
 COPY maw-www.slnx  .
 COPY nuget.config  .
