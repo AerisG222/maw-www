@@ -37,6 +37,26 @@ COPY src/MawWww.Captcha/MawWww.Captcha.csproj src/MawWww.Captcha/
 COPY src/MawWww.Email/MawWww.Email.csproj     src/MawWww.Email/
 RUN dotnet restore --runtime linux-x64
 
+# client restore, for the same reason the csproj copy above is separate from the
+# source copy: `COPY src/. src/` changes on every source edit, and the csproj
+# asset targets run `bun install` for MawWww and for each client app.  installing
+# from the manifests alone keeps all of that in a layer that only a dependency
+# change invalidates.  the later source copy merges over these node_modules
+# rather than replacing them, since **/node_modules is in .dockerignore, so the
+# csproj's own `bun install` then finds them in place and is a no-op.
+COPY src/MawWww/package.json                  src/MawWww/bun.lockb                  src/MawWww/
+COPY src/solid-binary-clock/package.json      src/solid-binary-clock/bun.lockb      src/solid-binary-clock/
+COPY src/solid-google-maps/package.json       src/solid-google-maps/bun.lockb       src/solid-google-maps/
+COPY src/solid-learning/package.json          src/solid-learning/bun.lockb          src/solid-learning/
+COPY src/solid-memory/package.json            src/solid-memory/bun.lockb            src/solid-memory/
+COPY src/solid-money-spin/package.json        src/solid-money-spin/bun.lockb        src/solid-money-spin/
+COPY src/solid-weekend-countdown/package.json src/solid-weekend-countdown/bun.lockb src/solid-weekend-countdown/
+COPY src/webgl-blender-model/package.json     src/webgl-blender-model/bun.lockb     src/webgl-blender-model/
+COPY src/webgl-cube/package.json              src/webgl-cube/bun.lockb              src/webgl-cube/
+COPY src/webgl-shader/package.json            src/webgl-shader/bun.lockb            src/webgl-shader/
+COPY src/webgl-text/package.json              src/webgl-text/bun.lockb              src/webgl-text/
+RUN set -e; for pkg in src/*/package.json; do (cd "$(dirname "${pkg}")" && bun install); done
+
 # build (csproj builds client resources)
 COPY src/. src/
 RUN bash -c "source ~/.bashrc && \
