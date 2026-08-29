@@ -32,7 +32,7 @@
     pod: pod-maw-www
     img_maw_www: "docker.io/aerisg222/maw-www:latest"
     img_postgres: "docker.io/library/postgres:18-trixie"
-    img_rclone: "docker.io/rclone/rclone:v1.71-stable"
+    img_rclone: "docker.io/rclone/rclone:1.75"
     container_pg: maw-www-postgres
     container_www: maw-www
     container_rclone: rclone-archive
