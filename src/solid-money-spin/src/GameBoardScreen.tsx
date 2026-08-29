@@ -1,42 +1,45 @@
-import { Component, createSignal } from 'solid-js';
+import { createSignal, type Component } from 'solid-js';
+import createRAF, { targetFPS } from '@solid-primitives/raf';
 
 import { useGameStateContext } from './GameStateContext';
 
 import CharacterScore from './CharacterScore';
-import createRAF, { targetFPS } from '@solid-primitives/raf';
+
+// where each dollar value ends, walking clockwise around the board
+const SECTORS = [
+    { deg: 37, dollars: 8 },
+    { deg: 97, dollars: 6 },
+    { deg: 128, dollars: 4 },
+    { deg: 157, dollars: 1 },
+    { deg: 178, dollars: 9 },
+    { deg: 219, dollars: 7 },
+    { deg: 265, dollars: 5 },
+    { deg: 286, dollars: 3 },
+    { deg: 313, dollars: 2 },
+    { deg: 360, dollars: 10 }
+];
 
 const GameBoardScreen: Component = () => {
     const [state, { scoreMoneyValue, endTurn, endGame, isGameOver }] = useGameStateContext();
     const [rotation, setRotation] = createSignal(0);
-    var degPerTick = 0;
 
-    const sectors = [
-        { deg: 37, dollars: 8 },
-        { deg: 97, dollars: 6 },
-        { deg: 128, dollars: 4 },
-        { deg: 157, dollars: 1 },
-        { deg: 178, dollars: 9 },
-        { deg: 219, dollars: 7 },
-        { deg: 265, dollars: 5 },
-        { deg: 286, dollars: 3 },
-        { deg: 313, dollars: 2 },
-        { deg: 360, dollars: 10 }
-    ];
+    // the arrow's velocity is per-frame scratch state, not something the view renders,
+    // so it stays a plain local rather than a signal
+    let degPerTick = 0;
 
     const calcScore = () => {
         const deg = 360 - (rotation() % 360);
+        const sector = SECTORS.find(s => deg <= s.deg);
 
-        for(var sector of sectors) {
-            if(deg <= sector.deg) {
-                return sector.dollars;
-            }
+        if(!sector) {
+            throw new Error(`No sector covers ${deg} degrees!`);
         }
 
-        throw new Error("Should not get here!");
+        return sector.dollars;
     };
 
     const spin = () => {
-        setRotation(rotation() + degPerTick);
+        setRotation(r => r + degPerTick);
 
         degPerTick = degPerTick - (Math.random() * 0.4);
 
@@ -53,9 +56,7 @@ const GameBoardScreen: Component = () => {
         }
     };
 
-    const [running, start, stop] = createRAF(
-        targetFPS(timeStamp => spin(), 60)
-    );
+    const [running, start, stop] = createRAF(targetFPS(spin, 60));
 
     const initiateSpin = () => {
         degPerTick = (Math.random() * 30) + 20;
@@ -79,7 +80,7 @@ const GameBoardScreen: Component = () => {
                 player={state.player2!} />
         </div>
         <div class="maw:my-8 maw:text-center">
-            <button class="maw:btn maw:btn-primary maw:px-12" onClick={() => initiateSpin()} disabled={running()}>Spin</button>
+            <button class="maw:btn maw:btn-primary maw:px-12" onClick={initiateSpin} disabled={running()}>Spin</button>
         </div>
         </>
     );

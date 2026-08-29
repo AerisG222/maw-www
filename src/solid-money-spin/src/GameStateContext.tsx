@@ -1,4 +1,4 @@
-import { createContext, ParentComponent, useContext } from "solid-js";
+import { createContext, onCleanup, onMount, useContext, type ParentComponent } from "solid-js";
 import { createStore } from "solid-js/store";
 
 export type Character = {
@@ -27,12 +27,16 @@ export type GameState = {
     status: Status;
 };
 
-export const defaultGameState: GameState = {
+const SPLASH_DURATION_MS = 1200;
+
+// a factory, not a shared object literal - createStore writes through to whatever it
+// is handed, so a module level constant would be mutated by the running game
+export const createDefaultGameState = (): GameState => ({
     player1: undefined,
     player2: undefined,
     activePlayer: undefined,
     status: Status.Splash
-};
+});
 
 export type GameStateContextValue = [
     state: GameState,
@@ -54,7 +58,7 @@ export type GameStateContextValue = [
 const GameStateContext = createContext<GameStateContextValue>();
 
 export const GameStateProvider: ParentComponent = (props) => {
-    const [state, setState] = createStore(defaultGameState);
+    const [state, setState] = createStore(createDefaultGameState());
     const winningAmount = 25;
 
     const player1Characters: Character[] = [
@@ -77,15 +81,14 @@ export const GameStateProvider: ParentComponent = (props) => {
     const setPlayerCharacter = (name: string, playerPropName: PlayerKey, playerCharacters: Character[]): void => {
         const character = playerCharacters.find(x => x.name === name);
 
-        if(!state[playerPropName]) {
-            setState(playerPropName, {
-                character: character,
-                score: 0
-            });
+        if(!character) {
+            return;
+        }
+
+        if(state[playerPropName]) {
+            setState(playerPropName, "character", character);
         } else {
-            setState(playerPropName, {
-                character: character
-            });
+            setState(playerPropName, { character, score: 0 });
         }
     };
 
@@ -123,14 +126,8 @@ export const GameStateProvider: ParentComponent = (props) => {
     const rematch = () => {
         setState("status", Status.Playing);
         setState("activePlayer", 1);
-        setState("player1", p => ({
-            ...p,
-            score: 0
-        }));
-        setState("player2", p => ({
-            ...p,
-            score: 0
-        }));
+        setState("player1", "score", 0);
+        setState("player2", "score", 0);
     };
 
     const newGame = () => {
@@ -139,9 +136,13 @@ export const GameStateProvider: ParentComponent = (props) => {
         setState("player2", undefined);
     };
 
-    setTimeout(() => {
-        setState("status", Status.PlayerSelect);
-    }, 1200);
+    // the splash screen is time boxed - own the timer through the component lifecycle so
+    // it cannot fire after the provider is gone
+    onMount(() => {
+        const splashTimeout = setTimeout(() => setState("status", Status.PlayerSelect), SPLASH_DURATION_MS);
+
+        onCleanup(() => clearTimeout(splashTimeout));
+    });
 
     return (
         <GameStateContext.Provider value={[state, {
@@ -162,4 +163,12 @@ export const GameStateProvider: ParentComponent = (props) => {
     );
 };
 
-export const useGameStateContext = () => useContext(GameStateContext)!;
+export const useGameStateContext = () => {
+    const context = useContext(GameStateContext);
+
+    if(!context) {
+        throw new Error("useGameStateContext must be used inside a GameStateProvider");
+    }
+
+    return context;
+};

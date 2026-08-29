@@ -1,4 +1,4 @@
-import { Component, Show } from "solid-js";
+import { Show, type Component } from "solid-js";
 
 import { useGameStateContext } from './GameStateContext';
 

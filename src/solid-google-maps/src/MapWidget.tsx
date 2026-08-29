@@ -1,4 +1,4 @@
-import { Component, createEffect, onMount } from "solid-js";
+import { createEffect, onCleanup, onMount, type Component } from "solid-js";
 
 export type MapWidgetProps = {
     poi: google.maps.LatLng;
@@ -10,35 +10,43 @@ export type MapWidgetProps = {
 };
 
 const MapWidget: Component<MapWidgetProps> = (props) => {
-    let map: google.maps.Map;
+    let map: google.maps.Map | undefined;
     let mapEl!: HTMLDivElement;
-    var poiMarker: google.maps.marker.AdvancedMarkerElement | null = null;
-    var boundsRectangle: google.maps.Rectangle | null = null;
+    let poiMarker: google.maps.marker.AdvancedMarkerElement | null = null;
+    let boundsRectangle: google.maps.Rectangle | null = null;
+
+    const clearBoundsRectangle = () => {
+        if (boundsRectangle) {
+            boundsRectangle.setMap(null);
+            boundsRectangle = null;
+        }
+    };
 
     const updateBounds = () => {
-        const thisMapBounds = map!.getBounds();
+        const thisMapBounds = map?.getBounds();
 
-        if (thisMapBounds && props.otherMapBounds) {
-            const weAreLarger = thisMapBounds.getSouthWest().lat() < props.otherMapBounds.getSouthWest().lat();
-
-            if (weAreLarger) {
-                if (!boundsRectangle) {
-                    boundsRectangle = new google.maps.Rectangle({
-                        fillColor: "#c00",
-                        strokeColor: "#c00",
-                        clickable: false,
-                        map: map
-                    });
-                }
-
-                boundsRectangle.setBounds(props.otherMapBounds);
-            } else {
-                if (boundsRectangle) {
-                    boundsRectangle.setMap(null);
-                    boundsRectangle = null;
-                }
-            }
+        if (!thisMapBounds || !props.otherMapBounds) {
+            return;
         }
+
+        const weAreLarger = thisMapBounds.getSouthWest().lat() < props.otherMapBounds.getSouthWest().lat();
+
+        if (!weAreLarger) {
+            clearBoundsRectangle();
+
+            return;
+        }
+
+        if (!boundsRectangle) {
+            boundsRectangle = new google.maps.Rectangle({
+                fillColor: "#c00",
+                strokeColor: "#c00",
+                clickable: false,
+                map: map
+            });
+        }
+
+        boundsRectangle.setBounds(props.otherMapBounds);
     };
 
     onMount(() => {
@@ -47,8 +55,8 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
             zoom: props.zoom,
         });
 
-        map.addListener("bounds_changed", () => {
-            const b = map.getBounds();
+        const boundsListener = map.addListener("bounds_changed", () => {
+            const b = map?.getBounds();
 
             if (b) {
                 updateBounds();
@@ -56,32 +64,40 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
             }
         });
 
-        map.addListener("center_changed", () => {
-            const c = map.getCenter();
+        const centerListener = map.addListener("center_changed", () => {
+            const c = map?.getCenter();
 
             if (c) {
                 props.centerChanged(c);
             }
         });
+
+        onCleanup(() => {
+            boundsListener.remove();
+            centerListener.remove();
+            clearBoundsRectangle();
+            poiMarker?.remove();
+            poiMarker = null;
+            map = undefined;
+        });
     });
 
     createEffect(() => {
-        if (map && props.poi) {
-            if (poiMarker) {
-                poiMarker.remove();
-                poiMarker = null;
-            }
+        const poi = props.poi;
+
+        if (map && poi) {
+            poiMarker?.remove();
 
             poiMarker = new google.maps.marker.AdvancedMarkerElement({
                 map: map,
-                position: props.poi,
+                position: poi,
             });
         }
     });
 
     createEffect(() => {
         if (map && props.center) {
-            map!.setCenter(props.center);
+            map.setCenter(props.center);
         }
     });
 

@@ -1,4 +1,4 @@
-import { createContext, ParentComponent, useContext } from "solid-js";
+import { createContext, useContext, type ParentComponent } from "solid-js";
 import { createStore } from "solid-js/store";
 
 export type Turtle = {
@@ -32,12 +32,14 @@ export type GameState = {
     status: Status;
 };
 
-export const defaultGameState: GameState = {
+// a factory, not a shared object literal - createStore writes through to whatever it
+// is handed, so a module level constant would be mutated by the running game
+export const createDefaultGameState = (): GameState => ({
     player1: undefined,
     player2: undefined,
     activePlayer: undefined,
     status: Status.PlayerSelect
-};
+});
 
 export type GameStateContextValue = [
     state: GameState,
@@ -57,7 +59,7 @@ export type GameStateContextValue = [
 const GameStateContext = createContext<GameStateContextValue>();
 
 export const GameStateProvider: ParentComponent = (props) => {
-    const [state, setState] = createStore(defaultGameState);
+    const [state, setState] = createStore(createDefaultGameState());
 
     const allTurtles: Turtle[] = [
         {
@@ -107,15 +109,14 @@ export const GameStateProvider: ParentComponent = (props) => {
     const setPlayerTurtle = (name: string, playerPropName: PlayerKey): void => {
         const turtle = allTurtles.find(x => x.name === name);
 
-        if(!state[playerPropName]) {
-            setState(playerPropName, {
-                turtle: turtle,
-                score: 0
-            });
+        if(!turtle) {
+            return;
+        }
+
+        if(state[playerPropName]) {
+            setState(playerPropName, "turtle", turtle);
         } else {
-            setState(playerPropName, {
-                turtle: turtle
-            });
+            setState(playerPropName, { turtle, score: 0 });
         }
     };
 
@@ -151,14 +152,8 @@ export const GameStateProvider: ParentComponent = (props) => {
     const rematch = () => {
         setState("status", Status.Playing);
         setState("activePlayer", 1);
-        setState("player1", p => ({
-            ...p,
-            score: 0
-        }));
-        setState("player2", p => ({
-            ...p,
-            score: 0
-        }));
+        setState("player1", "score", 0);
+        setState("player2", "score", 0);
     };
 
     const newGame = () => {
@@ -184,4 +179,12 @@ export const GameStateProvider: ParentComponent = (props) => {
     );
 };
 
-export const useGameStateContext = () => useContext(GameStateContext)!;
+export const useGameStateContext = () => {
+    const context = useContext(GameStateContext);
+
+    if(!context) {
+        throw new Error("useGameStateContext must be used inside a GameStateProvider");
+    }
+
+    return context;
+};

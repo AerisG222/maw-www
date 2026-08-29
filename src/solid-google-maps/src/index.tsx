@@ -13,11 +13,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
     );
 }
 
-Promise.all([
-    google.maps.importLibrary("core"),
-    google.maps.importLibrary("maps"),
-    google.maps.importLibrary("geocoding"),
-    google.maps.importLibrary("marker")
-]);
-
-render(() => <App />, root! );
+render(() => <App />, root!);
