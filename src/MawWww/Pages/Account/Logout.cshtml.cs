@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace MawWww.Pages.Account;
 
-public class LogoutModel
+public sealed class LogoutModel
     : PageModel
 {
     public async Task OnGet(string returnUrl = "/", CancellationToken cancellationToken = default)

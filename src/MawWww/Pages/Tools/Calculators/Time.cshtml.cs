@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class TimePageModel
+public sealed class TimePageModel
     : MawFormPageModel<TimeForm>
 {
     public List<TimeResult> Results { get; private set; } = [];
@@ -48,7 +48,7 @@ public class TimePageModel
     }
 }
 
-public class TimeForm
+public sealed class TimeForm
 {
     [Required(ErrorMessage = "Please enter length of time.")]
     public double LengthOfTime { get; set; } = 100;

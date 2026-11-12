@@ -3,7 +3,7 @@ using MawWww.Models;
 
 namespace MawWww.Middleware;
 
-public class MawUserPreferencesMiddleware
+public sealed class MawUserPreferencesMiddleware
 {
     public const string KEY_HTTP_CONTEXT_ITEMS_USER_PREFERENCES = "maw-preferences";
     static readonly string[] _validThemes = [ "light", "dark" ];

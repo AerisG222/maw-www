@@ -5,7 +5,7 @@ using System.Net;
 
 namespace MawWww.Pages.Tools.General;
 
-public class HtmlEncodePageModel
+public sealed class HtmlEncodePageModel
     : MawFormPageModel<HtmlEncodeForm>
 {
     public IActionResult OnGet()
@@ -34,7 +34,7 @@ public enum HtmlEncodeMode
     Decode
 }
 
-public class HtmlEncodeForm
+public sealed class HtmlEncodeForm
     : IValidatableObject
 {
     public string? EncodedString { get; set; }

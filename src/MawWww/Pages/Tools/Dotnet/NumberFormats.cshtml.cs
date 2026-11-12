@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class NumberFormatsPageModel
+public sealed class NumberFormatsPageModel
     : MawPageModel
 {
     public static readonly double NUMBER = 1234.125678;

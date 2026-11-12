@@ -1,6 +1,6 @@
 namespace MawWww.Models;
 
-public class AuthorizationPolicies
+public sealed class AuthorizationPolicies
 {
     public const string Administrator = "Administrator";
 }

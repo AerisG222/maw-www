@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 namespace MawWww;
 
 // https://stackoverflow.com/a/53838799
-public partial class SlugifyParameterTransformer
+public sealed partial class SlugifyParameterTransformer
     : IOutboundParameterTransformer
 {
     [GeneratedRegex("([a-z])([A-Z])", RegexOptions.Singleline, "en-US")]
@@ -25,6 +25,6 @@ public partial class SlugifyParameterTransformer
 
         return slugRegex()
             .Replace(str, "$1-$2")
-            .ToLower();
+            .ToLowerInvariant();
     }
 }

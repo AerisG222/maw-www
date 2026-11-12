@@ -5,7 +5,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.General;
 
-public class RollTheDicePageModel
+public sealed class RollTheDicePageModel
     : MawFormPageModel<RollTheDiceForm>
 {
     public List<int>? ThrowCounts { get; private set; }
@@ -72,7 +72,7 @@ public class RollTheDicePageModel
     }
 }
 
-public class RollTheDiceForm
+public sealed class RollTheDiceForm
 {
     [Required(ErrorMessage = "Please enter the number of sides")]
     [Range(1, 20)]

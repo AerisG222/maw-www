@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class DateDifferencePageModel
+public sealed class DateDifferencePageModel
     : MawFormPageModel<DateDifferenceForm>
 {
     public List<DateDifference> Results { get; set; } = [];
@@ -44,7 +44,7 @@ public class DateDifferencePageModel
     }
 }
 
-public class DateDifferenceForm
+public sealed class DateDifferenceForm
     : IValidatableObject
 {
     [Required(ErrorMessage = "Please enter start date.")]

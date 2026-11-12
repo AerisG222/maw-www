@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace MawWww.Captcha;
 
-public class CloudflareTurnstileResponse
+public sealed class CloudflareTurnstileResponse
 {
     [JsonPropertyName("success")]
     public bool Success { get; set; }

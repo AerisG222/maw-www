@@ -2,7 +2,7 @@ using Fluid;
 
 namespace MawWww.Pages.About;
 
-public class ContactEmailTemplateProvider
+public sealed class ContactEmailTemplateProvider
 {
     static string TemplateDir => Path.Combine(AppContext.BaseDirectory, "EmailTemplates");
 

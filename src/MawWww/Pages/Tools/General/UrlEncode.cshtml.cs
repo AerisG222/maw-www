@@ -5,7 +5,7 @@ using System.Net;
 
 namespace MawWww.Pages.Tools.General;
 
-public class UrlEncodePageModel
+public sealed class UrlEncodePageModel
     : MawFormPageModel<UrlEncodeForm>
 {
     public IActionResult OnGet()
@@ -34,7 +34,7 @@ public enum UrlEncodeMode
     Decode
 }
 
-public class UrlEncodeForm
+public sealed class UrlEncodeForm
     : IValidatableObject
 {
     public string? EncodedString { get; set; }

@@ -2,7 +2,7 @@ using Microsoft.FeatureManagement;
 
 namespace MawWww.Captcha;
 
-public class CaptchaFeature
+public sealed class CaptchaFeature
     : ICaptchaFeature
 {
     public const string CaptchaFeatureNameGoogle = "RecaptchaUseGoogle";

@@ -1,6 +1,6 @@
 namespace MawWww.Email;
 
-public class SmtpEmailConfig
+public sealed class SmtpEmailConfig
 {
     public string Server { get; set; } = null!;
     public int Port { get; set; }

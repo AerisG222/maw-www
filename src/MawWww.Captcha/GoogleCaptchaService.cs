@@ -1,11 +1,11 @@
-using System.Text.Json;
+using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace MawWww.Captcha;
 
 //https://www.google.com/recaptcha/admin#site/318682987?setup
-public class GoogleCaptchaService
+public sealed class GoogleCaptchaService
     : ICaptchaService
 {
     static readonly Uri URL = new("https://www.google.com/recaptcha/api/siteverify");
@@ -27,10 +27,10 @@ public class GoogleCaptchaService
         _httpClientFactory = httpClientFactory;
     }
 
-    public virtual string ResponseFormFieldName => "g-recaptcha-response";
-    public virtual string SiteKey => _config.SiteKey;
+    public string ResponseFormFieldName => "g-recaptcha-response";
+    public string SiteKey => _config.SiteKey;
 
-    public virtual async Task<bool> VerifyAsync(string recaptchaResponse, CancellationToken cancellationToken = default)
+    public async Task<bool> VerifyAsync(string recaptchaResponse, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(recaptchaResponse))
         {
@@ -50,8 +50,8 @@ public class GoogleCaptchaService
             using var client = _httpClientFactory.CreateClient();
             using var content = new FormUrlEncodedContent(parameters);
             using var response = await client.PostAsync(URL, content, cancellationToken);
-            var val = await response.Content.ReadAsStringAsync(cancellationToken);
-            result = JsonSerializer.Deserialize<GoogleCaptchaResponse>(val)?.Success ?? false;
+            var captchaResponse = await response.Content.ReadFromJsonAsync<GoogleCaptchaResponse>(cancellationToken);
+            result = captchaResponse?.Success ?? false;
 
             _log.LogDebug("google recaptcha returned: {CaptchaResult}", result);
         }

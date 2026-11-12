@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace MawWww.Pages.Account;
 
-public class LoginModel
+public sealed class LoginModel
     : PageModel
 {
     public async Task OnGet(string returnUrl = "/", CancellationToken cancellationToken = default)

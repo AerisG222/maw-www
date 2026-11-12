@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace MawWww.Captcha;
 
-public class GoogleCaptchaResponse
+public sealed class GoogleCaptchaResponse
 {
     [JsonPropertyName("success")]
     public bool Success { get; set; }

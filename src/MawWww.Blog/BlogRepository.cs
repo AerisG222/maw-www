@@ -4,7 +4,7 @@ using Npgsql;
 namespace MawWww.Blog;
 
 [DapperAot]
-public class BlogRepository
+public sealed class BlogRepository
     : IBlogRepository
 {
     readonly NpgsqlDataSource _dataSource;

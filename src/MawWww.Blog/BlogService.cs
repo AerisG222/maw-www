@@ -4,7 +4,7 @@ using NodaTime;
 
 namespace MawWww.Blog;
 
-public class BlogService
+public sealed class BlogService
     : IBlogService
 {
     readonly IBlogRepository _repo;

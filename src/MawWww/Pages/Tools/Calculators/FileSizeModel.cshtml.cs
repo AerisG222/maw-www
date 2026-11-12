@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class FileSizePageModel
+public sealed class FileSizePageModel
     : MawFormPageModel<FileSizeForm>
 {
     public List<FileSizeResult> Results { get; private set; } = [];
@@ -48,7 +48,7 @@ public class FileSizePageModel
     }
 }
 
-public class FileSizeForm
+public sealed class FileSizeForm
 {
     [Required(ErrorMessage = "Please enter size of file.")]
     public double SizeOfFile { get; set; } = 100;

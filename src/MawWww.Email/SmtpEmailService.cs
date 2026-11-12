@@ -6,7 +6,7 @@ using MimeKit;
 
 namespace MawWww.Email;
 
-public class SmtpEmailService
+public sealed class SmtpEmailService
     : IEmailService
 {
     readonly SmtpEmailConfig _config;
@@ -26,17 +26,17 @@ public class SmtpEmailService
         _log = log;
     }
 
-    public virtual Task SendHtmlAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
+    public Task SendHtmlAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
     {
-        return SendAsync(recipient, from, subject, body, true);
+        return SendAsync(recipient, from, subject, body, true, cancellationToken);
     }
 
-    public virtual Task SendAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
+    public Task SendAsync(string recipient, string from, string subject, string body, CancellationToken cancellationToken = default)
     {
-        return SendAsync(recipient, from, subject, body, false);
+        return SendAsync(recipient, from, subject, body, false, cancellationToken);
     }
 
-    protected virtual async Task SendAsync(string recipient, string from, string subject, string body, bool html, CancellationToken cancellationToken = default)
+    async Task SendAsync(string recipient, string from, string subject, string body, bool html, CancellationToken cancellationToken)
     {
         _log.LogInformation("sending email to: {Recipient}, from: {From}, subject: {Subject}", recipient, from, subject);
 

@@ -10,7 +10,7 @@ namespace MawWww.Email;
 
 // https://stackoverflow.com/questions/24728793/creating-a-message-for-gmail-api-in-c-sharp
 // https://github.com/IdentityModel/Thinktecture.IdentityModel/blob/e56dd7699ac5e59df51b6724cff2cda2f2ca10ca/source/Client.Shared/Base64Url.cs
-public class GmailApiEmailService
+public sealed class GmailApiEmailService
     : IEmailService
 {
     static readonly string[] Scopes = { GmailService.Scope.GmailSend };

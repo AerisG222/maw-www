@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace MawWww.Pages.Tools.General;
 
-public class RandomBytesPageModel
+public sealed class RandomBytesPageModel
     : MawFormPageModel<RandomBytesForm>
 {
     public string? RandomBytes { get; private set; }
@@ -45,7 +45,7 @@ public class RandomBytesPageModel
     }
 }
 
-public class RandomBytesForm
+public sealed class RandomBytesForm
 {
     [Required(ErrorMessage = "Please enter the number of bytes")]
     [Range(1, 8192)]

@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace MawWww.Pages.Admin;
 
-public class CreateBlogPostPageModel
+public sealed class CreateBlogPostPageModel
     : MawFormPageModel<CreateBlogPostForm>
 {
     public const string BEHAVIOR_PREVIEW = "preview";
@@ -49,7 +49,7 @@ public class CreateBlogPostPageModel
     }
 }
 
-public class CreateBlogPostForm
+public sealed class CreateBlogPostForm
 {
     [Required(ErrorMessage = "Please enter the title.")]
     public string Title { get; set; } = DateTime.Now.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);

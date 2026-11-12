@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class ByteCounterPageModel
+public sealed class ByteCounterPageModel
     : MawFormPageModel<ByteCounterForm>
 {
     public List<ByteCounterResult> Results { get; private set; } = [];
@@ -41,7 +41,7 @@ public class ByteCounterPageModel
     }
 }
 
-public class ByteCounterForm
+public sealed class ByteCounterForm
 {
     [Required(ErrorMessage = "Please enter text.")]
     public string Text { get; set; } = string.Empty;

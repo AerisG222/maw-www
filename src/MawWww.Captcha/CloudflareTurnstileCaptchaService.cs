@@ -1,11 +1,11 @@
-using System.Text.Json;
+using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace MawWww.Captcha;
 
 // https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
-public class CloudflareTurnstileCaptchaService
+public sealed class CloudflareTurnstileCaptchaService
     : ICaptchaService
 {
     static readonly Uri URL = new("https://challenges.cloudflare.com/turnstile/v0/siteverify");
@@ -27,10 +27,10 @@ public class CloudflareTurnstileCaptchaService
         _httpClientFactory = httpClientFactory;
     }
 
-    public virtual string ResponseFormFieldName => "cf-turnstile-response";
-    public virtual string SiteKey => _config.SiteKey;
+    public string ResponseFormFieldName => "cf-turnstile-response";
+    public string SiteKey => _config.SiteKey;
 
-    public virtual async Task<bool> VerifyAsync(string recaptchaResponse, CancellationToken cancellationToken = default)
+    public async Task<bool> VerifyAsync(string recaptchaResponse, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(recaptchaResponse))
         {
@@ -50,8 +50,8 @@ public class CloudflareTurnstileCaptchaService
             using var client = _httpClientFactory.CreateClient();
             using var content = new FormUrlEncodedContent(parameters);
             using var response = await client.PostAsync(URL, content, cancellationToken);
-            var val = await response.Content.ReadAsStringAsync(cancellationToken);
-            result = JsonSerializer.Deserialize<CloudflareTurnstileResponse>(val)?.Success ?? false;
+            var captchaResponse = await response.Content.ReadFromJsonAsync<CloudflareTurnstileResponse>(cancellationToken);
+            result = captchaResponse?.Success ?? false;
 
             _log.LogDebug("Cloudflare Turnstile returned: {CaptchaResult}", result);
         }

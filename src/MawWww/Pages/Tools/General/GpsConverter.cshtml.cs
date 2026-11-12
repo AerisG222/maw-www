@@ -5,7 +5,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.General;
 
-public class GpsConverterPageModel
+public sealed class GpsConverterPageModel
     : MawFormPageModel<GpsConverterForm>
 {
     public IActionResult OnGet()
@@ -27,7 +27,7 @@ public class GpsConverterPageModel
     }
 }
 
-public class GpsConverterForm
+public sealed class GpsConverterForm
     : IValidatableObject
 {
     public float? DmsLatDegrees { get; set; }

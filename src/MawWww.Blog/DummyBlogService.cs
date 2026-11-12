@@ -2,7 +2,7 @@ using NodaTime;
 
 namespace MawWww.Blog;
 
-public class DummyBlogService
+public sealed class DummyBlogService
     : IBlogService
 {
     public Guid MawBlogId { get; } = Guid.NewGuid();

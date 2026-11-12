@@ -3,7 +3,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.About;
 
-public class NewsPageModel
+public sealed class NewsPageModel
     : MawPageModel
 {
     readonly IBlogService _blogService;

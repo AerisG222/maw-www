@@ -5,7 +5,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.General;
 
-public class ColorConverterPageModel
+public sealed class ColorConverterPageModel
     : MawFormPageModel<ColorConverterForm>
 {
     public string? HtmlColorCode => Form.GetHtmlColorCodeFromComponents();
@@ -28,7 +28,7 @@ public class ColorConverterPageModel
     }
 }
 
-public class ColorConverterForm
+public sealed class ColorConverterForm
     : IValidatableObject
 {
     public const string METHOD_FROM_HEX = "FromHex";

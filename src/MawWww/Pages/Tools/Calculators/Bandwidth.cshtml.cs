@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Calculators;
 
-public class BandwidthPageModel
+public sealed class BandwidthPageModel
     : MawFormPageModel<BandwidthForm>
 {
     public List<BandwidthResult> Results { get; private set; } = [];
@@ -51,7 +51,7 @@ public class BandwidthPageModel
     }
 }
 
-public class BandwidthForm
+public sealed class BandwidthForm
 {
     [Required(ErrorMessage = "Please enter size of file.")]
     public double Size { get; set; } = 100;

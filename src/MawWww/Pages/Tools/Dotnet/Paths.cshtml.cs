@@ -4,7 +4,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class PathsPageModel
+public sealed class PathsPageModel
     : MawPageModel
 {
     // https://www.youtube.com/watch?v=cwZb2mqId0A

@@ -9,7 +9,7 @@ using MawWww.Models;
 namespace MawWww.Pages.Tools.Dotnet;
 
 [EnableRateLimiting(RateLimitingExtensions.ToolExecutionPolicy)]
-public class RegularExpressionsPageModel
+public sealed class RegularExpressionsPageModel
     : MawFormPageModel<RegularExpressionsForm>
 {
     public MatchCollection? RegexMatches { get; private set; }
@@ -49,7 +49,7 @@ public class RegularExpressionsPageModel
     }
 }
 
-public class RegularExpressionsForm
+public sealed class RegularExpressionsForm
     : IValidatableObject
 {
     // patterns and input come from the visitor, so bound the time spent matching

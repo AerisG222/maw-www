@@ -1,6 +1,6 @@
 namespace MawWww.Blog;
 
-public class BlogConfig
+public sealed class BlogConfig
 {
     public Guid MawBlogId { get; set; }
 }

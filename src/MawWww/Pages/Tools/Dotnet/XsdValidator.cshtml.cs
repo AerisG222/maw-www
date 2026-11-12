@@ -7,7 +7,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
-public class XsdValidatorPageModel
+public sealed class XsdValidatorPageModel
     : MawFormPageModel<XsdValidatorForm>
 {
     readonly StringBuilder _errors = new();
@@ -91,7 +91,7 @@ public class XsdValidatorPageModel
     }
 }
 
-public class XsdValidatorForm
+public sealed class XsdValidatorForm
 {
     [Required(ErrorMessage = "Please enter the XML Schema source")]
     public string? XmlSchemaSource { get; set; } = string.Empty;

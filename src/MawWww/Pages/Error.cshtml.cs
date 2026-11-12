@@ -2,7 +2,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages;
 
-public class ErrorPageModel
+public sealed class ErrorPageModel
     : MawPageModel
 {
     public int ErrorStatusCode { get; private set; }

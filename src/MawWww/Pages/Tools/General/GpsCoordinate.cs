@@ -3,7 +3,7 @@ using System.Globalization;
 namespace MawWww.Pages.Tools.General;
 
 #pragma warning disable CA1721
-public class GpsCoordinate
+public sealed class GpsCoordinate
 {
     public float LatitudeDegrees { get; private set; }
     public float LongitudeDegrees { get; private set; }

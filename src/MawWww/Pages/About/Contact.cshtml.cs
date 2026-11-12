@@ -9,7 +9,7 @@ using MawWww.Models;
 
 namespace MawWww.Pages.About;
 
-public class ContactPageModel
+public sealed class ContactPageModel
     : MawFormPageModel<ContactForm>
 {
     readonly ILogger _log;
@@ -132,7 +132,7 @@ public class ContactPageModel
     }
 }
 
-public class ContactForm
+public sealed class ContactForm
 {
     [Required(ErrorMessage = "Please enter your name.")]
     public string Name { get; set; } = string.Empty;

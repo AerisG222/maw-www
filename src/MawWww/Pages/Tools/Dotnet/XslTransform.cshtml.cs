@@ -10,7 +10,7 @@ using MawWww.Models;
 namespace MawWww.Pages.Tools.Dotnet;
 
 [EnableRateLimiting(RateLimitingExtensions.ToolExecutionPolicy)]
-public class XslTransformPageModel
+public sealed class XslTransformPageModel
     : MawFormPageModel<XslTransformForm>
 {
     // the stylesheet comes from the visitor, so bound what a transform may produce.
@@ -127,7 +127,7 @@ public class XslTransformPageModel
     }
 }
 
-public class XslTransformForm
+public sealed class XslTransformForm
 {
     [Required(ErrorMessage = "Please enter the XML source")]
     public string? XmlSource { get; set; } = string.Empty;
