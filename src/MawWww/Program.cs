@@ -34,6 +34,7 @@ builder.Services
         .Services
     .AddCustomAuthentication(builder.Configuration)
     .AddCustomAuthorizationPolicies()
+    .AddCustomRateLimiting()
     .AddBlogServices()
     .AddCaptchaFeature(
         builder.Configuration.GetSection("CloudflareTurnstile"),
@@ -74,6 +75,7 @@ app
     .UseCookiePolicy()
     .UseMawUserPreferences()
     .UseRouting()
+    .UseRateLimiter()
     .UseAuthentication()
     .UseAuthorization()
     .UseEndpoints(endpoints =>

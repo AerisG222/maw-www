@@ -2,10 +2,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.RateLimiting;
+using MawWww.Extensions;
 using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
+[EnableRateLimiting(RateLimitingExtensions.ToolExecutionPolicy)]
 public class RegularExpressionsPageModel
     : MawFormPageModel<RegularExpressionsForm>
 {
@@ -22,8 +25,24 @@ public class RegularExpressionsPageModel
 
         if(ModelState.IsValid)
         {
-            RegexMatches = Form.RegEx!.Matches(Form.ExampleInput);
-            SubmitSuccess = true;
+            try
+            {
+                var matches = Form.RegEx!.Matches(Form.ExampleInput);
+
+                // MatchCollection is lazy - reading Count runs every match now, so a
+                // timeout is caught here rather than surfacing while the view renders
+                _ = matches.Count;
+
+                RegexMatches = matches;
+                SubmitSuccess = true;
+            }
+            catch(RegexMatchTimeoutException)
+            {
+                ModelState.AddModelError(
+                    $"{nameof(Form)}.{nameof(RegularExpressionsForm.RegExPattern)}",
+                    $"The pattern took longer than {RegularExpressionsForm.MatchTimeout.TotalSeconds} second(s) to evaluate and was stopped."
+                );
+            }
         }
 
         return Page();
@@ -33,6 +52,10 @@ public class RegularExpressionsPageModel
 public class RegularExpressionsForm
     : IValidatableObject
 {
+    // patterns and input come from the visitor, so bound the time spent matching
+    // to keep a catastrophic backtracking pattern from tying up a server thread
+    public static readonly TimeSpan MatchTimeout = TimeSpan.FromSeconds(1);
+
     [Required(ErrorMessage = "Please enter a pattern.")]
     public string RegExPattern { get; set; } = string.Empty;
 
@@ -93,7 +116,7 @@ public class RegularExpressionsForm
 
         try
         {
-            RegEx = new Regex(RegExPattern, options);
+            RegEx = new Regex(RegExPattern, options, MatchTimeout);
         }
         catch(RegexParseException ex)
         {

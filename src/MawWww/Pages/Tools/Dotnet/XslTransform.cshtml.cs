@@ -1,15 +1,24 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Xml;
-using Microsoft.AspNetCore.Mvc;
-using MawWww.Models;
 using System.Xml.Xsl;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using MawWww.Extensions;
+using MawWww.Models;
 
 namespace MawWww.Pages.Tools.Dotnet;
 
+[EnableRateLimiting(RateLimitingExtensions.ToolExecutionPolicy)]
 public class XslTransformPageModel
     : MawFormPageModel<XslTransformForm>
 {
+    // the stylesheet comes from the visitor, so bound what a transform may produce.
+    // these are checked as output is written - see LimitedWriteStream for what that
+    // can and cannot stop
+    const long MaxOutputBytes = 1024 * 1024;
+    static readonly TimeSpan MaxTransformDuration = TimeSpan.FromSeconds(2);
+
     readonly StringBuilder _errors = new();
     int _currError;
 
@@ -53,8 +62,12 @@ public class XslTransformPageModel
             xmlReader = XmlReader.Create(xmlStream, settings);
             xslReader = XmlReader.Create(xslStream, settings);
 
-            var xslTransform = new XslCompiledTransform(true);
-            xslTransform.Load(xslReader);
+            // release mode - debug mode disables optimizations and is only useful when
+            // stepping through a stylesheet in a debugger.  scripts and document() stay
+            // disabled (XsltSettings.Default), and xsl:import / xsl:include of anything
+            // outside the stylesheet fails rather than reaching the file system or network
+            var xslTransform = new XslCompiledTransform();
+            xslTransform.Load(xslReader, XsltSettings.Default, XmlResolver.ThrowingResolver);
 
             var xmlWriterSettings = new XmlWriterSettings
             {
@@ -63,7 +76,10 @@ public class XslTransformPageModel
             };
 
             ms = new MemoryStream();
-            xmlWriter = XmlWriter.Create(ms, xmlWriterSettings);
+            xmlWriter = XmlWriter.Create(
+                new LimitedWriteStream(ms, MaxOutputBytes, MaxTransformDuration),
+                xmlWriterSettings
+            );
 
             xslTransform.Transform(xmlReader, xmlWriter);
 
@@ -80,6 +96,11 @@ public class XslTransformPageModel
             _errors.Append($"[{ _currError }] Line: { ex.LineNumber }\n");
             _errors.Append($"[{ _currError }] Position: { ex.LinePosition }\n");
             _errors.Append($"[{ _currError }] Message: { ex.Message }\n\n");
+        }
+        catch (WriteLimitExceededException ex)
+        {
+            _currError++;
+            _errors.Append($"[{ _currError }] Transform stopped: { ex.Message }\n");
         }
         catch (XmlException ex)
         {
