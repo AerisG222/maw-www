@@ -1,6 +1,7 @@
 import { createResource, createSignal, Show, Suspense, type Component } from 'solid-js';
 
 import MapWidget from './MapWidget';
+import { createSiteTheme } from './siteTheme';
 
 // the maps api is injected by google-maps-loader.js, but the individual libraries
 // load lazily.  resolving them through a resource lets Suspense show the fallback
@@ -31,6 +32,10 @@ const App: Component = () => {
     const [center, setCenter] = createSignal<google.maps.LatLng | undefined>(undefined, { equals: sameLatLng });
     const [map1Bounds, setMap1Bounds] = createSignal<google.maps.LatLngBounds | undefined>(undefined, { equals: sameBounds });
     const [map2Bounds, setMap2Bounds] = createSignal<google.maps.LatLngBounds | undefined>(undefined, { equals: sameBounds });
+    // held here rather than in the widgets so a zoom outlives the map it was made on
+    const [map1Zoom, setMap1Zoom] = createSignal(17);
+    const [map2Zoom, setMap2Zoom] = createSignal(13);
+    const siteTheme = createSiteTheme();
 
     const showMaps = () => !!center() && !!poi();
 
@@ -81,21 +86,38 @@ const App: Component = () => {
                         </div>
 
                         <Show when={showMaps()}>
-                            <MapWidget
-                                poi={poi()!}
-                                center={center()!}
-                                zoom={17}
-                                otherMapBounds={map2Bounds()}
-                                centerChanged={setCenter}
-                                boundsChanged={setMap1Bounds} />
+                            {/* a map takes its color scheme only when made, so keying on the theme
+                                swaps in new maps when it changes - center, zoom and the poi all live
+                                up here, so the new maps pick up where the old ones were */}
+                            <Show when={siteTheme()} keyed>
+                                {theme => {
+                                    const colorScheme = theme === 'dark' ? google.maps.ColorScheme.DARK : google.maps.ColorScheme.LIGHT;
 
-                            <MapWidget
-                                poi={poi()!}
-                                center={center()!}
-                                zoom={13}
-                                otherMapBounds={map1Bounds()}
-                                centerChanged={setCenter}
-                                boundsChanged={setMap2Bounds} />
+                                    return (
+                                        <>
+                                            <MapWidget
+                                                poi={poi()!}
+                                                center={center()!}
+                                                zoom={map1Zoom()}
+                                                colorScheme={colorScheme}
+                                                otherMapBounds={map2Bounds()}
+                                                centerChanged={setCenter}
+                                                boundsChanged={setMap1Bounds}
+                                                zoomChanged={setMap1Zoom} />
+
+                                            <MapWidget
+                                                poi={poi()!}
+                                                center={center()!}
+                                                zoom={map2Zoom()}
+                                                colorScheme={colorScheme}
+                                                otherMapBounds={map1Bounds()}
+                                                centerChanged={setCenter}
+                                                boundsChanged={setMap2Bounds}
+                                                zoomChanged={setMap2Zoom} />
+                                        </>
+                                    );
+                                }}
+                            </Show>
                         </Show>
                     </div>
                 </Show>

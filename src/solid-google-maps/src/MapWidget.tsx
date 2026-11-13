@@ -4,9 +4,11 @@ export type MapWidgetProps = {
     poi: google.maps.LatLng;
     center: google.maps.LatLng;
     zoom: number;
+    colorScheme: google.maps.ColorScheme;
     otherMapBounds?: google.maps.LatLngBounds;
     centerChanged: (center: google.maps.LatLng) => void;
     boundsChanged: (bounds: google.maps.LatLngBounds) => void;
+    zoomChanged: (zoom: number) => void;
 };
 
 const MapWidget: Component<MapWidgetProps> = (props) => {
@@ -50,9 +52,12 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
     };
 
     onMount(() => {
+        // zoom and colorScheme are read once: the map only takes its color scheme when it is
+        // made, so the parent makes a new map for a new theme, starting at the last zoom
         map = new google.maps.Map(mapEl, {
             mapId: "db13bbf18252cc83",
             zoom: props.zoom,
+            colorScheme: props.colorScheme,
         });
 
         const boundsListener = map.addListener("bounds_changed", () => {
@@ -72,9 +77,18 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
             }
         });
 
+        const zoomListener = map.addListener("zoom_changed", () => {
+            const z = map?.getZoom();
+
+            if (z !== undefined) {
+                props.zoomChanged(z);
+            }
+        });
+
         onCleanup(() => {
             boundsListener.remove();
             centerListener.remove();
+            zoomListener.remove();
             clearBoundsRectangle();
             poiMarker?.remove();
             poiMarker = null;
