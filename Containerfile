@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0-noble-amd64 AS build
+FROM mcr.microsoft.com/dotnet/sdk:11.0-resolute-amd64 AS build
 WORKDIR /maw-www
 
 # bun, pinned, taken from the official image instead of piped from an installer
@@ -56,7 +56,7 @@ RUN dotnet publish \
 
 
 # build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled-extra-amd64
+FROM mcr.microsoft.com/dotnet/aspnet:11.0-resolute-chiseled-extra-amd64
 WORKDIR /maw-www
 
 COPY --from=build /build .
