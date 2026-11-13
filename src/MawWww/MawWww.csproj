@@ -29,6 +29,16 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**;tsconfig.json;package.json</DefaultItemExcludes>
     </PropertyGroup>
 
+    <!-- MapStaticAssets serves the content type fixed in the static web assets manifest at build -->
+    <!-- time, not one from the runtime FileExtensionContentTypeProvider, and the sdk's list has -->
+    <!-- neither of these - both would otherwise go out as application/octet-stream.  avif is a -->
+    <!-- regression to avoid (the runtime provider already maps it), gltf matches the mapping the -->
+    <!-- UseCustomStaticFiles fallback has always added.  same cache header the sdk gives media -->
+    <ItemGroup>
+        <StaticWebAssetContentTypeMapping Include="image/avif" Cache="$(StaticWebAssetEndpointDefaultMediaCacheControlHeader)" Pattern="*.avif" Priority="1" />
+        <StaticWebAssetContentTypeMapping Include="model/gltf+json" Cache="$(StaticWebAssetEndpointDefaultMediaCacheControlHeader)" Pattern="*.gltf" Priority="1" />
+    </ItemGroup>
+
     <!-- ===================================================================================== -->
     <!-- site assets: tailwind css, site.min.js, favicon.svg, and the vendored jquery scripts -->
     <!-- ===================================================================================== -->

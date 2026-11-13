@@ -13,6 +13,15 @@ using MawWww.Pages.About;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
+// CreateSlimBuilder leaves out the static web assets loader that CreateBuilder turns on in
+// development.  without it a dotnet run cannot see the compressed (.gz) copies the build keeps
+// under obj/, and MapStaticAssets answers every gzip-accepting request with an empty 200.  the
+// published app is unaffected - publish puts the compressed files in wwwroot itself
+if (builder.Environment.IsDevelopment())
+{
+    builder.WebHost.UseStaticWebAssets();
+}
+
 builder.WebHost
     .UseKestrelHttpsConfiguration();
 
@@ -71,16 +80,21 @@ app
     .UseDefaultSecurityHeaders()
     .UseForwardedHeaders()
     .UseHttpsRedirection()
-    .UseCustomStaticFiles()
     .UseCookiePolicy()
     .UseMawUserPreferences()
     .UseRouting()
+    // static files are served by MapStaticAssets below.  this stays as a fallback for anything in
+    // wwwroot the build manifest does not know about - the middleware skips any request that
+    // already matched an endpoint, so after UseRouting it only ever sees the leftovers
+    .UseCustomStaticFiles()
     .UseRateLimiter()
     .UseAuthentication()
     .UseAuthorization()
     .UseEndpoints(endpoints =>
     {
-        endpoints.MapRazorPages();
+        endpoints.MapStaticAssets();
+        endpoints.MapRazorPages()
+            .WithStaticAssets();
     });
 
 app.Run();
