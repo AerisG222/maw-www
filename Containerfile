@@ -11,7 +11,7 @@ WORKDIR /maw-www
 # no node: every client build command is a `bun run`, and bun executes the
 # node_modules/.bin entry points on its own runtime rather than shelling out.
 # /usr/local/bin is already on PATH, so nothing further is needed to expose it.
-COPY --from=docker.io/oven/bun:1.4.0 /usr/local/bin/bun /usr/local/bin/bun
+COPY --from=docker.io/oven/bun:1.4.4 /usr/local/bin/bun /usr/local/bin/bun
 
 # restore
 COPY Directory.Build.props .
