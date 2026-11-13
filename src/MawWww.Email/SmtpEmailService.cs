@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
@@ -61,7 +62,7 @@ public sealed class SmtpEmailService
         // http://stackoverflow.com/questions/33496290/how-to-send-email-by-using-mailkit
         await smtp.ConnectAsync(_config.Server, _config.Port, SecureSocketOptions.StartTls, cancellationToken);
         await smtp.AuthenticateAsync(_config.User, _config.Password, cancellationToken);
-        await smtp.SendAsync(msg, cancellationToken);
+        await smtp.SendAsync(new SendRequest(msg), cancellationToken);
         await smtp.DisconnectAsync(true, cancellationToken);
     }
 }
