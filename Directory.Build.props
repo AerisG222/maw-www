@@ -5,6 +5,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+        <!-- runtime async: the compiler marks async methods for the .net 11 runtime to suspend and -->
+        <!-- resume itself, instead of lowering each one to a generated state machine class.  not on -->
+        <!-- by default yet - a method using something runtime async cannot support fails the build, -->
+        <!-- and can opt out with [RuntimeAsyncMethodGeneration(false)] -->
+        <Features>$(Features);runtime-async=on</Features>
     </PropertyGroup>
 
 </Project>
