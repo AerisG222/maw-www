@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using Fluid;
 using MawWww.Captcha;
@@ -18,8 +18,6 @@ public sealed class ContactPageModel
     readonly IEmailService _emailService;
     readonly ContactEmailTemplateProvider _templateProvider;
     ICaptchaService? _captchaService;
-
-    static string TemplateDir => Path.Combine(AppContext.BaseDirectory, "EmailTemplates");
 
     public bool IsHuman { get; private set; }
     public string CaptchaSiteKey => _captchaService?.SiteKey ?? string.Empty;
@@ -98,11 +96,6 @@ public sealed class ContactPageModel
     {
         try
         {
-            var options = new TemplateOptions()
-            {
-                FileProvider = new PhysicalFileProvider(TemplateDir)
-            };
-
             var model = new
             {
                 _config.Subject,
@@ -111,7 +104,11 @@ public sealed class ContactPageModel
                 Form.Message
             };
 
-            var body = _templateProvider.Template.Render(new TemplateContext(model, options));
+            // the fields are visitor input going into an html email, so html-encode them
+            var body = await _templateProvider.Template.RenderAsync(
+                new TemplateContext(model, _templateProvider.Options),
+                HtmlEncoder.Default
+            );
 
             await _emailService.SendHtmlAsync(
                 _config.To,
