@@ -79,7 +79,10 @@ function run_single_script() {
 }
 
 # reads the script to run from stdin.  -i on podman run is load bearing: without
-# it the container gets no stdin and psql silently does nothing.
+# it the container gets no stdin and psql silently does nothing.  so is --restart no,
+# here and in postgres_is_ready: on the deployed pod a container that joins it inherits
+# the pod's restart policy (always), even with --rm, and would be restarted every time
+# it exits
 function psql_run() {
     local db=$1
 
@@ -91,6 +94,7 @@ function psql_run() {
             -v ON_ERROR_STOP=1
     else
         podman run --rm -i \
+            --restart no \
             --pod "${PODNAME}" \
             --env "POSTGRES_PASSWORD_FILE=/secrets/psql-postgres" \
             --env "PGOPTIONS=${PSQL_OPTIONS}" \
@@ -136,6 +140,7 @@ function postgres_is_ready() {
         psql -d postgres -q -c "SELECT 1" > /dev/null 2>&1
     else
         podman run --rm \
+            --restart no \
             --pod "${PODNAME}" \
             --env "POSTGRES_PASSWORD_FILE=/secrets/psql-postgres" \
             --volume "${PWDFILEDIR}":/secrets:ro \
