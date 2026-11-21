@@ -1,0 +1,43 @@
+# shared by maw-www-playbook.yml and pg-upgrade-playbook.yml
+---
+pod: pod-maw-www
+
+# the postgres major version is the one setting to change for a postgres upgrade.  the
+# data for each major lives in its own pg-data/<major> directory, so after raising this
+# run `./deploy.sh pg-upgrade` - a plain deploy refuses to start a new major on an
+# empty directory while an older one still holds the data
+pg_major: 19
+
+img_maw_www: "docker.io/aerisg222/maw-www:latest"
+img_postgres: "docker.io/library/postgres:{{ pg_major }}-trixie"
+img_rclone: "docker.io/rclone/rclone:1.75"
+container_pg: maw-www-postgres
+container_www: maw-www
+container_rclone: rclone-archive
+# what podman names the running containers - kube play prefixes the pod name
+pg_container_name: "{{ pod }}-{{ container_pg }}"
+www_container_name: "{{ pod }}-{{ container_www }}"
+# how the pod runs postgres (kube.yml.j2): uid 1654 in a keep-id user namespace.  a
+# pg-upgrade writes the new cluster the same way, so it belongs to the same user
+pg_run_user: "1654:0"
+pg_run_userns: "keep-id:uid=1654"
+dir_localroot: "{{ lookup('env', 'HOME') }}/maw-www/{{ mawenv }}"
+dir_root: "/home/{{ svcacct_name }}"
+dir_systemd: "{{ dir_root }}/.config/systemd/user"
+dir_approot: "{{ dir_root }}/maw-www"
+dir_pgdata: "{{ dir_approot }}/pg-data"
+dir_pgsecrets: "{{ dir_approot }}/pg-secrets"
+dir_pgbackups: "{{ dir_approot }}/pg-backups"
+# working files for pg-upgrade.  deliberately not under pg-backups: rclone-archive syncs
+# that to google drive, and the upgrade keeps role password hashes that the nightly
+# backups leave out
+dir_pgupgrade: "{{ dir_approot }}/pg-upgrade"
+dir_wwwdp: "{{ dir_approot }}/www-data-protection"
+dir_wwwsecrets: "{{ dir_approot }}/www-secrets"
+dir_rcloneconf: "{{ dir_approot }}/rclone-config"
+dir_rclonesecrets: "{{ dir_approot }}/rclone-secrets"
+dir_scripts: "{{ dir_approot }}/scripts"
+dir_podman_secrets: "{{ dir_approot }}/podman-secrets"
+podman_authfile: "{{dir_podman_secrets}}/auth.json"
+dir_kube: "{{ dir_approot }}/kube"
+file_kube: "{{ dir_kube }}/kube.yml"

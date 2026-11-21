@@ -1,4 +1,5 @@
 #!/bin/bash
+source "$(dirname "$0")/pg-image.sh"
 PSQLUSER=postgres
 DB=maw_www
 
@@ -7,7 +8,7 @@ podman run --rm \
     --name dev-www-pg-dumpall \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
     --volume "/home/mmorano/maw-www/dev/pg-secrets:/secrets" \
-    docker.io/library/postgres:18-trixie \
+    "${PG_IMAGE}" \
         pg_dumpall \
             -h localhost \
             -U "${PSQLUSER}" \
@@ -19,7 +20,7 @@ podman run --rm \
     --name dev-www-pg-dump \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
     --volume "/home/mmorano/maw-www/dev/pg-secrets:/secrets" \
-    docker.io/library/postgres:18-trixie \
+    "${PG_IMAGE}" \
         pg_dump \
             -Fc \
             -h localhost \

@@ -1,4 +1,5 @@
 #!/bin/bash
+source "$(dirname "$0")/pg-image.sh"
 PSQLUSER=$1
 DB=$2
 
@@ -7,7 +8,7 @@ podman run -it --rm \
     --name maw-www-query \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
     --volume "/home/mmorano/maw-www/dev/pg-secrets:/secrets" \
-    docker.io/library/postgres:18-trixie \
+    "${PG_IMAGE}" \
         psql \
         -h localhost \
         -U "${PSQLUSER}" \

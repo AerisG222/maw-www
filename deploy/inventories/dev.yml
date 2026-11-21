@@ -1,0 +1,7 @@
+# the local dev pod - only ./deploy.sh pg-upgrade uses this (with vars/dev.yml).  it is a
+# group of its own, so the plays that deploy the site, which target webservers, skip it
+dev:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_become: false

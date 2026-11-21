@@ -1,4 +1,5 @@
 #!/bin/bash
+source "$(dirname "$0")/pg-image.sh"
 PSQLUSER=postgres
 DB=maw_www
 
@@ -9,7 +10,7 @@ podman run --rm \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
     --volume "/home/mmorano/maw-www/dev/pg-secrets:/secrets" \
     --volume "$(pwd):/input" \
-    docker.io/library/postgres:18-trixie \
+    "${PG_IMAGE}" \
         psql \
             -h localhost \
             -U "${PSQLUSER}" \
@@ -23,7 +24,7 @@ podman run --rm \
     --env "POSTGRES_PASSWORD_FILE=/secrets/psql-${PSQLUSER}" \
     --volume "/home/mmorano/maw-www/dev/pg-secrets:/secrets" \
     --volume "$(pwd):/input" \
-    docker.io/library/postgres:18-trixie \
+    "${PG_IMAGE}" \
         pg_restore \
             -h localhost \
             -U "${PSQLUSER}" \

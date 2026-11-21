@@ -6,7 +6,7 @@ podman run -it --rm \
     --env POSTGRES_PASSWORD_FILE=~/maw-www/pg-secrets/psql-postgres \
     --env PSQL_HISTORY="/psqlhist/.psql_history" \
     --volume .:/psqlhist:z \
-    docker.io/library/postgres:18-trixie \
+    {{ img_postgres }} \
         psql \
             -h 127.0.0.1 \
             -U postgres \

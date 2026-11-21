@@ -1,0 +1,20 @@
+# the local dev pod (tools/db-dev-start.py), layered over vars/maw-www.yml when
+# `./deploy.sh pg-upgrade` is pointed at dev.  passed as extra vars rather than set in
+# inventories/dev.yml, as inventory vars rank below a playbook's vars_files
+---
+mawenv: dev
+svcacct_name: "{{ lookup('env', 'USER') }}"
+dir_approot: "{{ lookup('env', 'HOME') }}/maw-www/dev"
+
+# db-dev-start.py creates the pod and container directly, not through kube play, so the
+# names carry no prefix - and there is no website container, dev runs it with dotnet run
+pg_container_name: maw-www-postgres
+www_container_name: ""
+
+# the dev container runs as the image's own postgres user, without a keep-id namespace
+pg_run_user: ""
+pg_run_userns: ""
+
+# for tools/db-dev-start.py, which needs the podman python package.  explicit, as deploy.sh
+# runs ansible from its venv, so a bare python3 would be the venv's, which does not have it
+dev_python: /usr/bin/python3

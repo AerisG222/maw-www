@@ -1,0 +1,233 @@
+# carries the postgres data forward to a new major version, then runs postgres on it.  raise
+# pg_major in vars/maw-www.yml and run `./deploy.sh pg-upgrade` - see README.md
+#
+# serves staging and prod (webservers: the quadlet pod, which is then redeployed on the new
+# image) and the local dev pod (dev, via inventories/dev.yml and vars/dev.yml: the pod
+# tools/db-dev-start.py creates, whose container is then recreated on the new image).  the
+# two only differ in how postgres is stopped and started, and in that last step
+---
+- name: Upgrade Postgres Data
+  hosts: webservers:dev
+  become: true
+  become_user: "{{ svcacct_name }}"
+  vars_files:
+    - vars/maw-www.yml
+  tags: pg-upgrade
+
+  vars:
+    is_dev: "{{ 'dev' in group_names }}"
+
+  tasks:
+    - name: Check Postgres Data Versions
+      ansible.builtin.import_tasks: tasks/pg-data-versions.yml
+
+    - name: Stop If Already Upgraded
+      ansible.builtin.fail:
+        msg: >-
+          pg-data already has postgres {{ pg_major }} data, so there is nothing to upgrade.  (if it is
+          left over from a rollback, remove {{ dir_pgdata }}/{{ pg_major }} first to upgrade again)
+      when: pg_major | int in pg_data_versions
+
+    - name: Stop If There Is Nothing Older
+      ansible.builtin.fail:
+        msg: >-
+          pg-data has no postgres data older than {{ pg_major }} (found: {{ pg_data_versions | join(', ') or 'none' }}),
+          so there is nothing to upgrade.  postgres {{ pg_major }} creates a new database itself
+      when: pg_data_older | length == 0
+
+    # the dev container is recreated at the end by db-dev-start.py - find out now, before
+    # anything has changed, whether that will be able to run
+    - name: Check Dev Container Tooling
+      ansible.builtin.command:
+        cmd: "{{ dev_python }} -c 'import podman'"
+      changed_when: false
+      when: is_dev
+
+    - name: Plan Upgrade
+      ansible.builtin.set_fact:
+        pg_old: "{{ pg_data_older | max }}"
+        pg_upgrade_run: "{{ pg_data_older | max }}-to-{{ pg_major }}-{{ lookup('pipe', 'date +%Y%m%d-%H%M%S') }}"
+        pg_upgrade_script: "{{ dir_scripts }}/pg-upgrade.sh"
+        # how files/pg-upgrade.sh reaches this setup
+        pg_upgrade_env:
+          PGU_POD: "{{ pod }}"
+          PGU_IMAGE: "{{ img_postgres }}"
+          PGU_PGDATA: "{{ dir_pgdata }}"
+          PGU_PGSECRETS: "{{ dir_pgsecrets }}"
+          PGU_WORKROOT: "{{ dir_pgupgrade }}"
+          PGU_USER: "{{ pg_run_user }}"
+          PGU_USERNS: "{{ pg_run_userns }}"
+
+    - name: Create Directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0700"
+      loop:
+        - "{{ dir_pgupgrade }}"
+        - "{{ dir_scripts }}"
+
+    - name: Prepare Upgrade Script
+      ansible.builtin.copy:
+        src: pg-upgrade.sh
+        dest: "{{ pg_upgrade_script }}"
+        mode: "u+rwx"
+
+    - name: Pull Postgres {{ pg_major }} Image
+      containers.podman.podman_image:
+        name: "{{ img_postgres }}"
+
+    - name: Upgrade
+      block:
+        - name: Ensure Pod Is Running On Postgres {{ pg_old }}
+          ansible.builtin.systemd_service:
+            name: "{{ pod }}"
+            scope: user
+            state: started
+          when: not is_dev
+
+        - name: Ensure Dev Pod Is Running On Postgres {{ pg_old }}
+          ansible.builtin.command:
+            cmd: podman pod start {{ pod }}
+          when: is_dev
+
+        - name: Wait For Postgres {{ pg_old }}
+          ansible.builtin.command:
+            cmd: podman exec {{ pg_container_name }} pg_isready -h 127.0.0.1
+          register: pg_ready
+          until: pg_ready.rc == 0
+          retries: 30
+          delay: 2
+          changed_when: false
+
+        - name: Stop Website
+          ansible.builtin.command:
+            cmd: podman stop {{ www_container_name }}
+          when: www_container_name | length > 0
+
+        - name: Dump Postgres {{ pg_old }}
+          ansible.builtin.command:
+            cmd: "{{ pg_upgrade_script }} dump {{ pg_old }} {{ pg_major }} {{ pg_upgrade_run }}"
+          environment: "{{ pg_upgrade_env }}"
+          register: pg_dump_result
+
+        - name: Show Dump Result
+          ansible.builtin.debug:
+            var: pg_dump_result.stdout_lines
+
+        - name: Stop Pod
+          ansible.builtin.systemd_service:
+            name: "{{ pod }}"
+            scope: user
+            state: stopped
+          when: not is_dev
+
+        - name: Stop Dev Postgres
+          ansible.builtin.command:
+            cmd: podman stop {{ pg_container_name }}
+          when: is_dev
+
+        - name: Restore Into Postgres {{ pg_major }}
+          ansible.builtin.command:
+            cmd: "{{ pg_upgrade_script }} restore {{ pg_old }} {{ pg_major }} {{ pg_upgrade_run }}"
+          environment: "{{ pg_upgrade_env }}"
+          register: pg_restore_result
+
+        - name: Show Restore Result
+          ansible.builtin.debug:
+            var: pg_restore_result.stdout_lines
+
+      rescue:
+        # nothing has touched the old data or the definition postgres runs from, so restarting
+        # puts it back exactly as it was
+        - name: Restart Pod On Postgres {{ pg_old }}
+          ansible.builtin.systemd_service:
+            name: "{{ pod }}"
+            scope: user
+            state: restarted
+          when: not is_dev
+
+        - name: Restart Dev Postgres {{ pg_old }}
+          ansible.builtin.command:
+            cmd: podman start {{ pg_container_name }}
+          when: is_dev
+
+        - name: Report Failure
+          ansible.builtin.fail:
+            msg: >-
+              the upgrade failed (see the error above) and postgres {{ pg_old }} is back up, its data
+              untouched.  the dump is in {{ dir_pgupgrade }}/{{ pg_upgrade_run }}
+
+# staging and prod: rolls out the new image.  the kube definition now names postgres
+# {{ pg_major }}, which starts on the pg-data/<major> directory the restore just finished.
+# these plays target webservers only, so dev skips them
+- name: Deploy On New Postgres
+  ansible.builtin.import_playbook: maw-www-playbook.yml
+
+# dev: the container was created for the old image, so replace it with one for the new.
+# db-dev-start.py takes the image from pg_major and now finds its data
+- name: Recreate Dev Postgres
+  hosts: dev
+  vars_files:
+    - vars/maw-www.yml
+
+  tasks:
+    - name: Recreate
+      block:
+        - name: Remove Postgres {{ pg_old }} Container
+          ansible.builtin.command:
+            cmd: podman rm {{ pg_container_name }}
+
+        - name: Create Postgres {{ pg_major }} Container
+          ansible.builtin.command:
+            cmd: "{{ dev_python }} {{ playbook_dir }}/../tools/db-dev-start.py"
+          environment:
+            MAW_DEV_DIR: "{{ dir_approot }}"
+            MAW_DEV_POD: "{{ pod }}"
+            MAW_DEV_PG_CONTAINER: "{{ pg_container_name }}"
+
+      rescue:
+        # past the restore there is nothing to undo - the data is done, only the container
+        # is missing
+        - name: Report Failure
+          ansible.builtin.fail:
+            msg: >-
+              the data was upgraded to postgres {{ pg_major }} ({{ dir_pgdata }}/{{ pg_major }}), but creating its
+              container failed (see the error above).  fix that, then run tools/db-dev-start.py to finish
+
+- name: Verify Postgres Upgrade
+  hosts: webservers:dev
+  become: true
+  become_user: "{{ svcacct_name }}"
+  vars_files:
+    - vars/maw-www.yml
+  tags: pg-upgrade-verify
+
+  vars:
+    is_dev: "{{ 'dev' in group_names }}"
+
+  tasks:
+    - name: Wait For Postgres {{ pg_major }}
+      ansible.builtin.command:
+        cmd: podman exec {{ pg_container_name }} psql -X -At -h 127.0.0.1 -U postgres -d postgres -c 'show server_version_num'
+      register: pg_version
+      until: pg_version.rc == 0
+      retries: 30
+      delay: 2
+      changed_when: false
+
+    - name: Check Running Version
+      ansible.builtin.assert:
+        that: pg_version.stdout | int // 10000 == pg_major | int
+        fail_msg: "expected postgres {{ pg_major }} to be running, found {{ pg_version.stdout }}"
+        quiet: true
+
+    - name: Report
+      ansible.builtin.debug:
+        msg:
+          - "postgres {{ pg_major }} is running with the data carried over from postgres {{ pg_old }}"
+          - "once happy with it, free the space: podman unshare rm -rf {{ dir_pgdata }}/{{ pg_old }} {{ dir_pgupgrade }}/{{ pg_upgrade_run }}"
+          - >-
+            to roll back instead: set pg_major: {{ pg_old }} in vars/maw-www.yml, then
+            {{ 'podman rm -f ' ~ pg_container_name ~ ' && tools/db-dev-start.py' if is_dev else './deploy.sh' }}
+            - changes made since the upgrade are lost

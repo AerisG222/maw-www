@@ -1,0 +1,24 @@
+# finds the postgres majors that have a data directory under pg-data.  since postgres 18
+# the official image keeps its cluster in /var/lib/postgresql/<major>/docker, and pg-data
+# is mounted at /var/lib/postgresql, so each major sits side by side in its own directory.
+#
+# sets:
+#   pg_data_versions  every major with a data directory, e.g. [18, 19]
+#   pg_data_older     the ones older than pg_major - non-empty means data still has to be
+#                     carried forward to pg_major
+---
+- name: Find Postgres Data Directories
+  ansible.builtin.find:
+    paths: "{{ dir_pgdata }}"
+    file_type: directory
+    patterns: '^\d+$'
+    use_regex: true
+  register: pg_data_dirs
+
+- name: Record Postgres Data Versions
+  ansible.builtin.set_fact:
+    pg_data_versions: "{{ pg_data_dirs.files | map(attribute='path') | map('basename') | map('int') | sort }}"
+
+- name: Record Older Postgres Data Versions
+  ansible.builtin.set_fact:
+    pg_data_older: "{{ pg_data_versions | select('lt', pg_major | int) | list }}"

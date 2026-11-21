@@ -2,7 +2,8 @@
 PODNAME="pod-maw-www"
 PWDFILEDIR="/home/mmorano/maw-www/dev/pg-secrets"
 DBNAME="maw_www"
-IMAGE="docker.io/library/postgres:18-trixie"
+source "$(dirname "$0")/../pg-image.sh"
+IMAGE="${PG_IMAGE}"
 
 function run_psql_script() {
     local script=$1

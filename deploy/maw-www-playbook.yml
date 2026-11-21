@@ -28,30 +28,8 @@
   hosts: webservers
   become: true
   become_user: "{{ svcacct_name }}"
-  vars:
-    pod: pod-maw-www
-    img_maw_www: "docker.io/aerisg222/maw-www:latest"
-    img_postgres: "docker.io/library/postgres:18-trixie"
-    img_rclone: "docker.io/rclone/rclone:1.75"
-    container_pg: maw-www-postgres
-    container_www: maw-www
-    container_rclone: rclone-archive
-    dir_localroot: "{{ lookup('env', 'HOME') }}/maw-www/{{ mawenv }}"
-    dir_root: "/home/{{ svcacct_name }}"
-    dir_systemd: "{{ dir_root }}/.config/systemd/user"
-    dir_approot: "{{ dir_root }}/maw-www"
-    dir_pgdata: "{{ dir_approot }}/pg-data"
-    dir_pgsecrets: "{{ dir_approot }}/pg-secrets"
-    dir_pgbackups: "{{ dir_approot }}/pg-backups"
-    dir_wwwdp: "{{ dir_approot }}/www-data-protection"
-    dir_wwwsecrets: "{{ dir_approot }}/www-secrets"
-    dir_rcloneconf: "{{ dir_approot }}/rclone-config"
-    dir_rclonesecrets: "{{ dir_approot }}/rclone-secrets"
-    dir_scripts: "{{ dir_approot }}/scripts"
-    dir_podman_secrets: "{{ dir_approot }}/podman-secrets"
-    podman_authfile: "{{dir_podman_secrets}}/auth.json"
-    dir_kube: "{{ dir_approot }}/kube"
-    file_kube: "{{ dir_kube }}/kube.yml"
+  vars_files:
+    - vars/maw-www.yml
 
   tasks:
     - name: Create Directories
@@ -71,6 +49,20 @@
         - "{{ dir_scripts }}"
         - "{{ dir_podman_secrets }}"
         - "{{ dir_kube }}"
+
+    - name: Check Postgres Data Versions
+      ansible.builtin.import_tasks: tasks/pg-data-versions.yml
+
+    # without this, raising pg_major and deploying would start the new major on an empty
+    # pg-data/<major> directory: the site would come up against a blank database while
+    # the real data sat untouched in the older directory
+    - name: Ensure Postgres Data Is Ready For This Version
+      ansible.builtin.assert:
+        that: pg_major | int in pg_data_versions or pg_data_older | length == 0
+        fail_msg: >-
+          pg-data holds postgres {{ pg_data_older | max }} data but there is no postgres {{ pg_major }}
+          data yet.  run `./deploy.sh pg-upgrade` to carry it forward
+        quiet: true
 
     - name: Copy Files
       ansible.builtin.copy:
