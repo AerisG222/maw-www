@@ -1,4 +1,4 @@
-import { createSignal, onCleanup, type Component } from 'solid-js';
+import { createSignal, onSettled, type Component } from 'solid-js';
 import { formatDuration, intervalToDuration, isFriday, isWeekend, nextFriday } from 'date-fns';
 
 const WEEKEND_MSG = "Sweet!  It's the weekend!";
@@ -37,9 +37,11 @@ const App: Component = () => {
     const [now, setNow] = createSignal(new Date());
     const countdown = () => getCountdownValue(now());
 
-    const interval = setInterval(() => setNow(new Date()), 300);
+    onSettled(() => {
+        const interval = setInterval(() => setNow(new Date()), 300);
 
-    onCleanup(() => clearInterval(interval));
+        return () => clearInterval(interval);
+    });
 
     return (
         <div class="maw:m-12 maw:font-cursive maw:text-6xl maw:text-center">

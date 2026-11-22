@@ -1,4 +1,4 @@
-import { createEffect, onCleanup, onMount, type Component } from "solid-js";
+import { createEffect, createSignal, onSettled, untrack, type Component } from "solid-js";
 
 export type MapWidgetProps = {
     poi: google.maps.LatLng;
@@ -12,10 +12,17 @@ export type MapWidgetProps = {
 };
 
 const MapWidget: Component<MapWidgetProps> = (props) => {
-    let map: google.maps.Map | undefined;
     let mapEl!: HTMLDivElement;
-    let poiMarker: google.maps.marker.AdvancedMarkerElement | null = null;
     let boundsRectangle: google.maps.Rectangle | null = null;
+    // set while the center is being pushed in from the parent, so the move is not reported
+    // back as if the user made it
+    let applyingCenter = false;
+
+    // the map only exists once the element is on the page.  holding it in a signal lets
+    // the effects below wait for it, rather than depend on running after onSettled
+    const [map, setMap] = createSignal<google.maps.Map>();
+    // this map's own bounds, so the outline below follows both maps reactively
+    const [bounds, setBounds] = createSignal<google.maps.LatLngBounds>();
 
     const clearBoundsRectangle = () => {
         if (boundsRectangle) {
@@ -24,14 +31,10 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
         }
     };
 
-    const updateBounds = () => {
-        const thisMapBounds = map?.getBounds();
+    // outlines the other map's area on this one, when this one shows more
+    const updateBounds = (m: google.maps.Map, thisMapBounds: google.maps.LatLngBounds, otherMapBounds: google.maps.LatLngBounds) => {
 
-        if (!thisMapBounds || !props.otherMapBounds) {
-            return;
-        }
-
-        const weAreLarger = thisMapBounds.getSouthWest().lat() < props.otherMapBounds.getSouthWest().lat();
+        const weAreLarger = thisMapBounds.getSouthWest().lat() < otherMapBounds.getSouthWest().lat();
 
         if (!weAreLarger) {
             clearBoundsRectangle();
@@ -44,82 +47,104 @@ const MapWidget: Component<MapWidgetProps> = (props) => {
                 fillColor: "#c00",
                 strokeColor: "#c00",
                 clickable: false,
-                map: map
+                map: m
             });
         }
 
-        boundsRectangle.setBounds(props.otherMapBounds);
+        boundsRectangle.setBounds(otherMapBounds);
     };
 
-    onMount(() => {
-        // zoom and colorScheme are read once: the map only takes its color scheme when it is
-        // made, so the parent makes a new map for a new theme, starting at the last zoom
-        map = new google.maps.Map(mapEl, {
+    onSettled(() => {
+        // zoom and colorScheme are read once, on purpose: the map only takes its color scheme
+        // when it is made, so the parent makes a new map for a new theme, starting at the
+        // last zoom
+        const m = new google.maps.Map(mapEl, {
             mapId: "db13bbf18252cc83",
-            zoom: props.zoom,
-            colorScheme: props.colorScheme,
+            zoom: untrack(() => props.zoom),
+            colorScheme: untrack(() => props.colorScheme),
         });
 
-        const boundsListener = map.addListener("bounds_changed", () => {
-            const b = map?.getBounds();
+        const listeners = [
+            m.addListener("bounds_changed", () => {
+                const b = m.getBounds();
 
-            if (b) {
-                updateBounds();
-                props.boundsChanged(b);
-            }
-        });
+                if (b) {
+                    setBounds(b);
+                    props.boundsChanged(b);
+                }
+            }),
 
-        const centerListener = map.addListener("center_changed", () => {
-            const c = map?.getCenter();
+            m.addListener("center_changed", () => {
+                const c = m.getCenter();
 
-            if (c) {
-                props.centerChanged(c);
-            }
-        });
+                if (c && !applyingCenter) {
+                    props.centerChanged(c);
+                }
+            }),
 
-        const zoomListener = map.addListener("zoom_changed", () => {
-            const z = map?.getZoom();
+            m.addListener("zoom_changed", () => {
+                const z = m.getZoom();
 
-            if (z !== undefined) {
-                props.zoomChanged(z);
-            }
-        });
+                if (z !== undefined) {
+                    props.zoomChanged(z);
+                }
+            }),
+        ];
 
-        onCleanup(() => {
-            boundsListener.remove();
-            centerListener.remove();
-            zoomListener.remove();
+        setMap(m);
+
+        return () => {
+            listeners.forEach(l => l.remove());
             clearBoundsRectangle();
-            poiMarker?.remove();
-            poiMarker = null;
-            map = undefined;
-        });
+        };
     });
 
-    createEffect(() => {
-        const poi = props.poi;
+    createEffect(
+        () => ({ m: map(), poi: props.poi }),
+        ({ m, poi }) => {
+            if (!m || !poi) {
+                return;
+            }
 
-        if (map && poi) {
-            poiMarker?.remove();
+            const poiMarker = new google.maps.marker.AdvancedMarkerElement({ map: m, position: poi });
 
-            poiMarker = new google.maps.marker.AdvancedMarkerElement({
-                map: map,
-                position: poi,
-            });
+            return () => poiMarker.remove();
         }
-    });
+    );
 
-    createEffect(() => {
-        if (map && props.center) {
-            map.setCenter(props.center);
-        }
-    });
+    /*
+       The center is shared: a drag on either map sets it in the parent, which hands it to
+       both.  The map that was dragged is already there, so it is left alone - moving it
+       would fight the drag.  The other one is moved without reporting it: the map snaps the
+       center to what it can show at its zoom, so what it would report differs a hair from
+       what it was given, and passing that back on starts the two maps relaying the center
+       between them without end.
+    */
+    createEffect(
+        () => ({ m: map(), center: props.center }),
+        ({ m, center }) => {
+            if (!m || !center || m.getCenter()?.equals(center)) {
+                return;
+            }
 
-    createEffect(() => {
-        if (map && props.otherMapBounds) {
-            updateBounds();
+            applyingCenter = true;
+
+            try {
+                m.setCenter(center);
+            } finally {
+                applyingCenter = false;
+            }
         }
-    });
+    );
+
+    createEffect(
+        () => ({ m: map(), thisMapBounds: bounds(), otherMapBounds: props.otherMapBounds }),
+        ({ m, thisMapBounds, otherMapBounds }) => {
+            if (m && thisMapBounds && otherMapBounds) {
+                updateBounds(m, thisMapBounds, otherMapBounds);
+            }
+        }
+    );
 
     return <div class="maw:mb-4 maw:w-full maw:h-[480px]" ref={mapEl}></div>;
 };

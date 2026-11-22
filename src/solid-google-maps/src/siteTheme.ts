@@ -1,4 +1,4 @@
-import { createSignal, onCleanup, type Accessor } from "solid-js";
+import { createSignal, onSettled, type Accessor } from "solid-js";
 
 export type SiteTheme = "light" | "dark";
 
@@ -13,18 +13,21 @@ const readSiteTheme = (): SiteTheme =>
 // stops watching when it is disposed
 export function createSiteTheme(): Accessor<SiteTheme> {
     const [theme, setTheme] = createSignal(readSiteTheme());
-    const update = () => setTheme(readSiteTheme());
 
-    const observer = new MutationObserver(update);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    onSettled(() => {
+        const update = () => setTheme(readSiteTheme());
 
-    // the fallback theme can be chosen by the os setting, so follow that too
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-    prefersDark.addEventListener("change", update);
+        const observer = new MutationObserver(update);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
-    onCleanup(() => {
-        observer.disconnect();
-        prefersDark.removeEventListener("change", update);
+        // the fallback theme can be chosen by the os setting, so follow that too
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+        prefersDark.addEventListener("change", update);
+
+        return () => {
+            observer.disconnect();
+            prefersDark.removeEventListener("change", update);
+        };
     });
 
     return theme;

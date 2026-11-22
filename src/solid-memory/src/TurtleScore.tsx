@@ -11,15 +11,14 @@ export type Props = {
 const TurtleScore: Component<Props> = (props) => {
     return (
         <div
-            class="maw:grow maw:flex maw:justify-around maw:items-center maw:border-b-2 maw:border-b-solid maw:transition"
-            classList={{
+            class={["maw:grow maw:flex maw:justify-around maw:items-center maw:border-b-2 maw:border-b-solid maw:transition", {
                 "maw:opacity-50": !props.isActive,
                 [props.player.turtle.styles.textColorClass]: props.isActive,
                 [props.player.turtle.styles.borderColorClass]: props.isActive
-            }}
+            }]}
         >
             <div class="maw:text-6xl maw:font-cursive">{props.player.score}</div>
-            <div classList={{ "maw:order-first": props.isFirst, "maw:order-last": !props.isFirst }}>
+            <div class={{ "maw:order-first": props.isFirst, "maw:order-last": !props.isFirst }}>
                 <img class="maw:size-20 maw:rounded-3xl" src={props.player.turtle.imageUrl} />
             </div>
         </div>

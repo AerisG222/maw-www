@@ -22,14 +22,12 @@ const Card: Component<Props> = (props) => {
 
     return (
         <div
-            classList={{
-                "flip-container": true,
-                "center-block": true,
+            class={["flip-container center-block", {
                 "cursor-pointer": props.enabled,
                 "cursor-not-allowed": !props.enabled,
                 "flip": props.flipped,
                 "remove": props.removed
-            }}
+            }]}
             onClick={onClickCard}
         >
             <div class="flipper maw:w-[100px] md:maw:w-[120px] maw:h-[100px] md:maw:h-[120px]">

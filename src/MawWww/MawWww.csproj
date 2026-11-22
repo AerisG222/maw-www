@@ -50,6 +50,7 @@
         <VendorScript Include="node_modules/jquery/dist/jquery.min.js" />
         <VendorScript Include="node_modules/jquery-validation/dist/jquery.validate.min.js" />
         <VendorScript Include="node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" />
+        <VendorScript Include="assets/js/jquery4-compat.js" />
     </ItemGroup>
 
     <!-- the generated files cannot be used as the target's Outputs: the tailwind cli does not -->
@@ -91,16 +92,28 @@
         </ItemGroup>
     </Target>
 
-    <!-- batched on App, so each app is checked and rebuilt on its own.  index.html is a sound output: -->
-    <!-- the dir is removed and rewritten on every run, so it is always newer than what it was built from -->
-    <Target Name="BuildClientApps" DependsOnTargets="_CollectClientAppInputs" Inputs="@(ClientAppInput)" Outputs="wwwroot/js/%(ClientAppInput.App)/index.html">
+    <!-- the client apps are production builds in every configuration.  to chase a solid problem in -->
+    <!-- the site, build with -p:ClientAppDev=true: that bundles solid's development builds -->
+    <!-- (SOLID_DEV, read by each solid app's vite.config.ts), unminified and with source maps, so -->
+    <!-- its diagnostics show in the browser console.  the next build without it goes back to prod -->
+    <PropertyGroup>
+        <ClientAppDev Condition="'$(ClientAppDev)' != 'true'">false</ClientAppDev>
+        <_ClientAppFlavor Condition="'$(ClientAppDev)' == 'true'">dev</_ClientAppFlavor>
+        <_ClientAppFlavor Condition="'$(ClientAppDev)' != 'true'">prod</_ClientAppFlavor>
+    </PropertyGroup>
+
+    <!-- batched on App, so each app is checked and rebuilt on its own.  the output is a marker naming -->
+    <!-- the flavor, written into the app's dir with what was built: the dir is removed and rewritten -->
+    <!-- on every run, so the marker is always newer than what it was built from, and switching -->
+    <!-- between dev and prod finds the other flavor's marker gone and rebuilds -->
+    <Target Name="BuildClientApps" DependsOnTargets="_CollectClientAppInputs" Inputs="@(ClientAppInput)" Outputs="wwwroot/js/%(ClientAppInput.App)/.client-build-$(_ClientAppFlavor)">
         <PropertyGroup>
             <_ClientApp>%(ClientAppInput.App)</_ClientApp>
         </PropertyGroup>
 
         <RemoveDir Directories="wwwroot/js/$(_ClientApp)" />
         <Exec WorkingDirectory="../$(_ClientApp)" Command="bun install" />
-        <Exec WorkingDirectory="../$(_ClientApp)" Command="bun run build" />
+        <Exec WorkingDirectory="../$(_ClientApp)" Command="bun run build" EnvironmentVariables="SOLID_DEV=$(ClientAppDev)" />
 
         <ItemGroup>
             <_ClientAppDist Remove="@(_ClientAppDist)" />
@@ -108,6 +121,7 @@
         </ItemGroup>
 
         <Copy SourceFiles="@(_ClientAppDist)" DestinationFiles="@(_ClientAppDist->'wwwroot/js/$(_ClientApp)/%(RecursiveDir)%(Filename)%(Extension)')" />
+        <Touch Files="wwwroot/js/$(_ClientApp)/.client-build-$(_ClientAppFlavor)" AlwaysCreate="true" />
     </Target>
 
     <!-- ===================================================================================== -->
@@ -126,7 +140,7 @@
             <!-- items, so it cannot reach a bundle the client build just deleted - drop those by hand -->
             <Content Remove="@(Content)" Condition="!Exists('%(FullPath)')" />
             <Content Remove="wwwroot/css/**;wwwroot/js/**;wwwroot/favicon.svg" />
-            <Content Include="wwwroot/css/**;wwwroot/js/**;wwwroot/favicon.svg" ExcludeFromSingleFile="true" CopyToPublishDirectory="PreserveNewest" />
+            <Content Include="wwwroot/css/**;wwwroot/js/**;wwwroot/favicon.svg" Exclude="wwwroot/js/*/.client-build-*" ExcludeFromSingleFile="true" CopyToPublishDirectory="PreserveNewest" />
         </ItemGroup>
     </Target>
 </Project>

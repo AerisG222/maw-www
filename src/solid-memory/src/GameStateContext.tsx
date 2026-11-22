@@ -1,5 +1,4 @@
-import { createContext, useContext, type ParentComponent } from "solid-js";
-import { createStore } from "solid-js/store";
+import { createContext, createStore, useContext, type ParentComponent } from "solid-js";
 
 export type Turtle = {
     readonly name: string;
@@ -113,11 +112,15 @@ export const GameStateProvider: ParentComponent = (props) => {
             return;
         }
 
-        if(state[playerPropName]) {
-            setState(playerPropName, "turtle", turtle);
-        } else {
-            setState(playerPropName, { turtle, score: 0 });
-        }
+        setState(s => {
+            const player = s[playerPropName];
+
+            if(player) {
+                player.turtle = turtle;
+            } else {
+                s[playerPropName] = { turtle, score: 0 };
+            }
+        });
     };
 
     const setPlayer1Turtle = (name: string) => {
@@ -129,41 +132,51 @@ export const GameStateProvider: ParentComponent = (props) => {
     };
 
     const startGame = () => {
-        setState("activePlayer", 1);
-        setState("status", Status.Playing);
+        setState(s => {
+            s.activePlayer = 1;
+            s.status = Status.Playing;
+        });
     }
 
     const endGame = () => {
-        setState("status", Status.GameOver);
+        setState(s => {
+            s.status = Status.GameOver;
+        });
     }
 
-    const scorePoint = (playerPropName: PlayerKey) => {
-        setState(playerPropName, "score", score => score + 1);
-    };
-
     const incrementScore = () => {
-        state.activePlayer === 1 ? scorePoint("player1") : scorePoint("player2");
+        setState(s => {
+            const player = s.activePlayer === 1 ? s.player1 : s.player2;
+
+            player!.score += 1;
+        });
     };
 
     const endTurn = () => {
-        setState("activePlayer", activePlayer => activePlayer === 1 ? 2 : 1);
+        setState(s => {
+            s.activePlayer = s.activePlayer === 1 ? 2 : 1;
+        });
     };
 
     const rematch = () => {
-        setState("status", Status.Playing);
-        setState("activePlayer", 1);
-        setState("player1", "score", 0);
-        setState("player2", "score", 0);
+        setState(s => {
+            s.status = Status.Playing;
+            s.activePlayer = 1;
+            s.player1!.score = 0;
+            s.player2!.score = 0;
+        });
     };
 
     const newGame = () => {
-        setState("status", Status.PlayerSelect);
-        setState("player1", undefined);
-        setState("player2", undefined);
+        setState(s => {
+            s.status = Status.PlayerSelect;
+            s.player1 = undefined;
+            s.player2 = undefined;
+        });
     };
 
     return (
-        <GameStateContext.Provider value={[state, {
+        <GameStateContext value={[state, {
             getAllTurtles,
             setPlayer1Turtle,
             setPlayer2Turtle,
@@ -175,16 +188,9 @@ export const GameStateProvider: ParentComponent = (props) => {
             newGame
         }]}>
             {props.children}
-        </GameStateContext.Provider>
+        </GameStateContext>
     );
 };
 
-export const useGameStateContext = () => {
-    const context = useContext(GameStateContext);
-
-    if(!context) {
-        throw new Error("useGameStateContext must be used inside a GameStateProvider");
-    }
-
-    return context;
-};
+// the context has no default, so useContext itself throws when there is no provider
+export const useGameStateContext = () => useContext(GameStateContext);

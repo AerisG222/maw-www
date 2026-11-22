@@ -20,15 +20,15 @@ const SECTORS = [
 ];
 
 const GameBoardScreen: Component = () => {
-    const [state, { scoreMoneyValue, endTurn, endGame, isGameOver }] = useGameStateContext();
+    const [state, { finishSpin }] = useGameStateContext();
     const [rotation, setRotation] = createSignal(0);
 
     // the arrow's velocity is per-frame scratch state, not something the view renders,
     // so it stays a plain local rather than a signal
     let degPerTick = 0;
 
-    const calcScore = () => {
-        const deg = 360 - (rotation() % 360);
+    const calcScore = (finalRotation: number) => {
+        const deg = 360 - (finalRotation % 360);
         const sector = SECTORS.find(s => deg <= s.deg);
 
         if(!sector) {
@@ -38,21 +38,18 @@ const GameBoardScreen: Component = () => {
         return sector.dollars;
     };
 
+    // the new rotation is kept locally: setRotation only lands at the next flush, so
+    // rotation() would still read the previous frame's angle when scoring the last one
     const spin = () => {
-        setRotation(r => r + degPerTick);
+        const nextRotation = rotation() + degPerTick;
+
+        setRotation(nextRotation);
 
         degPerTick = degPerTick - (Math.random() * 0.4);
 
         if(degPerTick <= 0) {
             stop();
-
-            scoreMoneyValue(calcScore());
-
-            if(isGameOver()) {
-                endGame();
-            } else {
-                endTurn();
-            }
+            finishSpin(calcScore(nextRotation));
         }
     };
 

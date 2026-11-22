@@ -1,4 +1,4 @@
-import { createSignal, For, Index, onCleanup, type Component } from 'solid-js';
+import { createSignal, For, onSettled, type Component } from 'solid-js';
 
 // hmm - maw:bg-<semantic-color> not working, so use gray for now
 const CLASS_OFF = "maw:m-1 maw:w-[24px] maw:h-[24px] maw:border-2 maw:rounded-full maw:border-solid maw:transition";
@@ -36,9 +36,11 @@ const App: Component = () => {
             getCellClass(value, bit, false)
         ]);
 
-    const interval = setInterval(() => setCurrentTime(new Date()), 300);
+    onSettled(() => {
+        const interval = setInterval(() => setCurrentTime(new Date()), 300);
 
-    onCleanup(() => clearInterval(interval));
+        return () => clearInterval(interval);
+    });
 
     return (
         <div class="not-prose maw:font-sans maw:font-bold maw:flex maw:justify-center">
@@ -46,9 +48,9 @@ const App: Component = () => {
                 <tbody>
                     <For each={BITS}>{ bit =>
                         <tr>
-                            <Index each={rowClasses(bit)}>{ cellClass =>
+                            <For each={rowClasses(bit)} keyed={false}>{ cellClass =>
                                 <td class={cellClass()}></td>
-                            }</Index>
+                            }</For>
                         </tr>
                     }</For>
                     <tr>

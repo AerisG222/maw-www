@@ -1,5 +1,4 @@
-import { createContext, onCleanup, onMount, useContext, type ParentComponent } from "solid-js";
-import { createStore } from "solid-js/store";
+import { createContext, createStore, onSettled, useContext, type ParentComponent } from "solid-js";
 
 export type Character = {
     readonly name: string;
@@ -46,10 +45,7 @@ export type GameStateContextValue = [
         setPlayer1Character: (name: string) => void;
         setPlayer2Character: (name: string) => void;
         startGame: () => void;
-        scoreMoneyValue: (amount: number) => void;
-        isGameOver: () => boolean;
-        endTurn: () => void;
-        endGame: () => void;
+        finishSpin: (amount: number) => void;
         rematch: () => void;
         newGame: () => void;
     }
@@ -85,11 +81,15 @@ export const GameStateProvider: ParentComponent = (props) => {
             return;
         }
 
-        if(state[playerPropName]) {
-            setState(playerPropName, "character", character);
-        } else {
-            setState(playerPropName, { character, score: 0 });
-        }
+        setState(s => {
+            const player = s[playerPropName];
+
+            if(player) {
+                player.character = character;
+            } else {
+                s[playerPropName] = { character, score: 0 };
+            }
+        });
     };
 
     const setPlayer1Character = (name: string) => {
@@ -101,74 +101,69 @@ export const GameStateProvider: ParentComponent = (props) => {
     };
 
     const startGame = () => {
-        setState("activePlayer", 1);
-        setState("status", Status.Playing);
+        setState(s => {
+            s.activePlayer = 1;
+            s.status = Status.Playing;
+        });
     };
 
-    const endGame = () => {
-        setState("status", Status.GameOver);
-    };
+    // banks the spin for the active player, then either ends the game or passes the turn.
+    // one draft, so the game over check sees the new score - reading state after a
+    // separate write would still see the old one until the next flush
+    const finishSpin = (amount: number) => {
+        setState(s => {
+            const player = s.activePlayer === 1 ? s.player1! : s.player2!;
 
-    const isGameOver = () => (state.player1?.score ?? 0) >= winningAmount || (state.player2?.score ?? 0) >= winningAmount;
+            player.score += amount;
 
-    const addMoney = (playerPropName: PlayerKey, amount: number) => {
-        setState(playerPropName, "score", currentValue => currentValue + amount);
-    };
-
-    const scoreMoneyValue = (amount: number) => {
-        state.activePlayer === 1 ? addMoney("player1", amount) : addMoney("player2", amount);
-    };
-
-    const endTurn = () => {
-        setState("activePlayer", activePlayer => activePlayer === 1 ? 2 : 1);
+            if(player.score >= winningAmount) {
+                s.status = Status.GameOver;
+            } else {
+                s.activePlayer = s.activePlayer === 1 ? 2 : 1;
+            }
+        });
     };
 
     const rematch = () => {
-        setState("status", Status.Playing);
-        setState("activePlayer", 1);
-        setState("player1", "score", 0);
-        setState("player2", "score", 0);
+        setState(s => {
+            s.status = Status.Playing;
+            s.activePlayer = 1;
+            s.player1!.score = 0;
+            s.player2!.score = 0;
+        });
     };
 
     const newGame = () => {
-        setState("status", Status.PlayerSelect);
-        setState("player1", undefined);
-        setState("player2", undefined);
+        setState(s => {
+            s.status = Status.PlayerSelect;
+            s.player1 = undefined;
+            s.player2 = undefined;
+        });
     };
 
     // the splash screen is time boxed - own the timer through the component lifecycle so
     // it cannot fire after the provider is gone
-    onMount(() => {
-        const splashTimeout = setTimeout(() => setState("status", Status.PlayerSelect), SPLASH_DURATION_MS);
+    onSettled(() => {
+        const splashTimeout = setTimeout(() => setState(s => { s.status = Status.PlayerSelect; }), SPLASH_DURATION_MS);
 
-        onCleanup(() => clearTimeout(splashTimeout));
+        return () => clearTimeout(splashTimeout);
     });
 
     return (
-        <GameStateContext.Provider value={[state, {
+        <GameStateContext value={[state, {
             getPlayer1Characters,
             getPlayer2Characters,
             setPlayer1Character,
             setPlayer2Character,
             startGame,
-            scoreMoneyValue,
-            isGameOver,
-            endTurn,
-            endGame,
+            finishSpin,
             rematch,
             newGame
         }]}>
             {props.children}
-        </GameStateContext.Provider>
+        </GameStateContext>
     );
 };
 
-export const useGameStateContext = () => {
-    const context = useContext(GameStateContext);
-
-    if(!context) {
-        throw new Error("useGameStateContext must be used inside a GameStateProvider");
-    }
-
-    return context;
-};
+// the context has no default, so useContext itself throws when there is no provider
+export const useGameStateContext = () => useContext(GameStateContext);

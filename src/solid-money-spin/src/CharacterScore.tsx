@@ -10,18 +10,16 @@ export type Props = {
 const CharacterScore: Component<Props> = (props) => {
     return (
         <div
-            class="maw:basis-1/6 maw:flex maw:flex-col maw:items-center maw:justify-center maw:transition"
-            classList={{
+            class={["maw:basis-1/6 maw:flex maw:flex-col maw:items-center maw:justify-center maw:transition", {
                 "maw:opacity-50": !props.isActive,
                 "maw:text-[#c00]": props.isActive
-            }}
+            }]}
         >
             <div
-                class="maw:rounded-xl maw:border-solid"
-                classList={{
+                class={["maw:rounded-xl maw:border-solid", {
                     "maw:border-[transparent]": !props.isActive,
                     "maw:border-[#c00]": props.isActive
-                }}
+                }]}
             >
                 <img class="maw:w-[150px] maw:h-auto" src={props.player.character.imageUrl} />
             </div>

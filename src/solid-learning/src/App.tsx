@@ -1,4 +1,4 @@
-import { createSignal, For, onCleanup, type Component } from 'solid-js';
+import { createSignal, For, onSettled, type Component } from 'solid-js';
 
 const LETTERS: string[] = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -31,7 +31,7 @@ const App: Component = () => {
 
     const runButtonText = () => isRunning() ? "Stop" : "Start";
     const displayChar = () => char() === "" ? NBSP : char();
-    const currentAudioUrl = () => `${import.meta.env.VITE_ASSET_ROOT}${currentSpeaker().toLowerCase()}/${char().toLowerCase()}.mp3`;
+    const audioUrl = (c: string) => `${import.meta.env.VITE_ASSET_ROOT}${currentSpeaker().toLowerCase()}/${c.toLowerCase()}.mp3`;
 
     const getNextChar = (): string => {
         switch(currentLesson()) {
@@ -45,12 +45,16 @@ const App: Component = () => {
     };
 
     // playing a sound is a one-off action, not derived state, so it stays imperative -
-    // deriving it from `char` would go silent when the same character repeats
+    // deriving it from `char` would go silent when the same character repeats.  the sound
+    // is picked from the new character directly: setChar only lands at the next flush, so
+    // char() still reads the old one here
     const run = (): void => {
-        setChar(getNextChar());
+        const next = getNextChar();
+
+        setChar(next);
 
         if (currentSpeaker() !== 'No Sound') {
-            audio.src = currentAudioUrl();
+            audio.src = audioUrl(next);
             audio.load();
         }
     };
@@ -69,7 +73,7 @@ const App: Component = () => {
 
     const toggleRunning = (): void => isRunning() ? stopRunning() : startRunning();
 
-    onCleanup(stopRunning);
+    onSettled(() => () => clearInterval(intervalId));
 
     return (
         <div class="maw:flex maw:flex-col maw:items-center maw:justify-center maw:font-sans">

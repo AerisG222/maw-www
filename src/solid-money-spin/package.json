@@ -11,16 +11,16 @@
     },
     "license": "MIT",
     "devDependencies": {
+        "@solidjs/vite-plugin": "^3.0.1",
         "@tailwindcss/vite": "^4.3.5",
-        "daisyui": "^5.8.0",
-        "solid-devtools": "^0.34.5",
+        "daisyui": "^5.8.2",
         "typescript": "^7.0.2",
-        "vite": "^8.3.8",
-        "vite-plugin-solid": "^2.11.16"
+        "vite": "^8.3.8"
     },
     "dependencies": {
-        "@solid-primitives/raf": "^2.3.5",
-        "solid-js": "^1.9.19",
+        "@solid-primitives/raf": "^4.0.0",
+        "@solidjs/web": "^2.0.3",
+        "solid-js": "^2.0.3",
         "tailwindcss": "^4.3.5"
     }
 }

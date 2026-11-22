@@ -4,6 +4,9 @@
 <cache vary-by="@Model">
 @{
     var indexHtml = System.IO.Path.Combine(env.WebRootPath, Model);
+    // the url of the app's dir, ending in a slash ("/js/solid-google-maps/"), so its bundles land
+    // on exactly the routes MapStaticAssets knows them by - a doubled slash misses them
+    var appDir = "/" + Model[..^"index.html".Length];
 
     if(!File.Exists(indexHtml)) {
         throw new ApplicationException($"solid app index not found: {indexHtml}");
@@ -17,7 +20,7 @@
 
         if(line.StartsWith("<link") || line.StartsWith("<script"))
         {
-            @Html.Raw(line.Replace("./assets", $"/{Model.Replace("index.html", string.Empty)}/assets"))
+            @Html.Raw(line.Replace("./assets/", $"{appDir}assets/"))
         }
     }
 }

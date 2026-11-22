@@ -49,6 +49,27 @@ export class TextDemo {
         }
     }
 
+    // the canvas fills the page it is on - in the site, an iframe whose size is only settled
+    // once the host page's css applies, and that changes with the window.  so rather than read
+    // the size once at startup, follow it: the observer reports the first real size and every
+    // change after
+    private followPageSize() {
+        const resize = () => {
+            const { clientWidth: width, clientHeight: height } = document.body;
+
+            if (width === 0 || height === 0) {
+                return;
+            }
+
+            // the canvas is sized by css (100%), so only the drawing buffer is set here
+            this.renderer.setSize(width, height, false);
+            this.camera.aspect = width / height;
+            this.camera.updateProjectionMatrix();
+        };
+
+        new ResizeObserver(resize).observe(document.body);
+    }
+
     private prepareScene() {
         // scene
         this.scene = new THREE.Scene();
@@ -56,7 +77,7 @@ export class TextDemo {
 
         // renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
         document.body.appendChild(this.renderer.domElement);
 
         // stats
@@ -68,9 +89,11 @@ export class TextDemo {
         this.scene.add(axisHelper);
 
         // camera
-        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
         this.camera.position.set(0, 140, 400);
         this.camera.lookAt(this.scene.position);
+
+        this.followPageSize();
 
         // ambient light
         this.ambientLight = new THREE.AmbientLight(0x909090);

@@ -1,10 +1,10 @@
-import { createResource, createSignal, Show, Suspense, type Component } from 'solid-js';
+import { createMemo, createSignal, Loading, Show, type Component } from 'solid-js';
 
 import MapWidget from './MapWidget';
 import { createSiteTheme } from './siteTheme';
 
 // the maps api is injected by google-maps-loader.js, but the individual libraries
-// load lazily.  resolving them through a resource lets Suspense show the fallback
+// load lazily.  resolving them through an async memo lets Loading show the fallback
 // until the api is genuinely usable.
 const loadMapsApi = async () => {
     await Promise.all([
@@ -26,7 +26,7 @@ const sameBounds = (prev?: google.maps.LatLngBounds, next?: google.maps.LatLngBo
     prev === next || (!!prev && !!next && prev.equals(next));
 
 const App: Component = () => {
-    const [mapsApi] = createResource(loadMapsApi);
+    const mapsApi = createMemo(loadMapsApi);
     const [address, setAddress] = createSignal("");
     const [poi, setPoi] = createSignal<google.maps.LatLng>();
     const [center, setCenter] = createSignal<google.maps.LatLng | undefined>(undefined, { equals: sameLatLng });
@@ -39,12 +39,14 @@ const App: Component = () => {
 
     const showMaps = () => !!center() && !!poi();
 
-    const showAddress = () => {
+    // takes the address rather than reading address(): after setAddress, the signal still
+    // reads the old value until the next flush
+    const showAddress = (addressToShow: string) => {
         const geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({ address: address() }, (results, status) => {
+        geocoder.geocode({ address: addressToShow }, (results, status) => {
             if (status !== google.maps.GeocoderStatus.OK || !results?.length) {
-                alert(`There was an error geocoding the address: ${address()}].  Reported error code = ${status}`);
+                alert(`There was an error geocoding the address: ${addressToShow}].  Reported error code = ${status}`);
 
                 return;
             }
@@ -59,12 +61,12 @@ const App: Component = () => {
     const showSampleAddress = (evt: Event, sampleAddress: string) => {
         evt.preventDefault();
         setAddress(sampleAddress);
-        showAddress();
+        showAddress(sampleAddress);
     };
 
     return (
         <div class="maw:font-sans">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Loading fallback={<div>Loading...</div>}>
                 <Show when={mapsApi()}>
                     <p>
                         Specify an address to start at.  You must specify either city and state, postal code, or both.
@@ -82,7 +84,7 @@ const App: Component = () => {
                                 </label>
                             </fieldset>
 
-                            <button type="submit" class="maw:ml-8 maw:btn maw:btn-primary" onClick={showAddress}>Submit</button>
+                            <button type="submit" class="maw:ml-8 maw:btn maw:btn-primary" onClick={() => showAddress(address())}>Submit</button>
                         </div>
 
                         <Show when={showMaps()}>
@@ -121,7 +123,7 @@ const App: Component = () => {
                         </Show>
                     </div>
                 </Show>
-            </Suspense>
+            </Loading>
         </div>
     );
 };

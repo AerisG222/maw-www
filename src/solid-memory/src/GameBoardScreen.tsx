@@ -1,5 +1,4 @@
-import { createSignal, For, onCleanup, type Component } from 'solid-js';
-import { createStore } from 'solid-js/store';
+import { createSignal, createStore, For, onSettled, type Component } from 'solid-js';
 
 import { useGameStateContext } from './GameStateContext';
 
@@ -73,7 +72,7 @@ const GameBoardScreen: Component = () => {
         pendingTimeouts.add(id);
     };
 
-    onCleanup(() => {
+    onSettled(() => () => {
         pendingTimeouts.forEach(clearTimeout);
         pendingTimeouts.clear();
     });
@@ -83,7 +82,7 @@ const GameBoardScreen: Component = () => {
     const onMatch = (picks: number[]) => {
         incrementScore();
 
-        schedule(() => setBoard(picks, "removed", true), 500);
+        schedule(() => setBoard(b => picks.forEach(i => { b[i].removed = true; })), 500);
 
         schedule(() => {
             setSelected([]);
@@ -96,7 +95,7 @@ const GameBoardScreen: Component = () => {
     };
 
     const onMiss = (picks: number[]) => {
-        schedule(() => setBoard(picks, "flipped", false), 700);
+        schedule(() => setBoard(b => picks.forEach(i => { b[i].flipped = false; })), 700);
 
         schedule(() => {
             setSelected([]);
@@ -120,7 +119,9 @@ const GameBoardScreen: Component = () => {
             return;
         }
 
-        setBoard(id, "flipped", true);
+        setBoard(b => {
+            b[id].flipped = true;
+        });
 
         const picks = [...selected(), id];
 
